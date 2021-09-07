@@ -1,0 +1,6 @@
+
+  $(function() {
+    CKEDITOR.replace( 'content' );
+  });
+
+ 
