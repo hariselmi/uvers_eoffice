@@ -1,1 +1,0 @@
-@include('customer.partials.sale_table', ['salereport'=>$saleReport, 'type'=>'datefilter'])

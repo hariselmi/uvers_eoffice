@@ -5,5 +5,5 @@
     @include('member.member')
 </div>
 
-@include('partials.gadds')
+
 @endsection

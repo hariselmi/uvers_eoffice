@@ -4,5 +4,5 @@
 <div class="content-wrapper">
     @include('report.report')
 </div>
-@include('partials.gadds')
+
 @endsection

@@ -8,18 +8,10 @@
         <div class="col-md-12">
             <div class="panel-heading">
                 @include('partials.flash')
-                @if (Auth::user()->role != 'admin' or Auth::user()->role != 'pimpinan')
-                @if (!session('role'))
-                <h1>{{ __('Login Sebagai :') }}</h1>
-                @else
-                <h1>{{ __('Dashboard Sistem SPMI') }}</h1>
-                @endif
-                @else
-                <h1>{{ __('Dashboard Sistem SPMI') }}</h1>
-                @endif
+                <h3>{{ __('Dashboard e-Office - Universitas Universal') }}</h3>
+ 
             </div>
             <div class="panel-body">
-                @if (Auth::user()->role == 'admin' or Auth::user()->role == 'pimpinan' )
                 <div class="row">
                     <div class="panel-body">
                         <div class="col-md-12 form-inline">
@@ -38,9 +30,9 @@
                     </div>
                     <div id="div_period_id"></div>
                 </div>
-                @endif
+               
                 <div class="row">
-                    @if (Auth::user()->role == 'admin' or Auth::user()->role == 'pimpinan')
+
                     <div class="col-md-3">
                         <div class="well violet">
                             <span style="font-size: 40px"><div id="pending_filter"></div></span> <br>
@@ -67,150 +59,6 @@
                     </div>
                 </div>
                 
-                    @else
-                    @if (!session('role'))
-                    <div class="row">
-                        <div class="panel-body">
-                    <div class="col-md-4">
-                        <a class="btn btn-primary" href="{{ url('/set-role/auditor') }}" role="button"
-                        style="width: 100%">Auditor</a>
-                    </div>
-                    <div class="col-md-4">
-                        <a class="btn btn-success" href="{{ url('/set-role/auditee') }}" role="button"
-                        style="width: 100%">Auditee</a>
-                    </div>
-                    <div class="col-md-4">
-                        <a class="btn btn-info" href="{{ url('/set-role/anggota') }}" role="button"
-                        style="width: 100%">Anggota Auditor</a>
-                    </div>
-                </div>
-                </div>
-
-
-                
-
-                    @else
-                    @if (session('role') == 'auditee')
-
-                 <div class="row">
-                    <div class="panel-body">
-                        <div class="col-md-12">
-
-                                
-                                <h4>Anda Login sebagai : <?=session('role')?></h4>
-                            </div>
-    
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="panel-body">
-                    <div class="col-md-6">
-                        <div class="well blue">
-                            <span style="font-size: 40px">{{ $process }}</span> <br>
-                            Jadwal Process <br>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="violet well">
-                            <span style="font-size: 40px">{{ $complete }}</span> <br>
-                            Jadwal Complete <br>
-                        </div>
-                    </div>
-                </div>
-                </div>
-
-               
-                    @elseif (session('role') == 'auditor')
-
-                     <div class="row">
-                        <div class="panel-body">
-                        <div class="col-md-12">
-       
-                                
-                                <h4>Anda Login sebagai : <?=session('role')?></h4>
-
-          
-                        </div>
-                    </div>
-                    </div>
-                    
-                    <div class="row">
-<div class="panel-body">
-                     <div class="col-md-3">
-                        <div class="well green">
-                            <span style="font-size: 40px">{{ $pending }}</span> <br>
-                            Jadwal Pending <br>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="well blue">
-                            <span style="font-size: 40px">{{ $process }}</span> <br>
-                            Jadwal Process <br>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="violet well">
-                            <span style="font-size: 40px">{{ $complete }}</span> <br>
-                            Jadwal Complete <br>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="brown well">
-                            <span style="font-size: 40px">{{ $cancel }}</span> <br>
-                            Jadwal Cancel <br>
-                        </div>
-                    </div>
-                </div>
-                </div>
-
-                
-                    @elseif (session('role') == 'anggota')
-
-
-                       <div class="row">
-                        <div class="panel-body">
-                        <div class="col-md-12">
-                           
-                                <h4>Anda Login sebagai : <?=session('role')?></h4>
-                            </div>
-                        </div>
-                    </div>
-                <div class="row">
-                        <div class="panel-body">
-                    <div class="col-md-3">
-                        <div class="well green">
-                            <span style="font-size: 40px">{{ $pending }}</span> <br>
-                            Jadwal Pending <br>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="well blue">
-                            <span style="font-size: 40px">{{ $process }}</span> <br>
-                            Jadwal Process <br>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="violet well">
-                            <span style="font-size: 40px">{{ $complete }}</span> <br>
-                            Jadwal Complete <br>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="brown well">
-                            <span style="font-size: 40px">{{ $cancel }}</span> <br>
-                            Jadwal Cancel <br>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                    @endif
-                    @endif
-                    @endif
-                </div>
-            </div>
-        </div>
-    
-    @if (Auth::user()->role == 'admin' or Auth::user()->role == 'pimpinan')
     <div class="row">
         <div class="col-md-12">
             <div class="panel-heading">
@@ -225,7 +73,13 @@
             </div>
         </div>
     </div>
-    @endif
+                    
+
+                </div>
+            </div>
+        </div>
+    
+
 </div>
 @endsection
 @section('script')
@@ -236,7 +90,7 @@
 <script src="{{asset('assets/chart.js/dist/Chart.bundle.js')}}"></script>
 <script src="{{asset('assets/chart.js/samples/utils.js')}}"></script>
 
-@if (Auth::user()->role == 'admin' or Auth::user()->role == 'pimpinan')
+
 <script>
 $(function() {
 $('[data-toggle="tooltip"]').tooltip()
@@ -334,7 +188,6 @@ max: 100
 }
 period_filter('<?=$period_current_id?>');
 </script>
-   @endif
 
 
 @endsection

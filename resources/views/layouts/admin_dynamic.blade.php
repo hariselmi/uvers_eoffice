@@ -110,7 +110,7 @@
 <script type="text/javascript" src="{{asset('dist/clockpicker/bootstrap-clockpicker.min.js')}}"></script>
 
 @yield('script')
-@include('partials.analytics')
+
 
 </script>
 </body>

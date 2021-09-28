@@ -1,65 +1,88 @@
 @extends('layouts.front')
 
 @section('content')
-<div class="login-background"></div>
-<div class="login-box">
-  <div class="login-logo">
-    <a href="#">
-@if(!empty(setting('logo_path')))
-        <img src="{{asset(setting('logo_path'))}}" alt="" height="70px">
-        @else
-        <img src="{{asset('images/logo_uvers.png')}}" alt="" height="70px">
-        @endif
 
-    </a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="login-box-body">
-  <p class="login-box-msg">{{__('Lembaga Penjamin Mutu')}}</p>
-	@if (count($errors) > 0)
-		<div class="alert alert-danger">
-		<strong>Whoops!</strong> {{__('There were some problems with your input.')}}<br><br>
-			<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{ $error }}</li>
-				@endforeach
-			</ul>
-		</div>
-	@endif
-    <form data-no-ajax action="{{ route('login') }}" method="post">
-    	<input type="hidden" name="_token" value="{{ csrf_token() }}">
-      <div class="form-group has-feedback">
-        <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" name="password" placeholder="Password">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-      <div class="row">
-        <div class="col-xs-8">
-<!--           <div class="checkbox icheck">
-            <label>
-              <input type="checkbox"> {{__('Remember Me')}}
-            </label>
-          </div> -->
+
+    <div id="wrapper">
+
+    <div class="vertical-align-wrap">
+
+      <div class="vertical-align-middle">
+
+        <div class="auth-box ">
+
+          <div class="left">
+
+            <div class="content">
+
+              <div class="header">
+
+                <div class="logo text-center"><img src="{{asset('assets/login/img/logo.png')}}" alt="Logo UBP" width="40%" height="auto"></div>
+
+                <p class="lead">Login to your account</p>
+
+                  @if (count($errors) > 0)
+<font color="red">
+    <strong>Whoops!</strong> {{__('Username atau Password Salah.')}}<br><br>
+</font>
+
+  @endif
+
+              </div>
+
+              <form data-no-ajax action="{{ route('login') }}" method="post">
+
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                <div class="form-group">
+
+                  <label for="signin-email" class="control-label sr-only">Email</label>
+
+                  <input type="email" class="form-control" id="signin-email" name="email" placeholder="Email">
+
+                </div>
+
+                <div class="form-group">
+
+                  <label for="signin-password" class="control-label sr-only">Password</label>
+
+                  <input type="password" class="form-control" id="signin-password" name="password" placeholder="Password">
+
+                </div>
+
+                
+
+                <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" value="Login to..">
+
+
+               </form>
+            </div>
+
+          </div>
+
+          <div class="right">
+
+            <div class="overlay"></div>
+
+            <div class="content text">
+
+              <h1 class="heading">e-Office</h1>
+
+              <p>UNIVERSITAS UNIVERSAL</p>
+
+            </div>
+
+          </div>
+
+          <div class="clearfix"></div>
+
         </div>
-        <!-- /.col -->
-        <div class="col-xs-4">
-		<button type="submit" submit-text="Loading..." class="btn btn-success btn-block">{{__('MASUK')}}</button>
-        </div>
-        <!-- /.col -->
+
       </div>
-    </form>
-    <div class="social-auth-links text-center">
 
     </div>
-    <!-- /.social-auth-links -->
-
-<!-- 	<a href="{{ route('password.request') }}">{{__('I forgot my password')}}</a><br>
-  <a href="{{ url('/register') }}" class="text-center">Register a new membership</a> -->
 
   </div>
-  <!-- /.login-box-body -->
-</div>
+
+  
 @endsection

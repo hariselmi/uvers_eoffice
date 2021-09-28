@@ -54,7 +54,7 @@
 		<!-- page script -->
 		<script src="{{asset('js/main.js')}}"></script>
 		@yield('script')
-		@include('partials.analytics')
+
 	</div>
 </body>
 </html>

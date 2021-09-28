@@ -5,7 +5,7 @@
     @include('standarddetail.standarddetail')
 </div>
 
-@include('partials.gadds')
+
 @endsection
 
 @section('script')

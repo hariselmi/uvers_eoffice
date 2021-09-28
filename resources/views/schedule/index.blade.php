@@ -4,7 +4,7 @@
 <div class="content-wrapper">
     @include('schedule.schedule')
 </div>
-@include('partials.gadds')
+
 @endsection
 
 

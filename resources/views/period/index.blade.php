@@ -4,5 +4,5 @@
 <div class="content-wrapper">
     @include('period.period')
 </div>
-@include('partials.gadds')
+
 @endsection

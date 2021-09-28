@@ -4,5 +4,5 @@
 <div class="content-wrapper">
     @include('pages.pages')
 </div>
-@include('partials.gadds')
+
 @endsection
