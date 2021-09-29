@@ -1,20 +1,26 @@
-<div class="modal-content" id="editJenisSurat">
-    @if (!empty($jenis_surat))
-    {{ Form::model($jenis_surat, ['route' => ['jenis-surat.update', $jenis_surat->id], 'method' => 'PUT', 'files' => true]) }}
+<div class="modal-content" id="editUnitKerja">
+    @if (!empty($unit_kerja))
+    {{ Form::model($unit_kerja, ['route' => ['unit-kerja.update', $unit_kerja->id], 'method' => 'PUT', 'files' => true]) }}
     @endif
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h4 class="modal-title">
-        Edit Jenis Surat
+        Edit Unit Kerja
     </h4>
 </div>
 <div class="modal-body">
     <div class="row">
         <div class="col-sm-10">
             <div class="form-group row">
-                {{ Form::label('nama', 'Jenis Surat' . ' *', ['class' => 'col-sm-3 text-right']) }}
+                {{ Form::label('nama', 'Nama Unit' . ' *', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {{ Form::text('nama', null, ['id' => 'edit_nama', 'class' => 'form-control', 'required']) }}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ Form::label('kepala_unit', 'Kepala Unit' . ' *', ['class' => 'col-sm-3 text-right']) }}
+                <div class="col-sm-9">
+                    {{ Form::text('kepala_unit', null, ['id' => 'edit_nama', 'class' => 'form-control', 'required']) }}
                 </div>
             </div>
             <div class="form-group row">

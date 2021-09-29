@@ -56,10 +56,20 @@ Route::group(['middleware' => 'languange'], function () {
     Route::resource('pages', 'PagesController');
 
 
+
     //menu pengaturan
     Route::resource('jenis-surat', 'JenisSuratController');
+    Route::resource('sifat-surat', 'SifatSuratController');
+    Route::resource('prioritas-surat', 'PrioritasSuratController');
+    Route::resource('media-surat', 'MediaSuratController');
+    Route::resource('perintah-disposisi', 'PerintahDisposisiController');
 
 
+    //menu pengaturan
+    Route::resource('unit-kerja', 'UnitKerjaController');
+    Route::resource('jabatan', 'JabatanController');
+    Route::resource('pegawai', 'PegawaiController');
+    Route::resource('akun', 'AkunController');
 
 
 

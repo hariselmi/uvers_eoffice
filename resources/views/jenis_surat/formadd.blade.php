@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-sm-10">
             <div class="form-group row">
-                {{ Form::label('nama', 'Nama' . ' *', ['class' => 'col-sm-3 text-right']) }}
+                {{ Form::label('nama', 'Jenis Surat' . ' *', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {{ Form::text('nama', null, ['class' => 'form-control', 'required']) }}
                 </div>
