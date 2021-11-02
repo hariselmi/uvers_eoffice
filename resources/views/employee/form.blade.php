@@ -22,6 +22,12 @@
                 </div>
             </div>
             <div class="form-group row">
+                {{ Form::label('pegawai_id', 'Pegawai' . ' *', ['class' => 'col-sm-3 text-right']) }}
+                <div class="col-sm-9">
+                    {!! Form::select('pegawai_id', $pegawai, null, ['placeholder' => 'Pilih Pegawai', ' ' , 'class' => 'form-control', 'required']) !!}
+                </div>
+            </div>
+            <div class="form-group row">
                 {{ Form::label('email', trans('employee.email') . ' *', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {{ Form::text('email', null, ['class' => 'form-control']) }}

@@ -47,6 +47,7 @@ class EmployeeController extends Controller
             return $this->sendCommonResponse($data, null, 'index');
         }
         $data['employees'] = $this->user->getAll('paginate');
+        $data['pegawai'] = DB::table('pegawai')->where('softdelete', '0')->pluck('nama', 'id');
         return view('employee.index', $data);
     }
 
@@ -70,6 +71,7 @@ class EmployeeController extends Controller
         $this->validate($request, [
             'email' => 'required|unique:users',
             'name'=>'required',
+            'pegawai_id'=>'required',
             'password'=>'required|min:6',
             'password_confirmation'=>'required|same:password',
             'role' => 'required'
@@ -77,6 +79,7 @@ class EmployeeController extends Controller
         // store
         $user = new User;
         $user->name = $request->name;
+        $user->pegawai_id = $request->pegawai_id;
         $user->email = $request->email;
         $user->role = $request->role[0];
         $user->password = Hash::make($request->password);
@@ -84,6 +87,7 @@ class EmployeeController extends Controller
         $this->assignRoles($user, $request->role);
         
         $data['roles'] = Role::all();
+        $data['pegawai'] = DB::table('pegawai')->where('softdelete', '0')->pluck('nama', 'id');
     
         return $this->sendCommonResponse($data, __('You have successfully added employee'), 'add');
     }
@@ -98,6 +102,8 @@ class EmployeeController extends Controller
     {
         $data['employee'] = User::find($id);
         $data['roles'] = Role::all();
+        $data['pegawai'] = DB::table('pegawai')->where('softdelete', '0')->pluck('nama', 'id');
+        
         return $this->sendCommonResponse($data, null, 'edit');
     }
 
@@ -118,6 +124,7 @@ class EmployeeController extends Controller
             $rules = array(
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id .'',
+            'pegawai_id' => 'required|unique:users,pegawai_id,' . $id .'',
             'password' => 'nullable|min:6|max:30|confirmed',
             );
             $validator = Validator::make($request->all(), $rules);
@@ -127,6 +134,7 @@ class EmployeeController extends Controller
             } else {
                 $user = User::find($id);
                 $user->name = $request->name;
+                $user->pegawai_id = $request->pegawai_id;
                 $user->email = $request->email;
                 $user->role = $request->role[0];
                 if (!empty($request->password)) {
@@ -271,6 +279,7 @@ class EmployeeController extends Controller
         if ( $option == 'index' || $option == 'add' || $option == 'update' || $option == 'delete' || $option == 'role-create') {
             if (empty($data['employees'])) {
                 $data['employees'] = $this->user->getAll('paginate');
+                $data['pegawai'] = DB::table('pegawai')->where('softdelete', '0')->pluck('nama', 'id');
             }
             if (empty($data['roles'])) {
                 $data['roles'] = Role::all();

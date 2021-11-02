@@ -9,6 +9,20 @@
             <span>{{ trans('menu.dashboard') }}</span></a>
          </li>
 
+
+
+
+         <li class="{{ Request::is('surat-masuk') ? 'active' : '' }}"><a
+            href="{{ url('/surat-masuk') }}"><i class="fa fa-user"></i>
+            <span>Surat Masuk</span></a>
+         </li>
+
+
+         <li class="{{ Request::is('surat-keluar') ? 'active' : '' }}"><a
+            href="{{ url('/surat-keluar') }}"><i class="fa fa-user"></i>
+            <span>Surat Keluar</span></a>
+         </li>
+
          <li
             class="{{ Request::is('unit-kerja') || Request::is('jabatan') || Request::is('pegawai') || Request::is('akun') ? 'active' : '' }} treeview">
             <a href="#"><i class="fa fa-cog"></i> <span>Pengaturan Pegawai</span><span
@@ -26,10 +40,6 @@
                <li class="{{ Request::is('pegawai') ? 'active' : '' }} "><a
                   href="{{ url('/pegawai') }}"><i class="fa fa-user" aria-hidden="true"></i>
                   <span>Pegawai</span></a>
-               </li>
-               <li class="{{ Request::is('akun') ? 'active' : '' }} "><a
-                  href="{{ url('/akun') }}"><i class="fa fa-user-secret" aria-hidden="true"></i>
-                  <span>Akun</span></a>
                </li>
             </ul>
          </li>

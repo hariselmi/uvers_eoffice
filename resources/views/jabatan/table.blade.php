@@ -4,6 +4,7 @@
             <tr>
                 <th class="text-center">No</th>
                 <th class="text-center">Jabatan</th>
+                <th class="text-center">Unit Kerja</th>
                 <th class="text-center">Keterangan</th>
                 <th class="text-center">Opsi</th>
             </tr>
@@ -13,6 +14,7 @@
                 <tr>
                     <td class="text-center">{{ $index+1 }}</td>
                     <td class="text-center">{{ $value->nama }}</td>
+                    <td class="text-center">{{ Get_field::get_data($value->unit_kerja_id, 'unit_kerja', 'nama') }} </td>
                     <td class="text-center">{{ $value->keterangan }}</td>
                     <td class="text-center">
                         <a href="#editJabatanModal" data-replace-empty="#editJabatan" data-ajax-url="/jabatan/{{$value->id}}/edit" data-toggle="modal">

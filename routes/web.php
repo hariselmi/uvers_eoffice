@@ -55,6 +55,14 @@ Route::group(['middleware' => 'languange'], function () {
     Route::resource('sliders', 'SlidersController');
     Route::resource('pages', 'PagesController');
 
+    // surat masuk
+    Route::resource('surat-masuk', 'SuratMasukController');
+    Route::get('surat-masuk/{id}/posisi', 'SuratMasukController@posisi')->name('surat-masuk.posisi');
+    Route::get('surat-masuk/{id}/disposisi', 'SuratMasukController@disposisi')->name('surat-masuk.disposisi');
+
+    // surat keluar
+    Route::resource('surat-keluar', 'SuratKeluarController');
+
 
 
     //menu pengaturan
@@ -69,9 +77,6 @@ Route::group(['middleware' => 'languange'], function () {
     Route::resource('unit-kerja', 'UnitKerjaController');
     Route::resource('jabatan', 'JabatanController');
     Route::resource('pegawai', 'PegawaiController');
-    Route::resource('akun', 'AkunController');
-
-
 
     Route::resource('standarddetails', 'StandardDetailController');
     Route::resource('identity', 'IdentityController');

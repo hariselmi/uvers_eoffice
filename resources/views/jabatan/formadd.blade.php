@@ -16,6 +16,12 @@
                 </div>
             </div>
             <div class="form-group row">
+                {{ Form::label('unit_kerja_id', 'Unit Kerja' . ' *', ['class' => 'col-sm-3 text-right']) }}
+                <div class="col-sm-9">
+                    {!! Form::select('unit_kerja_id', $unitkerja, null, ['placeholder' => 'Pilih Unit Kerja', ' ' , 'class' => 'form-control', 'required']) !!}
+                </div>
+            </div>
+            <div class="form-group row">
                 {{ Form::label('keterangan', 'Keterangan', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {{ Form::text('keterangan', null, ['class' => 'form-control', '']) }}
