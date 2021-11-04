@@ -19,7 +19,7 @@
 
                 <div class="logo text-center"><img src="{{asset('assets/login/img/logo.png')}}" alt="Logo UBP" width="40%" height="auto"></div>
 
-                <p class="lead">Login</p>
+                <p class="lead">Login E-Office</p>
 
                   @if (count($errors) > 0)
 <font color="red">
