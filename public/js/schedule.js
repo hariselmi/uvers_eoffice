@@ -12,44 +12,48 @@ $(function() {
 
 });
 
-function getMembers(e) {
-  var url = site_url + "/member/getmember" + "/" + e.value;
+function getJabatan(e) {
+  console.log(e.value, 'e')
+  var url = site_url + "/pegawai/getjabatan" + "/" + e.value;
 
   
   // $.get(url);
 
-  $.ajax({
-    type: "GET",
-    url: url,
-    success: function (data) {
-      if (data) {
-        $("#member_one").empty();
-        $("#member_two").empty();
-        var o = new Option("Pilih Anggota", "");
-        var oo = new Option("Pilih Anggota", "");
-        /// jquerify the DOM object 'o' so we can use the html method
-        $(o).html("Pilih Anggota 1", "");
-        $(oo).html("Pilih Anggota 2", "");
-        $("#member_one").append(o);
-        $("#member_two").append(oo);
-        for (let index = 0; index < data.length; index++) {
-          const element = data[index];
-          var o = new Option("Pilih Anggota", element.id);
-          var oo = new Option("Pilih Anggota", element.id);
+  if (e.value) {
+    $.ajax({
+      type: "GET",
+      url: url,
+      success: function (data) {
+        if (data) {
+          $("#jabatan_id").empty();
+          var o = new Option("Pilih Jabatan", "");
           /// jquerify the DOM object 'o' so we can use the html method
-          $(o).html(element.name, element.id);
-          $("#member_one").append(o);
+          $(o).html("Pilih Jabatan", "");
+          $("#jabatan_id").append(o);
+          for (let index = 0; index < data.length; index++) {
+            const element = data[index];
+            var o = new Option("Pilih Jabatan", element.id);
+            /// jquerify the DOM object 'o' so we can use the html method
+            $(o).html(element.nama, element.id);
 
-          $(oo).html(element.name, element.id);
-          $("#member_two").append(oo);
+          $().html("Pilih Jabatan 2", "");
+
+          $("#edit_member_two").append();
+
+            $().html(element.nama, element.id);
+
+            $("#edit_member_two").append();
+            $("#jabatan_id").append(o);
+          }
         }
-      }
-    },
-  });
+      },
+    });
+    
+  }
 }
 
-function getMembersEdit(e) {
-  var url = site_url + "/member/getmember" + "/" + e.value;
+function getJabatanEdit(e) {
+  var url = site_url + "/pegawai/getjabatan" + "/" + e.value;
   // $.get(url);
 
   $.ajax({
@@ -57,25 +61,19 @@ function getMembersEdit(e) {
     url: url,
     success: function (data) {
       if (data) {
-        $("#edit_member_one").empty();
+        $("#edit_jabatan_id").empty();
         $("#edit_member_two").empty();
-        var o = new Option("Pilih Anggota", "");
-        var oo = new Option("Pilih Anggota", "");
+        var o = new Option("Pilih Jabatan", "");
         /// jquerify the DOM object 'o' so we can use the html method
-        $(o).html("Pilih Anggota 1", "");
-        $(oo).html("Pilih Anggota 2", "");
-        $("#edit_member_one").append(o);
-        $("#edit_member_two").append(oo);
+        $(o).html("Pilih Jabatan", "");
+        $("#edit_jabatan_id").append(o);
         for (let index = 0; index < data.length; index++) {
           const element = data[index];
-          var o = new Option("Pilih Anggota", element.id);
-          var oo = new Option("Pilih Anggota", element.id);
+          var o = new Option("Pilih Jabatan", element.id);
           /// jquerify the DOM object 'o' so we can use the html method
-          $(o).html(element.name, element.id);
-          $("#edit_member_one").append(o);
+          $(o).html(element.nama, element.id);
+          $("#edit_jabatan_id").append(o);
 
-          $(oo).html(element.name, element.id);
-          $("#edit_member_two").append(oo);
         }
       }
     },

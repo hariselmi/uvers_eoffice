@@ -11,7 +11,7 @@ class SuratMasuk extends Model
 {
     use HasFactory;
     protected $table = 'surat_masuk';
-
+    public $timestamps = true;
     public function getAll($option=null, $search=null) {
 
         $userRole   = Auth::user()->role;
@@ -51,7 +51,6 @@ class SuratMasuk extends Model
         $this->perihal = $data['perihal'];
         $this->asal_surat = $data['asal_surat'];
         $this->tujuan_surat = $data['tujuan_surat'];
-        $this->isi_ringkasan = $data['isi_ringkasan'];
         $this->tgl_surat = $data['tgl_surat'];
         $this->jenis_id = $data['jenis_id'];
         $this->prioritas_id = $data['prioritas_id'];
@@ -67,7 +66,9 @@ class SuratMasuk extends Model
             'asal_surat' => $data['asal_surat'],
             'tujuan_surat' => $data['tujuan_surat'],
             'tgl_posisi' => $data['tgl_surat'],
+            'isi_ringkasan' => $data['isi_ringkasan'],
             'status' => '0',
+            'dlt' => '0',
         ]);
     }
 

@@ -177,4 +177,13 @@ class PegawaiController extends Controller
         }
         return $this->sendResponse($response);
     }
+
+    public function getJabatan($id){
+        
+        $jabatan = DB::select("SELECT id, nama FROM jabatan 
+            WHERE unit_kerja_id = '$id'
+            AND softdelete = '0'");
+
+        return $jabatan;
+    }
 }

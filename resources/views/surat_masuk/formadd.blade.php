@@ -24,7 +24,7 @@
             <div class="form-group row">
                 {{ Form::label('asal_surat', 'Asal Surat', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
-                    {!! Form::select('asal_surat', $pegawai, null, ['placeholder' => 'Pilih Asal Surat','class' => 'form-control']) !!}
+                    {{ Form::text('asal_surat', null, ['class' => 'form-control', '']) }}
                 </div>
             </div>
             <div class="form-group row">
@@ -73,13 +73,13 @@
             <div class="form-group row">
                 {{ Form::label('lokasi_penyimpanan', 'Lokasi Penyimpanan Berkas', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
-                    {{ Form::textarea('lokasi_penyimpanan', null, ['class' => 'form-control']) }}
+                    {{ Form::textarea('lokasi_penyimpanan', null, ['class' => 'form-control','style' => 'height:50px']) }}
                 </div>
             </div>
             <div class="form-group row">
-                {{ Form::label('file', 'Unggah Berkas', ['class' => 'col-sm-3 text-right']) }}
+                {{ Form::label('fileSurat', 'Unggah Berkas', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
-                    {{ Form::file('file', null, ['class' => 'form-control']) }}
+                    {{ Form::file('fileSurat', null, ['class' => 'form-control']) }}
                 </div>
             </div>
         </div>

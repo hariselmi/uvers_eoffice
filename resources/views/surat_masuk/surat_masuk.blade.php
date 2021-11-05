@@ -46,6 +46,11 @@
                 <div class="modal-content" id="posisiSuratMasuk"></div>
             </div>
         </div>
+        <div class="modal fade sub-modal" id="disposisiSuratMasukModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" id="disposisiSuratMasuk"></div>
+            </div>
+        </div>
     </section>
     <!-- /.content -->
 </div>

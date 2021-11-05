@@ -18,28 +18,20 @@
                                 <th>Tgl Disposisi</th>
                                 <th>Pejabat Penerima</th>
                                 <th>Status</th>
-                                <th>Catatan</th>
+                                <th>Lama Proses</th>
+                                <th>Isi Ringkasan</th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach ($history_surat_masuk as $key=>$value)
                             <tr>
                                 <td class="hidden-xs">{{ $key+1 }}</td>
+                                <td class="hidden-xs">{{ $value->asal_surat }}</td>
+                                <td class="hidden-xs">{{ $value->tgl_posisi }}</td>
+                                <td>{{ Get_field::get_data($value->tujuan_surat, 'pegawai', 'nama') }}</td>
+                                <td>{{ Get_field::get_data($value->status, 'perintah_disposisi', 'nama') }}</td>
+                                <td class="hidden-xs"></td>
                                 <td class="hidden-xs">{{ $value->isi_ringkasan }}</td>
-                                <td>{{ Get_field::get_data($value->asal_surat, 'pegawai', 'nama') }}</td>
-                                <td>{{ Get_field::get_data($value->asal_surat, 'pegawai', 'nama') }}</td>
-                                <td class="item_btn_group">
-                                    @php
-                                        $actions = [
-                                            ['data-replace' => '#posisiSuratMasuk', 'url' => '#posisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye'], 
-                                            ['data-replace' => '#disposisiSuratMasuk', 'url' => '#disposisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/disposisi'), 'name' => ' Disoisisi', 'icon' => 'eye'], 
-                                            ['data-replace' => '#showSuratMasuk', 'url' => '#showSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/'), 'name' => ' Lihat', 'icon' => 'eye'], 
-                                            ['data-replace' => '#editSuratMasuk', 'url' => '#editSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'],
-                                            ['url' => 'surat-masuk/' . $value->id, 'name' => 'delete']
-                                        ];
-                                    @endphp
-                                    @include('partials.actions', ['actions'=>$actions])
-                                </td>
                             </tr>
                         @endforeach
                         </tbody>

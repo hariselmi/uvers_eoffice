@@ -17,6 +17,9 @@ Route::group(['middleware' => 'languange'], function () {
  
     Auth::routes();
 
+
+    Route::get('/pegawai/getjabatan/{id}', 'PegawaiController@getJabatan')->name('pegawai.getJabatan');
+
     Route::get('/set-role/{role}', 'HomeController@setRole')->name('setRole');
 
     Route::resource('customers', 'CustomerController');
@@ -59,6 +62,7 @@ Route::group(['middleware' => 'languange'], function () {
     Route::resource('surat-masuk', 'SuratMasukController');
     Route::get('surat-masuk/{id}/posisi', 'SuratMasukController@posisi')->name('surat-masuk.posisi');
     Route::get('surat-masuk/{id}/disposisi', 'SuratMasukController@disposisi')->name('surat-masuk.disposisi');
+    Route::post('surat-masuk/store-disposisi', 'SuratMasukController@storeDisposisi')->name('surat-masuk.storeDisposisi');
 
     // surat keluar
     Route::resource('surat-keluar', 'SuratKeluarController');

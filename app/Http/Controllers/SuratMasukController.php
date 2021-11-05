@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Get_field;
 
 class SuratMasukController extends Controller
 {
@@ -82,8 +84,53 @@ class SuratMasukController extends Controller
         //
         $input = $request->all();
         $this->validator($input)->validate();
-        $suratMasuk = new SuratMasuk;
-        $suratMasuk->saveSuratMasuk($input);
+        // $suratMasuk = new SuratMasuk;
+        // $suratMasuk->saveSuratMasuk($input);
+
+        $fileSurat = $request->file('fileSurat');
+
+        if ($fileSurat) {
+            # code...
+            $nameGenerate = hexdec(uniqid());
+            $imgExtention = strtolower($fileSurat->getClientOriginalExtension());
+            $imgOriName = strtolower($fileSurat->getClientOriginalName());
+            $newName = $nameGenerate.'_'.$imgExtention;
+            $uploadLocation = public_path().'/document';
+            $lastImage = $uploadLocation.$newName;
+            $fileSurat->move($uploadLocation,$newName);
+        }
+
+
+        // $this->id;
+        $surat = new SuratMasuk;
+        $surat->no_surat = $request->no_surat;
+        $surat->perihal = $request->perihal;
+        $surat->asal_surat = $request->asal_surat;
+        $surat->tujuan_surat = $request->tujuan_surat;
+        $surat->tgl_surat = $request->tgl_surat;
+        $surat->jenis_id = $request->jenis_id;
+        $surat->prioritas_id = $request->prioritas_id;
+        $surat->sifat_id = $request->sifat_id;
+        $surat->media_id = $request->media_id;
+        $surat->isi_ringkasan = $request->isi_ringkasan;
+        $surat->lokasi_penyimpanan = $request->lokasi_penyimpanan;
+        $surat->file_surat = $fileSurat ? $newName : null;
+        $surat->dlt = '0';
+        $surat->save();
+
+        DB::table('history_surat_masuk')->insert([
+            'surat_masuk_id' => $surat->id,
+            'no_surat' => $request->no_surat,
+            'asal_surat' => $request->asal_surat,
+            'tujuan_surat' => $request->tujuan_surat,
+            'tgl_posisi' => $request->tgl_surat,
+            'isi_ringkasan' => $request->isi_ringkasan,
+            'status' => '0',
+            'dlt' => '0',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+            'unit_id' => Get_field::get_data($request->tujuan_surat, 'pegawai', 'unit_kerja_id'),
+        ]);
         
 
         $data['pegawai'] = Pegawai::where('softdelete', '0')->pluck('nama', 'id');
@@ -139,9 +186,38 @@ class SuratMasukController extends Controller
         //
         $input = $request->all();
         $this->validator($input)->validate();
-        $suratMasuk = (new SuratMasuk())->getById($id);
+        $fileSurat = $request->file('fileSurat');
+
+        if ($fileSurat) {
+            # code...
+            $nameGenerate = hexdec(uniqid());
+            $imgExtention = strtolower($fileSurat->getClientOriginalExtension());
+            $imgOriName = strtolower($fileSurat->getClientOriginalName());
+            $newName = $nameGenerate.'_'.$imgExtention;
+            $uploadLocation = public_path().'/document';
+            $lastImage = $uploadLocation.$newName;
+            $fileSurat->move($uploadLocation,$newName);
+        }
         
-        $suratMasuk->saveSuratMasuk($input);
+        $suratMasuk = (new SuratMasuk())->getById($id);
+        $suratMasuk->no_surat = $request->no_surat;
+        $suratMasuk->perihal = $request->perihal;
+        $suratMasuk->asal_surat = $request->asal_surat;
+        $suratMasuk->tujuan_surat = $request->tujuan_surat;
+        $suratMasuk->tgl_surat = $request->tgl_surat;
+        $suratMasuk->jenis_id = $request->jenis_id;
+        $suratMasuk->prioritas_id = $request->prioritas_id;
+        $suratMasuk->sifat_id = $request->sifat_id;
+        $suratMasuk->media_id = $request->media_id;
+        $suratMasuk->isi_ringkasan = $request->isi_ringkasan;
+        $suratMasuk->lokasi_penyimpanan = $request->lokasi_penyimpanan;
+        $suratMasuk->file_surat = $fileSurat ? $newName : null;
+        $suratMasuk->dlt = '0';
+        $suratMasuk->save();
+
+
+        
+        // $suratMasuk->saveSuratMasuk($input);
 
         $data['pegawai'] = Pegawai::where('softdelete', '0')->pluck('nama', 'id');
         $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
@@ -175,8 +251,75 @@ class SuratMasukController extends Controller
     public function posisi($id)
     {
         //
-        $data['history_surat_masuk'] = DB::table('history_surat_masuk')->where(['dlt'=> '0', 'surat_masuk_id'=>$id])->get();
+        $data['history_surat_masuk'] = DB::table('history_surat_masuk')
+        ->select('history_surat_masuk.*')
+        ->leftJoin('surat_masuk', 'history_surat_masuk.surat_masuk_id', 'surat_masuk.id')
+        ->where(['history_surat_masuk.dlt'=> '0', 'history_surat_masuk.surat_masuk_id'=>$id])
+        ->get();
+        // dd($data['history_surat_masuk']);
         return $this->sendCommonResponse($data, null, 'posisi');
+    }
+
+
+    public function disposisi($id)
+    {
+        //
+        $data['perintahDisposisi'] =  DB::table('perintah_disposisi')->where([['softdelete' , '0'], ['id', '>', '2'], ['id', '<', '6']])->pluck('nama', 'id');
+        $data['pegawai'] = Pegawai::where('softdelete', '0')->pluck('nama', 'id');
+        $data['history_surat_masuk'] = DB::table('history_surat_masuk')
+        ->select('history_surat_masuk.*')
+        ->leftJoin('surat_masuk', 'history_surat_masuk.surat_masuk_id', 'surat_masuk.id')
+        ->where(['history_surat_masuk.dlt'=> '0', 'history_surat_masuk.surat_masuk_id'=>$id])
+        ->get();
+        return $this->sendCommonResponse($data, null, 'disposisi');
+    }
+
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeDisposisi(Request $request)
+    {
+        //
+        $input = $request->all();
+        $this->validatorDisposisi($input)->validate();
+
+        DB::table('history_surat_masuk')->insert([
+            'surat_masuk_id' => $request->surat_id,
+            'no_surat' => $request->no_surat,
+            'asal_surat' => Auth::user()->name,
+            'tujuan_surat' => $request->tujuan_surat,
+            'tgl_posisi' => $request->tgl_surat,
+            'isi_ringkasan' => $request->isi_ringkasan,
+            'status' => $request->status,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+            'dlt' => '0',
+            'unit_id' => Get_field::get_data($request->tujuan_surat, 'pegawai', 'unit_kerja_id'),
+        ]);
+
+        $data['pegawai'] = Pegawai::where('softdelete', '0')->pluck('nama', 'id');
+        $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
+        $data['prioritasSurat'] = PrioritasSurat::where('softdelete', '0')->pluck('nama', 'id');
+        $data['sifatSurat'] = SifatSurat::where('softdelete', '0')->pluck('nama', 'id');
+        $data['mediaSurat'] = MediaSurat::where('softdelete', '0')->pluck('nama', 'id');
+        // $data['users'] = DB::table('users')->where('role', 'suratMasuk')->pluck('name', 'id');
+        return $this->sendCommonResponse($data, 'You have successfully added suratMasuk', 'add');
+    }
+
+    protected function validatorDisposisi(Array $data)
+    {
+        return Validator::make($data, [
+            'no_surat'=>'required',
+            'tujuan_surat'=>'required',
+            'isi_ringkasan'=>'required',
+            'tgl_surat'=>'required',
+            'status'=>'required',
+        ]);
     }
 
     protected function validator(Array $data)
@@ -186,7 +329,7 @@ class SuratMasukController extends Controller
             'perihal'=>'required',
             'asal_surat'=>'required',
             'tujuan_surat'=>'required',
-            'isi_ringkasan'=>'required',
+            // 'isi_ringkasan'=>'required',
             'tgl_surat'=>'required',
             'jenis_id'=>'required',
             'prioritas_id'=>'required',
@@ -213,7 +356,9 @@ class SuratMasukController extends Controller
             $response['replaceWith']['#showSuratMasuk'] = view('surat_masuk.profile', $data)->render();
         } else if ($option == 'posisi') {
             $response['replaceWith']['#posisiSuratMasuk'] = view('surat_masuk.posisi', $data)->render();
-        } 
+        } else if ($option == 'disposisi') {
+            $response['replaceWith']['#disposisiSuratMasuk'] = view('surat_masuk.disposisi', $data)->render();
+        }  
         if ( in_array($option, ['index', 'add', 'update', 'delete', 'import'])) {
             if (empty($data['surat_masuk'])) {
                 $data['surat_masuk'] = $suratMasukObj->getAll('paginate');

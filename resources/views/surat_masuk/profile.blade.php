@@ -47,6 +47,9 @@
                             <li class="list-group-item hidden-print">
                                 <b>Lokasi Penyimpanan Surat</b> <a class="pull-right">{{ $surat_masuk->lokasi_penyimpanan }}</a>
                             </li>
+                            <li class="list-group-item hidden-print">
+                                <b>File Surat</b> <a target="_blank" class="pull-right" href="{{asset('/document/'.$surat_masuk->file_surat)}}">{{ $surat_masuk->file_surat }}</a>
+                            </li>
                         </ul>
                     </div>
                     <!-- /.box-body -->
