@@ -17,9 +17,10 @@
                                 <th>Pejabat Pengirim</th>
                                 <th>Tgl Disposisi</th>
                                 <th>Pejabat Penerima</th>
-                                <th>Status</th>
+                                <th>Tgl Proses</th>
                                 <th>Lama Proses</th>
-                                <th>Isi Ringkasan</th>
+                                <th>Status</th>
+                                <th>Catatan Penting</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,6 +31,7 @@
                                 <td class="hidden-xs">{{ $value->tgl_posisi }}</td>
                                 <td>{{ Get_field::get_data($value->tujuan_surat, 'pegawai', 'nama') }}</td>
                                 <td>{{ Get_field::get_data($value->status, 'perintah_disposisi', 'nama') }}</td>
+                                <td class="hidden-xs"></td>
                                 <td class="hidden-xs"></td>
                                 <td class="hidden-xs">{{ $value->isi_ringkasan }}</td>
                             </tr>
@@ -52,33 +54,24 @@
             <div class="row">
                 <div class="col-sm-10">
                  <div class="form-group row">
-                        {{ Form::label('status', 'Penyelesaian', ['class' => 'col-sm-3 text-right']) }}
+                        {{ Form::label('status', 'Status', ['class' => 'col-sm-3 text-right']) }}
                         <div class="col-sm-9">
                             {!! Form::select('status', $perintahDisposisi, null, ['placeholder' => 'Pilih Penyelesaian','class' => 'form-control']) !!}
                         </div>
                     </div>
                     <div class="form-group row">
-                        {{ Form::label('tujuan_surat', 'Tujuan Surat', ['class' => 'col-sm-3 text-right']) }}
+                        {{ Form::label('tujuan_surat', 'Pejabat Penerima', ['class' => 'col-sm-3 text-right']) }}
                         <div class="col-sm-9">
                             {!! Form::select('tujuan_surat', $pegawai, null, ['placeholder' => 'Pilih Tujuan Surat','class' => 'form-control']) !!}
                         </div>
                     </div>
                     <div class="form-group row">
-                        {{ Form::label('isi_ringkasan', 'Keterangan', ['class' => 'col-sm-3 text-right']) }}
+                        {{ Form::label('isi_ringkasan', 'Catatan Penting', ['class' => 'col-sm-3 text-right']) }}
                         <div class="col-sm-9">
-                            {{ Form::hidden('no_surat', $value->no_surat, ['class' => 'form-control', 'style' => 'height:50px' ]) }}
-                            {{ Form::hidden('surat_id', $value->surat_masuk_id, ['class' => 'form-control', 'style' => 'height:50px' ]) }}
-                            {{ Form::hidden('history_id', $value->id, ['class' => 'form-control', 'style' => 'height:50px' ]) }}
+                            {{ Form::text('history_id', $surat_masuk_id, ['class' => 'form-control', 'style' => 'height:50px' ]) }}
                             {{ Form::textarea('isi_ringkasan', null, ['class' => 'form-control', 'style' => 'height:50px' ]) }}
                         </div>
                     </div>
-                    <div class="form-group row">
-                        {{ Form::label('tgl_surat', 'Tanggal Disposisi', ['class' => 'col-sm-3 text-right']) }}
-                        <div class="col-sm-9">
-                            {{ Form::date('tgl_surat', null, ['class' => 'form-control', '']) }}
-                        </div>
-                    </div>
-
                     
                 </div>
             </div>

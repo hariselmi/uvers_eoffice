@@ -56,7 +56,6 @@ class SuratMasuk extends Model
         $this->prioritas_id = $data['prioritas_id'];
         $this->sifat_id = $data['sifat_id'];
         $this->media_id = $data['media_id'];
-        $this->lokasi_penyimpanan = $data['lokasi_penyimpanan'];
         $this->dlt = '0';
         $this->save();
 

@@ -30,15 +30,9 @@
                 </div>
             </div>
             <div class="form-group row">
-                {{ Form::label('tujuan_surat', 'Tujuan Surat', ['class' => 'col-sm-3 text-right']) }}
-                <div class="col-sm-9">
-                    {!! Form::select('tujuan_surat', $pegawai, null, ['placeholder' => 'Pilih Ketua Auditor','class' => 'form-control']) !!}
-                </div>
-            </div>
-            <div class="form-group row">
                 {{ Form::label('isi_ringkasan', 'Isi Ringkasan', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
-                    {{ Form::textarea('isi_ringkasan', null, ['class' => 'form-control']) }}
+                    {{ Form::textarea('isi_ringkasan', null, ['class' => 'form-control', 'style' => 'height:50px']) }}
                 </div>
             </div>
             <div class="form-group row">
@@ -54,27 +48,9 @@
                 </div>
             </div>
             <div class="form-group row">
-                {{ Form::label('prioritas_id', 'Prioritas Surat', ['class' => 'col-sm-3 text-right']) }}
-                <div class="col-sm-9">
-                    {!! Form::select('prioritas_id', $prioritasSurat, null, ['placeholder' => 'Pilih Ketua Auditor','class' => 'form-control']) !!}
-                </div>
-            </div>
-            <div class="form-group row">
-                {{ Form::label('sifat_id', 'Sifat Surat', ['class' => 'col-sm-3 text-right']) }}
-                <div class="col-sm-9">
-                    {!! Form::select('sifat_id', $sifatSurat, null, ['placeholder' => 'Pilih Ketua Auditor','class' => 'form-control']) !!}
-                </div>
-            </div>
-            <div class="form-group row">
                 {{ Form::label('media_id', 'Media Pengiriman Surat', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {!! Form::select('media_id', $mediaSurat, null, ['placeholder' => 'Pilih Ketua Auditor','class' => 'form-control']) !!}
-                </div>
-            </div>
-            <div class="form-group row">
-                {{ Form::label('lokasi_penyimpanan', 'Lokasi Penyimpanan Berkas', ['class' => 'col-sm-3 text-right']) }}
-                <div class="col-sm-9">
-                    {{ Form::textarea('lokasi_penyimpanan', null, ['class' => 'form-control']) }}
                 </div>
             </div>
             <div class="form-group row">
