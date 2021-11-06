@@ -121,17 +121,22 @@ class EmployeeController extends Controller
             //     return Redirect::to('employees');
             return $this->sendCommonResponse([], ['danger'=>__('You cannot edit super admin')]);    
         } else {
+           
             $rules = array(
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id .'',
             'pegawai_id' => 'required|unique:users,pegawai_id,' . $id .'',
             'password' => 'nullable|min:6|max:30|confirmed',
             );
+
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
+
                  return Redirect::to('employees/' . $id . '/edit')
                 ->withErrors($validator);
             } else {
+
+                dd('ss');
                 $user = User::find($id);
                 $user->name = $request->name;
                 $user->pegawai_id = $request->pegawai_id;

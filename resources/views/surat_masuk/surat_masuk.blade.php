@@ -1,12 +1,17 @@
 <div class="" id="suratMasukDetails">
     <!-- Content Header (Page header) -->
 
+            <!-- admin menu buka -->
+            @if (Auth::user()->role == 'Admin' OR Auth::user()->role == 'Staff')
+
     <section class="content-header m-3">
         <h1>{{ __('Daftar Surat Masuk') }}
             <a class="btn btn-small btn-success pull-right" href="#addSuratMasukModal" data-toggle='modal'>
                 <i class="fa fa-plus"></i>&nbsp; {{ __('Tambah') }}</a>
         </h1>
     </section>
+
+    @endif
 
     <!-- Main content -->
     <section class="content">

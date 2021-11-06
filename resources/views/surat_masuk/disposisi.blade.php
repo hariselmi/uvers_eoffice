@@ -1,4 +1,4 @@
-<div class="modal-content" id="posisiSuratMasuk">
+<div class="modal-content" id="disposisiSuratMasuk">
     <section class="content-header">
         <h1><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             {{ __('Disposisi Surat') }}</h1>
@@ -27,13 +27,19 @@
                         @foreach ($history_surat_masuk as $key=>$value)
                             <tr>
                                 <td class="hidden-xs">{{ $key+1 }}</td>
-                                <td class="hidden-xs">{{ $value->asal_surat }}</td>
-                                <td class="hidden-xs">{{ $value->tgl_posisi }}</td>
+                                <td class="hidden-xs">{{ Get_field::get_data($value->asal_surat, 'pegawai', 'nama') }}</td>
+                                <td class="hidden-xs">{{ Get_field::format_indo($value->tanggal) }}</td>
                                 <td>{{ Get_field::get_data($value->tujuan_surat, 'pegawai', 'nama') }}</td>
+                                <td class="hidden-xs">{{ Get_field::format_indo($value->tanggal_proses) }}</td>
+                                <td class="hidden-xs"></td>
                                 <td>{{ Get_field::get_data($value->status, 'perintah_disposisi', 'nama') }}</td>
-                                <td class="hidden-xs"></td>
-                                <td class="hidden-xs"></td>
-                                <td class="hidden-xs">{{ $value->isi_ringkasan }}</td>
+                                <td class="hidden-xs">{{ $value->catatan_penting }} <br>
+                                @if($value->file_surat != '' && $value->file_surat != null) 
+                                File : 
+                                  <a href="{{ url('/document')}}/{!!$value->file_surat!!}" target="_blank">
+                                    <span>Download</span></a>
+                                @endif
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -54,24 +60,31 @@
             <div class="row">
                 <div class="col-sm-10">
                  <div class="form-group row">
-                        {{ Form::label('status', 'Status', ['class' => 'col-sm-3 text-right']) }}
+                        {{ Form::label('Status', 'Status*', ['class' => 'col-sm-3 text-right']) }}
                         <div class="col-sm-9">
-                            {!! Form::select('status', $perintahDisposisi, null, ['placeholder' => 'Pilih Penyelesaian','class' => 'form-control']) !!}
+                            {!! Form::select('status', $perintahDisposisi, null, ['placeholder' => 'Pilih Status','class' => 'form-control','onchange' => 'filter(this.value)']) !!}
                         </div>
                     </div>
                     <div class="form-group row">
+                        {{ Form::label('Catatan Penting', 'Catatan Penting*', ['class' => 'col-sm-3 text-right']) }}
+                        <div class="col-sm-9">
+                            {{ Form::hidden('surat_masuk_id', $surat_masuk_id, ['class' => 'form-control', 'style' => 'height:50px' ]) }}
+                            {{ Form::textarea('catatan_penting', null, ['class' => 'form-control', 'style' => 'height:50px' ]) }}
+                        </div>
+                    </div>
+                    <div class="form-group row" id="tujuan_surat_div" style="display: none;">
                         {{ Form::label('tujuan_surat', 'Pejabat Penerima', ['class' => 'col-sm-3 text-right']) }}
                         <div class="col-sm-9">
-                            {!! Form::select('tujuan_surat', $pegawai, null, ['placeholder' => 'Pilih Tujuan Surat','class' => 'form-control']) !!}
+                            {!! Form::select('tujuan_surat', $pegawai, null, ['placeholder' => 'Pilih Pejabat Penerima','class' => 'form-control']) !!}
                         </div>
                     </div>
+
                     <div class="form-group row">
-                        {{ Form::label('isi_ringkasan', 'Catatan Penting', ['class' => 'col-sm-3 text-right']) }}
-                        <div class="col-sm-9">
-                            {{ Form::text('history_id', $surat_masuk_id, ['class' => 'form-control', 'style' => 'height:50px' ]) }}
-                            {{ Form::textarea('isi_ringkasan', null, ['class' => 'form-control', 'style' => 'height:50px' ]) }}
-                        </div>
-                    </div>
+                    {{ Form::label('fileSurat', 'Unggah Berkas', ['class' => 'col-sm-3 text-right']) }}
+                    <div class="col-sm-9">
+                    {{ Form::file('fileSurat', null, ['class' => 'form-control']) }}
+                </div>
+            </div>
                     
                 </div>
             </div>
@@ -87,3 +100,18 @@
         </div>
     </section>
 </div>
+
+
+<script type="text/javascript">
+function filter(id) {
+
+    if(id == '1')
+    document.getElementById('tujuan_surat_div').style.display = 'block';
+    else{
+    document.getElementById('tujuan_surat_div').style.display = 'none';
+    }
+}
+ </script>
+
+
+

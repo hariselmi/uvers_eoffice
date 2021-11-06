@@ -22,41 +22,12 @@ Route::group(['middleware' => 'languange'], function () {
 
     Route::get('/set-role/{role}', 'HomeController@setRole')->name('setRole');
 
-    Route::resource('customers', 'CustomerController');
-    Route::get('customer/export', 'CustomerController@export')->name('customers.export');
-    Route::post('customer/import', 'CustomerController@import')->name('customers.import');
-
-    Route::resource('members', 'MemberController');
-    Route::get('member/getmember/{id}', 'MemberController@getMember')->name('member.getMember');
-    Route::get('members/getmembers/{id}', 'MemberController@getMembers')->name('member.getMembers');
-    Route::resource('schedules', 'ScheduleController');
-
-
     Route::get('schedule/getstandarddetail/{id}', 'ScheduleController@getStandardDetail')->name('member.getStandardDetail');
     Route::post('schedule/getclockstart', 'ScheduleController@getclockstart')->name('schedule.getclockstart');
     Route::post('schedule/getclockstartedit', 'ScheduleController@getclockstartedit')->name('schedule.getclockstartedit');
 
     Route::post('home/period_filter', 'HomeController@period_filter')->name('home.period_filter');
 
-
-
-
-    Route::resource('documents', 'DocumentController');
-    Route::get('documents/{id}/print', 'DocumentController@print')->name('document.print');
-    Route::resource('checklists', 'CheckListController');
-    Route::get('checklists/{id}/print', 'CheckListController@print')->name('checklists.print');
-    Route::resource('findings', 'FindingController');
-    Route::get('findings/{id}/print', 'FindingController@print')->name('findings.print');
-    Route::resource('reports', 'ReportsController');
-    Route::get('reports/{id}/print', 'ReportsController@print')->name('reports.print');
-    Route::resource('uploaddocuments', 'UploadDocumentController');
-    Route::resource('reportalls', 'ReportAllController');
-    Route::get('reportalls/{periode_id}/print', 'ReportAllController@print')->name('reportall.print');
-    Route::get('uploaddocuments/{id}/print', 'UploadDocumentController@print')->name('uploaddocument.print');
-    
-    Route::resource('articles', 'ArticleController');
-    Route::resource('sliders', 'SlidersController');
-    Route::resource('pages', 'PagesController');
 
     // surat masuk
     Route::resource('surat-masuk', 'SuratMasukController');
@@ -66,6 +37,14 @@ Route::group(['middleware' => 'languange'], function () {
 
     // surat keluar
     Route::resource('surat-keluar', 'SuratKeluarController');
+
+    // pelaporan eoffice
+    Route::resource('pelaporan-eoffice', 'PelaporanEofficeController');
+    Route::get('pelaporan-eoffice/{id}/laporan', 'PelaporanEofficeController@laporan')->name('pelaporan-eoffice.laporan');
+    Route::post('pelaporan-eoffice/store-laporan', 'PelaporanEofficeController@storeLaporan')->name('pelaporan-eoffice.storeLaporan');
+
+    Route::get('pelaporan-eoffice/{id}/validasi', 'PelaporanEofficeController@validasi')->name('pelaporan-eoffice.validasi');
+    Route::post('pelaporan-eoffice/store-validasi', 'PelaporanEofficeController@storeValidasi')->name('pelaporan-eoffice.storeValidasi');
 
 
 
@@ -84,13 +63,6 @@ Route::group(['middleware' => 'languange'], function () {
 
     Route::resource('standarddetails', 'StandardDetailController');
     Route::resource('identity', 'IdentityController');
-    Route::resource('division', 'DivisionController');
-    Route::resource('period', 'PeriodController');
-
-    Route::resource('agenda', 'AgendaController');
-    Route::get('agenda/{periode_id}/print', 'AgendaController@print')->name('agenda.print');
-    Route::resource('verification', 'VerificationController');
-    Route::get('verification/{periode_id}/print', 'VerificationController@print')->name('verification.print');
     
 
 

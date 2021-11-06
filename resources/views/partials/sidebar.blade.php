@@ -13,15 +13,28 @@
 
 
          <li class="{{ Request::is('surat-masuk') ? 'active' : '' }}"><a
-            href="{{ url('/surat-masuk') }}"><i class="fa fa-user"></i>
+            href="{{ url('/surat-masuk') }}"><i class="fa fa-envelope"></i>
             <span>Surat Masuk</span></a>
          </li>
 
 
          <li class="{{ Request::is('surat-keluar') ? 'active' : '' }}"><a
-            href="{{ url('/surat-keluar') }}"><i class="fa fa-user"></i>
+            href="{{ url('/surat-keluar') }}"><i class="fa fa-envelope-o"></i>
             <span>Surat Keluar</span></a>
          </li>
+
+         <li class="{{ Request::is('pelaporan-eoffice') ? 'active' : '' }}"><a
+            href="{{ url('/pelaporan-eoffice') }}"><i class="fa fa-file"></i>
+            <span>Pelaporan</span></a>
+         </li>
+
+         <li class="{{ Request::is('repositori-eoffice') ? 'active' : '' }}"><a
+            href="{{ url('/repositori-eoffice') }}"><i class="fa fa-database"></i>
+            <span>Repositori</span></a>
+         </li>
+
+            <!-- admin menu buka -->
+            @if (Auth::user()->role == 'Admin')
 
          <li
             class="{{ Request::is('unit-kerja') || Request::is('jabatan') || Request::is('pegawai') || Request::is('akun') ? 'active' : '' }} treeview">
@@ -54,30 +67,37 @@
                   <a href="{{ url('/jenis-surat') }}"><i class="fa fa-envelope-o" aria-hidden="true"></i>
                   <span>Jenis Surat</span></a>
                </li>
-               <li class="{{ Request::is('sifat-surat') ? 'active' : '' }} ">
+<!--                <li class="{{ Request::is('sifat-surat') ? 'active' : '' }} ">
                   <a href="{{ url('/sifat-surat') }}"><i class="fa fa-question-circle-o" aria-hidden="true"></i>
                   <span>Sifat Surat</span></a>
                </li>
                <li class="{{ Request::is('prioritas-surat') ? 'active' : '' }} "><a
                   href="{{ url('/prioritas-surat') }}"><i class="fa fa-clock-o" aria-hidden="true"></i>
                   <span>Prioritas Surat</span></a>
-               </li>
+               </li> -->
                <li class="{{ Request::is('media-surat') ? 'active' : '' }} "><a
                   href="{{ url('/media-surat') }}"><i class="fa fa-paperclip" aria-hidden="true"></i>
                   <span>Media Surat</span></a>
                </li>
-               <li class="{{ Request::is('perintah-disposisi') ? 'active' : '' }} "><a
+<!--                <li class="{{ Request::is('perintah-disposisi') ? 'active' : '' }} "><a
                   href="{{ url('/perintah-disposisi') }}"><i class="fa fa-bullhorn" aria-hidden="true"></i>
                   <span>Perintah Disposisi</span></a>
-               </li>
+               </li> -->
             </ul>
          </li>
-
-
          <li class="{{ Request::is('employees') ? 'active' : '' }}"><a
             href="{{ url('/employees') }}"><i class="fa fa-user"></i>
             <span>{{ trans('menu.employees') }}</span></a>
          </li>
+
+@endif
+
+         <li class="{{ Request::is('logout') ? 'active' : '' }}"><a
+            href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i>
+            <span>Logout</span></a>
+         </li>
+
+
       </ul>
       <!-- admin menu tutup -->
    </section>

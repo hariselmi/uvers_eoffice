@@ -23,7 +23,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ($history_surat_masuk as $key=>$value)
+                        @foreach ($history_pelaporan_eoffice as $key=>$value)
                             <tr>
                                 <td class="hidden-xs">{{ $key+1 }}</td>
                                 <td class="hidden-xs">{{ $value->asal_surat }}</td>

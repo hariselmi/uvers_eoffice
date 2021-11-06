@@ -8,7 +8,7 @@ use Auth;
 use DB;
 use Get_field;
 
-class SuratMasuk extends Model
+class PelaporanEoffice extends Model
 {
     use HasFactory;
     protected $table = 'surat_masuk';
@@ -22,24 +22,30 @@ class SuratMasuk extends Model
         ->leftJoin('users', 'surat_masuk.users_id', 'users.id');
 
 
-        if ($userRole != 'Admin' OR $userRole != 'Staff') {
+        if ($userRole != 'Admin') {
+
+
             $jabatan_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'jabatan_id');
             $unit_kerja_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
+            $hak_approval = Get_field::get_data($jabatan_id, 'jabatan', 'hak_approval');
 
-            if ($unit_kerja_id == '1' OR $unit_kerja_id == '7') {
-                # code...
-                $results = $this->select('*')->where('dlt','0')->orderBy('surat_masuk.created_at');
-            }else{
-
-                $results = $this->select('surat_masuk.*')
-                ->join('history_surat_masuk', 'history_surat_masuk.surat_masuk_id', 'surat_masuk.id')
-                ->where([['surat_masuk.dlt','0'], ['history_surat_masuk.tujuan_surat', Auth::user()->pegawai_id]])
-                ->orderBy('surat_masuk.created_at');
-
+            if($hak_approval == '1')
+            {
+                $results = $this->select('*')->where([['dlt','0'],['laporan','1'],['laporan_unit_kerja_id', $unit_kerja_id]])->orderBy('surat_masuk.created_at');
             }
+            else{
+                $results = $this->select('*')->where([['dlt','0'],['laporan','1'],['laporan_pegawai_id',Auth::user()->pegawai_id]])->orderBy('surat_masuk.created_at');
+            }
+
+
+
+
+
+
+
         }else{
 
-            $results = $this->select('*')->where('dlt','0')->orderBy('surat_masuk.created_at');
+            $results = $this->select('*')->where([['dlt','0'],['laporan','1']])->orderBy('surat_masuk.created_at');
         }
 
         $per_page = !empty($search['per_page']) ? $search['per_page'] : 10;
@@ -57,7 +63,7 @@ class SuratMasuk extends Model
         }
     }
 
-    public function saveSuratMasuk(Array $data)
+    public function savePelaporanEoffice(Array $data)
     {
         // $this->id;
         $this->no_surat = $data['no_surat'];

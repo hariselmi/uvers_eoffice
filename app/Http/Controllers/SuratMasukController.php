@@ -81,8 +81,6 @@ class SuratMasukController extends Controller
         //
         $input = $request->all();
         $this->validator($input)->validate();
-        // $suratMasuk = new SuratMasuk;
-        // $suratMasuk->saveSuratMasuk($input);
 
         $fileSurat = $request->file('fileSurat');
 
@@ -101,6 +99,7 @@ class SuratMasukController extends Controller
         // $this->id;
         $surat = new SuratMasuk;
         $surat->no_surat = $request->no_surat;
+        $surat->pegawai_id = Auth::user()->pegawai_id;
         $surat->perihal = $request->perihal;
         $surat->asal_surat = $request->asal_surat;
         $surat->tujuan_surat = '0';
@@ -111,26 +110,12 @@ class SuratMasukController extends Controller
         $surat->file_surat = $fileSurat ? $newName : null;
         $surat->dlt = '0';
         $surat->save();
-
-        DB::table('history_surat_masuk')->insert([
-            'surat_masuk_id' => $surat->id,
-            'no_surat' => $request->no_surat,
-            'asal_surat' => $request->asal_surat,
-            'tujuan_surat' => '0',
-            'tgl_posisi' => $request->tgl_surat,
-            'isi_ringkasan' => $request->isi_ringkasan,
-            'status' => '0',
-            'dlt' => '0',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-            'unit_id' => '0',
-        ]);
         
 
         $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
         $data['mediaSurat'] = MediaSurat::where('softdelete', '0')->pluck('nama', 'id');
-        // $data['users'] = DB::table('users')->where('role', 'suratMasuk')->pluck('name', 'id');
-        return $this->sendCommonResponse($data, 'You have successfully added suratMasuk', 'add');
+
+        return $this->sendCommonResponse($data, 'Anda telah berhasil menambahkan surat masuk', 'add');
     }
 
     /**
@@ -202,7 +187,7 @@ class SuratMasukController extends Controller
 
         $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
         $data['mediaSurat'] = MediaSurat::where('softdelete', '0')->pluck('nama', 'id');
-        return $this->sendCommonResponse($data, 'You have successfully updated suratMasuk', 'update');
+        return $this->sendCommonResponse($data, 'Anda telah berhasil memperbarui surat masuk', 'update');
     }
 
     /**
@@ -219,7 +204,7 @@ class SuratMasukController extends Controller
             $suratMasuk->dlt = '1';
             $suratMasuk->save();
 
-            return $this->sendCommonResponse([], 'You have successfully deleted suratMasuk', 'delete');
+            return $this->sendCommonResponse([], 'Anda telah berhasil menghapus surat masuk', 'delete');
         } catch (\Illuminate\Database\QueryException $e) {
             return $this->sendCommonResponse([], ['danger'=>__('Integrity constraint violation: You Cannot delete a parent row')]);
         }
@@ -242,7 +227,7 @@ class SuratMasukController extends Controller
     public function disposisi($id)
     {
         
-        $data['perintahDisposisi'] =  DB::table('perintah_disposisi')->where([['softdelete' , '0'], ['id', '>', '2'], ['id', '<', '6']])->pluck('nama', 'id');
+        $data['perintahDisposisi'] =  DB::table('perintah_disposisi')->where([['softdelete' , '0'],['id', '<', '4']])->pluck('nama', 'id');
 
 
         $data['pegawai'] = Pegawai::where('softdelete', '0')->pluck('nama', 'id');
@@ -269,35 +254,65 @@ class SuratMasukController extends Controller
     public function storeDisposisi(Request $request)
     {
         //
+        // dd($request->all());
         $input = $request->all();
         $this->validatorDisposisi($input)->validate();
 
-        DB::table('history_surat_masuk')->insert([
-            'surat_masuk_id' => $request->surat_id,
-            'no_surat' => $request->no_surat,
-            'asal_surat' => Auth::user()->name,
-            'tujuan_surat' => '0',
-            'tgl_posisi' => $request->tgl_surat,
-            'isi_ringkasan' => $request->isi_ringkasan,
+        $fileSurat = $request->file('fileSurat');
+
+        if ($fileSurat) {
+            # code...
+            $nameGenerate = hexdec(uniqid());
+            $imgExtention = strtolower($fileSurat->getClientOriginalExtension());
+            $imgOriName = strtolower($fileSurat->getClientOriginalName());
+            $newName = $nameGenerate.'_'.$imgExtention;
+            $uploadLocation = public_path().'/document';
+            $lastImage = $uploadLocation.$newName;
+            $fileSurat->move($uploadLocation,$newName);
+        }
+
+        if ($request->status == '2') {
+            # code...
+
+            DB::table('surat_masuk')->where('id', $request->surat_masuk_id)->update([
+                'laporan' => '1',
+                'status_laporan_id' => '1',
+                'laporan_unit_kerja_id' => Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id'),
+                'laporan_pegawai_id' => Auth::user()->pegawai_id,
+            ]);
+
+        }
+
+        DB::table('surat_masuk')->where('id', $request->surat_masuk_id)->update([
             'status' => $request->status,
+        ]);
+
+        DB::table('history_surat_masuk')->insert([
+            'surat_masuk_id' => $request->surat_masuk_id,
+            'pegawai_id' => Auth::user()->pegawai_id,
+            'asal_surat' => Auth::user()->pegawai_id,
+            'tujuan_surat' => $request->tujuan_surat,
+            'tanggal' => date('Y-m-d'),
+            'catatan_penting' => $request->catatan_penting,
+            'status' => $request->status,
+            'file_surat' => $fileSurat ? $newName : null,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
             'dlt' => '0',
-            'unit_id' => '0',
+            'unit_id' => Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id'),
         ]);
 
         $data['pegawai'] = Pegawai::where('softdelete', '0')->pluck('nama', 'id');
         $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
         $data['mediaSurat'] = MediaSurat::where('softdelete', '0')->pluck('nama', 'id');
-        return $this->sendCommonResponse($data, 'You have successfully added suratMasuk', 'add');
+        return $this->sendCommonResponse($data, 'Anda telah berhasil memperbarui surat masuk', 'add');
     }
+
 
     protected function validatorDisposisi(Array $data)
     {
         return Validator::make($data, [
-            'no_surat'=>'required',
-            'tujuan_surat'=>'required',
-            'isi_ringkasan'=>'required',
+            'catatan_penting'=>'required',
             'status'=>'required',
         ]);
     }
@@ -334,7 +349,7 @@ class SuratMasukController extends Controller
             $response['replaceWith']['#posisiSuratMasuk'] = view('surat_masuk.posisi', $data)->render();
         } else if ($option == 'disposisi') {
             $response['replaceWith']['#disposisiSuratMasuk'] = view('surat_masuk.disposisi', $data)->render();
-        }  
+        } 
         if ( in_array($option, ['index', 'add', 'update', 'delete', 'import'])) {
             if (empty($data['surat_masuk'])) {
                 $data['surat_masuk'] = $suratMasukObj->getAll('paginate');

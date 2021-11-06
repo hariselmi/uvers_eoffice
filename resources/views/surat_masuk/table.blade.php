@@ -7,6 +7,7 @@
                 <th>Tanggal</th>
                 <th>Perihal</th>
                 <th>Asal Surat</th>
+                <th>Status</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -27,22 +28,32 @@
         @endif
                     </td>
                     <td class="hidden-xs">{{ $value->asal_surat }}</td>
+                    <td class="hidden-xs">{{ Get_field::get_data($value->status, 'perintah_disposisi', 'nama') }}</td>
                     <td class="item_btn_group">
-                        @php
-                            $actions = [
-                                ['data-replace' => '#posisiSuratMasuk', 'url' => '#posisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye'], 
-                                ['data-replace' => '#disposisiSuratMasuk', 'url' => '#disposisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/disposisi'), 'name' => ' Disposisi', 'icon' => 'eye'], 
-                                ['data-replace' => '#showSuratMasuk', 'url' => '#showSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/'), 'name' => ' Lihat', 'icon' => 'eye'], 
-                                ['data-replace' => '#editSuratMasuk', 'url' => '#editSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'],
-                                ['url' => 'surat-masuk/' . $value->id, 'name' => 'delete']
-                            ];
-                        @endphp
+                        @if($value->status == 1 || $value->status == null)
+                            @php
+                                $actions = [
+                                    ['data-replace' => '#posisiSuratMasuk', 'url' => '#posisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye'], 
+                                    ['data-replace' => '#disposisiSuratMasuk', 'url' => '#disposisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/disposisi'), 'name' => ' Disposisi', 'icon' => 'plus'], 
+                                    ['data-replace' => '#editSuratMasuk', 'url' => '#editSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'],
+                                    ['url' => 'surat-masuk/' . $value->id, 'name' => 'delete']
+                                ];
+                            @endphp
+                        @else
+                            @php
+                                $actions = [
+                                    ['data-replace' => '#posisiSuratMasuk', 'url' => '#posisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye'], 
+                                    ['data-replace' => '#editSuratMasuk', 'url' => '#editSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'],
+                                    ['url' => 'surat-masuk/' . $value->id, 'name' => 'delete']
+                                ];
+                            @endphp
+                        @endif
                         @include('partials.actions', ['actions'=>$actions])
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    @include('partials.pagination', ['items'=>$surat_masuk, 'index_route'=>route('members.index')])
+    @include('partials.pagination', ['items'=>$surat_masuk, 'index_route'=>route('surat-masuk.index')])
 </div>
     

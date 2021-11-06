@@ -14,6 +14,8 @@
 </div>
 <div class="modal-body">
     <div class="row">
+
+            @if (auth()->user()->checkSpPermission('assaign.roles'))
         <div class="col-md-6">
             <div class="form-group row">
                 {{ Form::label('name', trans('employee.name') . ' *', ['class' => 'col-sm-3 text-right']) }}
@@ -34,6 +36,8 @@
                 </div>
             </div>
         </div>
+        @endif
+
         <div class="col-md-6">
             <div class="form-group row">
                 {{ Form::label('password', trans('employee.password'), ['class' => 'col-sm-3 text-right']) }}
