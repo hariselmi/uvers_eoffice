@@ -14,23 +14,48 @@
 
          <li class="{{ Request::is('surat-masuk') ? 'active' : '' }}"><a
             href="{{ url('/surat-masuk') }}"><i class="fa fa-envelope"></i>
-            <span>Surat Masuk</span></a>
+            <span>Surat Masuk UVERS</span></a>
          </li>
 
 
          <li class="{{ Request::is('surat-keluar') ? 'active' : '' }}"><a
             href="{{ url('/surat-keluar') }}"><i class="fa fa-envelope-o"></i>
-            <span>Surat Keluar</span></a>
+            <span>Surat Internal</span></a>
          </li>
 
-         <li class="{{ Request::is('pelaporan-eoffice') ? 'active' : '' }}"><a
-            href="{{ url('/pelaporan-eoffice') }}"><i class="fa fa-file"></i>
-            <span>Pelaporan</span></a>
+
+         <li
+            class="{{ Request::is('pelaporan-eoffice') || Request::is('pelaporan-eoffice-internal') ? 'active' : '' }} treeview">
+            <a href="#"><i class="fa fa-cog"></i> <span>Pelaporan</span><span
+               class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+
+            <ul class="treeview-menu">
+               <li class="{{ Request::is('pelaporan-eoffice') ? 'active' : '' }}"><a
+                  href="{{ url('/pelaporan-eoffice') }}"><i class="fa fa-file"></i>
+                  <span> Surat Masuk UVERS</span></a>
+               </li>
+               <li class="{{ Request::is('pelaporan-eoffice-internal') ? 'active' : '' }}"><a
+                  href="{{ url('/pelaporan-eoffice-internal') }}"><i class="fa fa-file"></i>
+                  <span> Surat Internal</span></a>
+               </li>
+            </ul>
          </li>
 
-         <li class="{{ Request::is('repositori-eoffice') ? 'active' : '' }}"><a
-            href="{{ url('/repositori-eoffice') }}"><i class="fa fa-database"></i>
-            <span>Repositori</span></a>
+         <li
+            class="{{ Request::is('pelaporan-repositori') || Request::is('pelaporan-repositori-internal') ? 'active' : '' }} treeview">
+            <a href="#"><i class="fa fa-database"></i> <span>Repositori</span><span
+               class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+
+            <ul class="treeview-menu">
+               <li class="{{ Request::is('pelaporan-repositori') ? 'active' : '' }}"><a
+                  href="{{ url('/pelaporan-repositori') }}"><i class="fa fa-file"></i>
+                  <span>Surat Masuk UVERS</span></a>
+               </li>
+               <li class="{{ Request::is('pelaporan-repositori-internal') ? 'active' : '' }}"><a
+                  href="{{ url('/pelaporan-repositori-internal') }}"><i class="fa fa-file"></i>
+                  <span>Surat Internal</span></a>
+               </li>
+            </ul>
          </li>
 
             <!-- admin menu buka -->

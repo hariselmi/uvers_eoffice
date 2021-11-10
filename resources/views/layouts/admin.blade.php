@@ -68,5 +68,10 @@
 <!-- page script -->
 <script src="{{asset('js/main.js')}}"></script>
 @yield('script')
+<script type="text/javascript">
+   $( document ).ready(function() {
+      $('input').attr('autocomplete','off');
+  });
+</script>
 </body>
 </html>

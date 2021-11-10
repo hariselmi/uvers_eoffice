@@ -10,52 +10,53 @@
     <div class="row">
         <div class="col-sm-10">
             <div class="form-group row">
-                {{ Form::label('no_surat', 'No Surat', ['class' => 'col-sm-3 text-right']) }}
+                {{ Form::label('no_surat', 'No Surat*', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {{ Form::text('no_surat', null, ['class' => 'form-control', '']) }}
                 </div>
             </div>
             <div class="form-group row">
-                {{ Form::label('perihal', 'Perihal', ['class' => 'col-sm-3 text-right']) }}
+                {{ Form::label('perihal', 'Perihal*', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {{ Form::text('perihal', null, ['class' => 'form-control', '']) }}
                 </div>
             </div>
             <div class="form-group row">
-                {{ Form::label('asal_surat', 'Asal Surat', ['class' => 'col-sm-3 text-right']) }}
+                {{ Form::label('asal_surat', 'Asal Surat*', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {{ Form::text('asal_surat', null, ['class' => 'form-control', '']) }}
                 </div>
             </div>
             <div class="form-group row">
-                {{ Form::label('isi_ringkasan', 'Isi Ringkasan', ['class' => 'col-sm-3 text-right']) }}
+                {{ Form::label('isi_ringkasan', 'Isi Ringkasan*', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {{ Form::textarea('isi_ringkasan', null, ['class' => 'form-control', 'style' => 'height:50px' ]) }}
                 </div>
             </div>
 
             <div class="form-group row">
-                {{ Form::label('tgl_surat', 'Tanggal Surat', ['class' => 'col-sm-3 text-right']) }}
+                {{ Form::label('tgl_surat', 'Tanggal Surat*', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {{ Form::date('tgl_surat', null, ['class' => 'form-control', '']) }}
                 </div>
             </div>
             <div class="form-group row">
-                {{ Form::label('jenis_id', 'Jenis Surat', ['class' => 'col-sm-3 text-right']) }}
+                {{ Form::label('jenis_id', 'Jenis Surat*', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {!! Form::select('jenis_id', $jenisSurat, null, ['placeholder' => 'Pilih Jenis Surat','class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group row">
-                {{ Form::label('media_id', 'Media Pengiriman Surat', ['class' => 'col-sm-3 text-right']) }}
+                {{ Form::label('media_id', 'Media Pengiriman Surat*', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {!! Form::select('media_id', $mediaSurat, null, ['placeholder' => 'Pilih Media Pengiriman Surat','class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group row">
-                {{ Form::label('fileSurat', 'Unggah Berkas', ['class' => 'col-sm-3 text-right']) }}
+                {{ Form::label('fileSurat', 'Unggah Berkas*', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {{ Form::file('fileSurat', null, ['class' => 'form-control']) }}
+                    Maksimal 2MB
                 </div>
             </div>
         </div>

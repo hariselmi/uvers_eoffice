@@ -15,7 +15,7 @@
                     <td class="item_btn_group">
                         @php
                             $actions = [
-                                ['data-replace' => '#editDivision', 'url' => '#editDivisionModal', 'ajax-url' => url('division/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'],
+                                ['data-replace' => '#editDivision', 'url' => '#editDivisionModal', 'ajax-url' => url('division/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'],
                                 ['url' => 'division/' . $value->id, 'name' => 'delete']
                             ];
                         @endphp

@@ -34,7 +34,7 @@
                     </td>
                     <td class="hidden-xs">{{ Get_field::get_data($value->status_laporan_id, 'status_laporan', 'nama') }}</td>
                     <td class="hidden-xs">Catatan : {{ $value->laporan_catatan }} <br>
-                        @if($value->file_surat != '' && $value->file_surat != null)
+                        @if($value->laporan_file != '' && $value->laporan_file != null)
                         File :
                         <a href="{{ url('/document')}}/{!!$value->laporan_file!!}" target="_blank">
                             <span>Download</span></a>
@@ -51,15 +51,27 @@
                             ];
                             @endphp
                             @elseif($value->status_laporan_id == '2')
-                            @php
-                            $actions = [
-                            ['data-replace' => '#validasiPelaporanEoffice', 'url' => '#validasiPelaporanEofficeModal', 'ajax-url' => url('pelaporan-eoffice/' . $value->id . '/validasi'), 'name' => ' Validasi ', 'icon' => 'check']
-                            ];
-                            @endphp
+
+                            @if($value->laporan_pegawai_id == Auth::user()->pegawai_id)
+                            
+                                @php
+                                $actions = [
+                                ['data-replace' => '#validasiPelaporanEoffice', 'url' => '#', 'ajax-url' => url('pelaporan-eoffice/' . $value->id . '/validasi'), 'name' => ' Menunggu Persetujuan ', 'icon' => 'tutup']
+                                ];
+                                @endphp
+                            @else
+                                @php
+                                $actions = [
+                                ['data-replace' => '#validasiPelaporanEoffice', 'url' => '#validasiPelaporanEofficeModal', 'ajax-url' => url('pelaporan-eoffice/' . $value->id . '/validasi'), 'name' => ' Validasi ', 'icon' => 'check']
+                                ];
+                                @endphp
+
+                            @endif
+
                             @else
                             @php
                             $actions = [
-                            ['data-replace' => '#', 'url' => '#', 'ajax-url' => url('#'), 'name' => ' Close ', 'icon' => 'tutup']
+                            ['data-replace' => '#', 'url' => '#', 'ajax-url' => url('#'), 'name' => ' Selesai ', 'icon' => 'tutup']
                             ];
                             @endphp
                             @endif

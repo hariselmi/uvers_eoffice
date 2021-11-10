@@ -45,7 +45,7 @@
                                 @php
                                     // $actions = [
                                     //     ['data-replace' => '#showDocument', 'url' => '#showDocumentModal', 'ajax-url' => url('documents/' . $value->id . '/'), 'name' => ' Lihat', 'icon' => 'eye'], 
-                                    //     ['data-replace' => '#editDocument', 'url' => '#editDocumentModal', 'ajax-url' => url('documents/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'], 
+                                    //     ['data-replace' => '#editDocument', 'url' => '#editDocumentModal', 'ajax-url' => url('documents/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'], 
                                     //     ['url' => 'documents/' . $value->id . '/print', 'name' => ' Cetak', 'target' => '_blank', 'icon' => 'print']];\
 
 
@@ -57,7 +57,7 @@
                                     }
                                     if (auth()->user()->checkSpPermission('documents.edit')  && session('role') == 'auditor') {
                                         # code...
-                                        $edit = ['data-replace' => '#editDocument', 'url' => '#editDocumentModal', 'ajax-url' => url('documents/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'];
+                                        $edit = ['data-replace' => '#editDocument', 'url' => '#editDocumentModal', 'ajax-url' => url('documents/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'];
                                         array_push($actions, $edit);
                                     }
                                     if (auth()->user()->checkSpPermission('documents.print')  && session('role') == 'auditor') {

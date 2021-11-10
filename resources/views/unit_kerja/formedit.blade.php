@@ -18,12 +18,6 @@
                 </div>
             </div>
             <div class="form-group row">
-                {{ Form::label('kepala_unit', 'Kepala Unit' . ' *', ['class' => 'col-sm-3 text-right']) }}
-                <div class="col-sm-9">
-                    {{ Form::text('kepala_unit', null, ['id' => 'edit_nama', 'class' => 'form-control', 'required']) }}
-                </div>
-            </div>
-            <div class="form-group row">
                 {{ Form::label('keterangan', 'Keterangan', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {{ Form::text('keterangan', null, ['id' => 'edit_keterangan', 'class' => 'form-control', '']) }}

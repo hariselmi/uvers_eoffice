@@ -1,14 +1,13 @@
-<div class="" id="memberDetails">
+<div class="" id="suratKeluarDetails">
     <!-- Content Header (Page header) -->
 
-    @if (auth()->user()->checkSpPermission('members.create'))
     <section class="content-header m-3">
-        <h1>{{ __('Anggota') }}
-            <a class="btn btn-small btn-success pull-right" href="#addMemberModal" data-toggle='modal'>
-                <i class="fa fa-plus"></i>&nbsp; {{ __('Tambah') }}</a>
+        <h1>{{ __('Daftar Surat Internal') }}
+            <a class="btn btn-small btn-success pull-right" href="#addSuratKeluarModal" data-toggle='modal'>
+                <i class="fa fa-plus"></i>&nbsp; {{ __('Buat Surat') }}</a>
         </h1>
     </section>
-    @endif
+
 
     <!-- Main content -->
     <section class="content">
@@ -16,10 +15,10 @@
             <div class="col-xs-12">
                 <div class="box box-success">
                     <div class="box-header">
-                        @include('partials.filters', ['filter_route'=>url('/members'), 'filter_id'=>'memberFilter'])
+                        @include('partials.filters', ['filter_route'=>url('/surat-keluar'), 'filter_id'=>'suratKeluarFilter'])
                     </div>
                     <div class="box-body">
-                        @include('member.table')
+                        @include('surat_keluar.table')
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -28,19 +27,29 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-        <div class="modal fade sub-modal" id="addMemberModal">
+        <div class="modal fade sub-modal" id="addSuratKeluarModal">
             <div class="modal-dialog modal-lg">
-                @include('member.formadd', ['member'=>''])
+                @include('surat_keluar.formadd', ['surat_keluar'=>''])
             </div>
         </div>
-        <div class="modal fade sub-modal" id="editMemberModal">
+        <div class="modal fade sub-modal" id="editSuratKeluarModal">
             <div class="modal-dialog modal-lg">
-                @include('member.formedit', ['member'=>''])
+                @include('surat_keluar.formedit', ['surat_keluar'=>''])
             </div>
         </div>
-        <div class="modal fade sub-modal" id="showMemberModal">
+        <div class="modal fade sub-modal" id="showSuratKeluarModal">
             <div class="modal-dialog modal-lg">
-                <div class="modal-content" id="showMember"></div>
+                <div class="modal-content" id="showSuratKeluar"></div>
+            </div>
+        </div>
+        <div class="modal fade sub-modal" id="posisiSuratKeluarModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" id="posisiSuratKeluar"></div>
+            </div>
+        </div>
+        <div class="modal fade sub-modal" id="disposisiSuratKeluarModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" id="disposisiSuratKeluar"></div>
             </div>
         </div>
     </section>

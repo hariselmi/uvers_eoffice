@@ -166,6 +166,16 @@ class PelaporanEofficeController extends Controller
                 'status_laporan_id' => $request->status_laporan_id,
                 'laporan_pegawai_approval_id' => Auth::user()->pegawai_id,
             ]);
+
+            if ($request->status_laporan_id == '3'){
+                DB::table('surat_masuk')->where('id', $request->surat_masuk_id)->update([
+                'status' => '3'
+                ]);
+            }elseif($request->status_laporan_id == '4') {
+                DB::table('surat_masuk')->where('id', $request->surat_masuk_id)->update([
+                'status' => '4'
+            ]);
+            }
         
 
         $data['surat_masuk_id'] = $request->surat_masuk_id;
@@ -178,6 +188,7 @@ class PelaporanEofficeController extends Controller
     {
         return Validator::make($data, [
             'catatan_penting'=>'required',
+            'fileSurat'=>'required',
         ]);
     }
 

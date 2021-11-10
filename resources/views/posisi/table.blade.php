@@ -21,7 +21,7 @@
                             $actions = [
                                 ['url' => 'surat-masuk/' . $value->id.'/posisi', 'name' => 'Posisi', 'icon' => 'asd'],
                                 ['data-replace' => '#showSuratMasuk', 'url' => '#showSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/'), 'name' => ' Lihat', 'icon' => 'eye'], 
-                                ['data-replace' => '#editSuratMasuk', 'url' => '#editSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'],
+                                ['data-replace' => '#editSuratMasuk', 'url' => '#editSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'],
                                 ['url' => 'surat-masuk/' . $value->id, 'name' => 'delete']
                             ];
                         @endphp

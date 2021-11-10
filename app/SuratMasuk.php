@@ -21,26 +21,38 @@ class SuratMasuk extends Model
         $results = $this->select('users.id')
         ->leftJoin('users', 'surat_masuk.users_id', 'users.id');
 
+         if ($userRole == 'Admin') {
 
-        if ($userRole != 'Admin' OR $userRole != 'Staff') {
+
+            $results = $this->select('*')->where('dlt','0')->orderBy('surat_masuk.created_at','DESC');
+
+
+        } elseif ($userRole == 'Staff') {
+
+
+            $results = $this->select('*')->where('dlt','0')->orderBy('surat_masuk.created_at','DESC');
+
+
+        } else{
+
+
             $jabatan_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'jabatan_id');
             $unit_kerja_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
 
-            if ($unit_kerja_id == '1' OR $unit_kerja_id == '7') {
+            if ($unit_kerja_id == '1' OR $unit_kerja_id == '2') {
                 # code...
-                $results = $this->select('*')->where('dlt','0')->orderBy('surat_masuk.created_at');
+                $results = $this->select('*')->where('dlt','0')->orderBy('surat_masuk.created_at','DESC');
             }else{
 
                 $results = $this->select('surat_masuk.*')
                 ->join('history_surat_masuk', 'history_surat_masuk.surat_masuk_id', 'surat_masuk.id')
                 ->where([['surat_masuk.dlt','0'], ['history_surat_masuk.tujuan_surat', Auth::user()->pegawai_id]])
-                ->orderBy('surat_masuk.created_at');
+                ->orderBy('surat_masuk.created_at','DESC');
 
             }
-        }else{
-
-            $results = $this->select('*')->where('dlt','0')->orderBy('surat_masuk.created_at');
         }
+
+
 
         $per_page = !empty($search['per_page']) ? $search['per_page'] : 10;
         if(!empty($search)) {

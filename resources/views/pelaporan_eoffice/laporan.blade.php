@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                    {{ Form::label('fileSurat', 'Unggah Berkas', ['class' => 'col-sm-3 text-right']) }}
+                    {{ Form::label('fileSurat', 'Unggah Berkas*', ['class' => 'col-sm-3 text-right']) }}
                     <div class="col-sm-9">
                     {{ Form::file('fileSurat', null, ['class' => 'form-control']) }}
                 </div>

@@ -31,8 +31,6 @@ class UnitKerja extends Model
     public function SaveUnitKerja(Array $data)
     {
         $this->nama = $data['nama'];
-        $this->keterangan = $data['keterangan'];
-        $this->kepala_unit = $data['kepala_unit'];
         $this->updated_at = date('Y-m-d H:i:s');
         $this->save();
     }

@@ -35,7 +35,8 @@ class Pegawai extends Model
         $this->telepon = $data['telepon'];
         $this->jabatan_id = $data['jabatan_id'];
         $this->unit_kerja_id = $data['unit_kerja_id'];
-        $this->updated_at = date('Y-m-d H:i:s');
+        $this->kepala_unit = $data['kepala_unit'];
+        //$this->updated_at = date('Y-m-d H:i:s');
         $this->save();
     }
 

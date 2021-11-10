@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="content-wrapper">
-    @include('member.member')
+    @include('surat_keluar.surat_keluar')
 </div>
 
 

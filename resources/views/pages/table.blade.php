@@ -13,7 +13,7 @@
                     <td class="item_btn_group">
                         @php
                             $actions = [
-                                ['data-replace' => '#editPages', 'url' => '#editPagesModal', 'ajax-url' => url('pages/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil']
+                                ['data-replace' => '#editPages', 'url' => '#editPagesModal', 'ajax-url' => url('pages/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil']
                             ];
                         @endphp
                         @include('partials.actions', ['actions'=>$actions])

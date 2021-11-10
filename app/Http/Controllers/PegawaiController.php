@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class PegawaiController extends Controller
 {
@@ -42,7 +43,11 @@ class PegawaiController extends Controller
 
         $data['semua_pegawai'] = $this->pegawai->getAll('paginate');
         $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
+
         $data['jabatan'] = DB::table('jabatan')->where('softdelete', '0')->pluck('nama', 'id');
+
+        $data['kepalaunit'] = DB::table('kepala_unit')->pluck('nama', 'id');
+
         return view('pegawai.index', $data);
     }
 
@@ -67,11 +72,29 @@ class PegawaiController extends Controller
         //
         $input = $request->all();
         $this->validator($input)->validate();
+
+        //update kepala unit
+        if($request->kepala_unit == '2')
+        {
+            DB::table('pegawai')->where('unit_kerja_id', $request->unit_kerja_id)->update([
+                'kepala_unit' => '1'
+                ]);
+        }
+
         $semua_pegawai = new Pegawai;
         $semua_pegawai->SavePegawai($input);
 
+        //update kepala unit
+        if($request->kepala_unit == '2')
+        {
+            DB::table('unit_kerja')->where('id', $request->unit_kerja_id)->update([
+                'pegawai_id' => $semua_pegawai
+            ]);
+        }
+
         $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
         $data['jabatan'] = DB::table('jabatan')->where('softdelete', '0')->pluck('nama', 'id');
+        $data['kepalaunit'] = DB::table('kepala_unit')->pluck('nama', 'id');
         
         return $this->sendCommonResponse($data, 'Data berhasil ditambahkan', 'add');
     }
@@ -85,9 +108,9 @@ class PegawaiController extends Controller
     public function show(Request $request, $id)
     {
         //
-        $data['pegawai'] = Pegawai::find($id);
-        $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
+       $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
         $data['jabatan'] = DB::table('jabatan')->where('softdelete', '0')->pluck('nama', 'id');
+        $data['kepalaunit'] = DB::table('kepala_unit')->pluck('nama', 'id');
 
         return $this->sendCommonResponse($data, null, 'show');
     }
@@ -102,8 +125,9 @@ class PegawaiController extends Controller
     {
         //
         $data['pegawai'] = Pegawai::find($id);
-        $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
+       $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
         $data['jabatan'] = DB::table('jabatan')->where('softdelete', '0')->pluck('nama', 'id');
+        $data['kepalaunit'] = DB::table('kepala_unit')->pluck('nama', 'id');
         return $this->sendCommonResponse($data, null, 'edit');
     }
 
@@ -120,12 +144,35 @@ class PegawaiController extends Controller
         //
         $input = $request->all();
         $this->validator($input)->validate();
+
+        //update kepala unit
+        if($request->kepala_unit == '2')
+        {
+            DB::table('pegawai')->where('unit_kerja_id', $request->unit_kerja_id)->update([
+                'kepala_unit' => '1'
+                ]);
+        }
+
         $semua_pegawai = (new Pegawai())->getById($id);
-        
         $semua_pegawai->SavePegawai($input);
+
+        //update kepala unit
+        if($request->kepala_unit == '2')
+        {
+            DB::table('unit_kerja')->where('id', $request->unit_kerja_id)->update([
+                'pegawai_id' => $id,
+            ]);
+        }
+
         $data['pegawai'] = $semua_pegawai;
-        $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
+
+       $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
+
         $data['jabatan'] = DB::table('jabatan')->where('softdelete', '0')->pluck('nama', 'id');
+        $data['kepalaunit'] = DB::table('kepala_unit')->pluck('nama', 'id');
+
+
+        
         return $this->sendCommonResponse($data, 'Data berhasil diedit', 'update');
     }
 
@@ -140,7 +187,7 @@ class PegawaiController extends Controller
         //
         try {
             $pegawai = Pegawai::find($id);
-            $pegawai->updated_at = date('Y-m-d H:i:s');
+            //$pegawai->updated_at = date('Y-m-d H:i:s');
             $pegawai->softdelete = '1';
             $pegawai->save();
 

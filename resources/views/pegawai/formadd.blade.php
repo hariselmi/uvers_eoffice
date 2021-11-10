@@ -30,13 +30,19 @@
             <div class="form-group row">
                 {{ Form::label('unit_kerja_id', 'Unit Kerja' . ' *', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
-                    {!! Form::select('unit_kerja_id', $unitkerja, null, ['placeholder' => 'Pilih Unit Kerja', ' ' , 'class' => 'form-control', 'required', 'onchange' => 'getJabatan(this)']) !!}
+                    {!! Form::select('unit_kerja_id', $unitkerja, null, ['placeholder' => 'Pilih Unit Kerja', ' ' , 'class' => 'form-control', 'required']) !!}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ Form::label('kepala_unit', 'Kepala Unit' . ' *', ['class' => 'col-sm-3 text-right']) }}
+                <div class="col-sm-9">
+                    {!! Form::select('kepala_unit', $kepalaunit, null, [' ' , 'class' => 'form-control', 'required']) !!}
                 </div>
             </div>
             <div class="form-group row">
                 {{ Form::label('jabatan_id', 'Jabatan' . ' *', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
-                    {!! Form::select('jabatan_id', [], null, ['placeholder' => 'Pilih Unit Kerja', ' ' , 'class' => 'form-control', 'required']) !!}
+                    {!! Form::select('jabatan_id', $jabatan, null, ['placeholder' => 'Pilih Jabatan', ' ' , 'class' => 'form-control', 'required']) !!}
                 </div>
             </div>
             

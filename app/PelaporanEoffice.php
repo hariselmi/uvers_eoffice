@@ -20,32 +20,36 @@ class PelaporanEoffice extends Model
 
         $results = $this->select('users.id')
         ->leftJoin('users', 'surat_masuk.users_id', 'users.id');
+        
+
+        if ($userRole == 'Admin') {
 
 
-        if ($userRole != 'Admin') {
+            $results = $this->select('*')->where([['dlt','0'],['laporan','1']])->orderBy('surat_masuk.created_at');
+
+
+        } elseif ($userRole == 'Staff') {
+
+
+            $results = $this->select('*')->where([['dlt','0'],['laporan','1']])->orderBy('surat_masuk.created_at');
+
+
+        } else{
 
 
             $jabatan_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'jabatan_id');
             $unit_kerja_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
             $hak_approval = Get_field::get_data($jabatan_id, 'jabatan', 'hak_approval');
+            $kepalaunit = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'kepala_unit');
 
-            if($hak_approval == '1')
+            if($kepalaunit == '2')
             {
-                $results = $this->select('*')->where([['dlt','0'],['laporan','1'],['laporan_unit_kerja_id', $unit_kerja_id]])->orderBy('surat_masuk.created_at');
+                $results = $this->select('*')->where([['dlt','0'],['laporan','1'],['laporan_unit_kerja_id', $unit_kerja_id]])->orderBy('surat_masuk.created_at','DESC');
             }
             else{
-                $results = $this->select('*')->where([['dlt','0'],['laporan','1'],['laporan_pegawai_id',Auth::user()->pegawai_id]])->orderBy('surat_masuk.created_at');
+                
+                $results = $this->select('*')->where([['dlt','0'],['laporan','1'],['laporan_pegawai_id', Auth::user()->pegawai_id]])->orderBy('surat_masuk.created_at','DESC');
             }
-
-
-
-
-
-
-
-        }else{
-
-            $results = $this->select('*')->where([['dlt','0'],['laporan','1']])->orderBy('surat_masuk.created_at');
         }
 
         $per_page = !empty($search['per_page']) ? $search['per_page'] : 10;

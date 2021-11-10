@@ -57,8 +57,21 @@
                 {{ Form::label('fileSurat', 'Unggah Berkas', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {{ Form::file('fileSurat', null, ['class' => 'form-control']) }}
+                    Maksimal 2MB
                 </div>
             </div>
+
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                @if($fileSurat != '' OR $fileSurat != null)
+                File Unggahan Awal : 
+                  <a href="{{ url('/document')}}/{!!$fileSurat!!}" target="_blank">
+                    <span> Lihat </span></a>
+                @endif
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

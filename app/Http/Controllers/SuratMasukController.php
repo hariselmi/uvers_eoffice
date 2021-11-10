@@ -54,7 +54,7 @@ class SuratMasukController extends Controller
             $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
             $data['mediaSurat'] = MediaSurat::where('softdelete', '0')->pluck('nama', 'id');
 
-            // $data['users'] = User::where('role', 'suratMasuk')->pluck('name', 'id');
+            $data['fileSurat'] = '';
         
             $data['surat_masuk'] = $this->suratMasuk->getAll('paginate');
         return view('surat_masuk.index', $data);
@@ -86,6 +86,17 @@ class SuratMasukController extends Controller
 
         if ($fileSurat) {
             # code...
+
+
+
+        $validateData = $request->validate([
+            'fileSurat' => 'file|mimes:png,jpg,jpeg,pdf|between:0,2048',
+        ],[
+            'fileSurat.mimes' => 'Extensi file surat tugas atau surat izin tidak didukung',
+            'fileSurat.between' => 'Ukuran file surat tugas atau surat izin max 2MB',
+        ]);
+
+
             $nameGenerate = hexdec(uniqid());
             $imgExtention = strtolower($fileSurat->getClientOriginalExtension());
             $imgOriName = strtolower($fileSurat->getClientOriginalName());
@@ -94,6 +105,8 @@ class SuratMasukController extends Controller
             $lastImage = $uploadLocation.$newName;
             $fileSurat->move($uploadLocation,$newName);
         }
+
+
 
 
         // $this->id;
@@ -143,6 +156,7 @@ class SuratMasukController extends Controller
         $data['surat_masuk'] = SuratMasuk::find($id);
         $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
         $data['mediaSurat'] = MediaSurat::where('softdelete', '0')->pluck('nama', 'id');
+        $data['fileSurat'] = Get_field::get_data($id, 'surat_masuk', 'file_surat');
         return $this->sendCommonResponse($data, null, 'edit');
     }
 
@@ -187,6 +201,7 @@ class SuratMasukController extends Controller
 
         $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
         $data['mediaSurat'] = MediaSurat::where('softdelete', '0')->pluck('nama', 'id');
+        $data['fileSurat'] = Get_field::get_data($id, 'surat_masuk', 'file_surat');
         return $this->sendCommonResponse($data, 'Anda telah berhasil memperbarui surat masuk', 'update');
     }
 
@@ -305,7 +320,17 @@ class SuratMasukController extends Controller
         $data['pegawai'] = Pegawai::where('softdelete', '0')->pluck('nama', 'id');
         $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
         $data['mediaSurat'] = MediaSurat::where('softdelete', '0')->pluck('nama', 'id');
-        return $this->sendCommonResponse($data, 'Anda telah berhasil memperbarui surat masuk', 'add');
+
+        $data['history_surat_masuk'] = DB::table('history_surat_masuk')
+        ->select('history_surat_masuk.*')
+        ->where(['history_surat_masuk.dlt'=> '0', 'history_surat_masuk.surat_masuk_id'=>$request->surat_masuk_id])
+        ->get();
+
+        $data['perintahDisposisi'] =  DB::table('perintah_disposisi')->where([['softdelete' , '0'],['id', '<', '4']])->pluck('nama', 'id');
+
+        $data['surat_masuk_id'] = $request->surat_masuk_id;
+
+        return $this->sendCommonResponse($data, 'Anda telah berhasil memperbarui surat masuk', 'disposisi');
     }
 
 
@@ -350,7 +375,7 @@ class SuratMasukController extends Controller
         } else if ($option == 'disposisi') {
             $response['replaceWith']['#disposisiSuratMasuk'] = view('surat_masuk.disposisi', $data)->render();
         } 
-        if ( in_array($option, ['index', 'add', 'update', 'delete', 'import'])) {
+        if ( in_array($option, ['index', 'add', 'update', 'delete', 'import','disposisi'])) {
             if (empty($data['surat_masuk'])) {
                 $data['surat_masuk'] = $suratMasukObj->getAll('paginate');
             }

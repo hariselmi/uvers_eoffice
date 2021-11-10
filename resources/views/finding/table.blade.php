@@ -44,7 +44,7 @@
                             if (Auth::user()->role == 'admin') {
                                 # code...
                                 array_push($actions, ['data-replace' => '#showFinding', 'url' => '#showFindingModal', 'ajax-url' => url('findings/' . $value->id . '/'), 'name' => ' Lihat', 'icon' => 'eye'], 
-                                ['data-replace' => '#editFinding', 'url' => '#editFindingModal', 'ajax-url' => url('findings/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'], 
+                                ['data-replace' => '#editFinding', 'url' => '#editFindingModal', 'ajax-url' => url('findings/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'], 
                                 ['url' => 'findings/' . $value->id . '/print', 'name' => ' Cetak', 'target' => '_blank', 'icon' => 'print']);
                             }else{
 
@@ -56,7 +56,7 @@
                                     }
                                     if (auth()->user()->checkSpPermission('findings.edit') && session('role') == 'auditor') {
                                         # code...
-                                            $edit = ['data-replace' => '#editFinding', 'url' => '#editFindingModal', 'ajax-url' => url('findings/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'];
+                                            $edit = ['data-replace' => '#editFinding', 'url' => '#editFindingModal', 'ajax-url' => url('findings/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'];
                                             array_push($actions, $edit);
                                     }
                                     if (auth()->user()->checkSpPermission('findings.print') && session('role') == 'auditor') {
@@ -69,7 +69,7 @@
                                 // if (session('role') == 'auditor') {
                                 //     # code...
                                 //     array_push($actions, ['data-replace' => '#showFinding', 'url' => '#showFindingModal', 'ajax-url' => url('findings/' . $value->id . '/'), 'name' => ' Lihat', 'icon' => 'eye'], 
-                                //     ['data-replace' => '#editFinding', 'url' => '#editFindingModal', 'ajax-url' => url('findings/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'], 
+                                //     ['data-replace' => '#editFinding', 'url' => '#editFindingModal', 'ajax-url' => url('findings/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'], 
                                 //     ['url' => 'findings/' . $value->id . '/print', 'name' => ' Cetak', 'target' => '_blank', 'icon' => 'print']);
                                 // } else if(session('role') == 'auditee') {
                                 //     # code...

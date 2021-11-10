@@ -1,36 +1,108 @@
-<div class="" id="memberTable">
+<div class="" id="suratKeluarTable">
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                {{-- <th width="50" class="hidden-xs">{{trans('member.customer_id')}}</th> --}}
-                <th>{{ trans('member.chief_auditor') }}</th>
-                <th>{{ trans('member.member_name') }}</th>
-                <th>{{ trans('member.email') }}</th>
-                <th class="hidden-xs">{{ trans('member.telp') }}</th>
-                <th class="text-center">Aksi</th>
+                <th width="50" class="hidden-xs text-center">No</th>
+                <th>No Surat</th>
+                <th>Perihal</th>
+                <th>Asal Surat</th>
+                <th>Tujuan Surat</th>
+                <th>Status</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($members as $value)
+            @foreach ($semua_surat_keluar as $index=>$value)
+
+            <?php 
+
+                $ceklast = DB::table('history_surat_keluar')
+                ->where('surat_keluar_id', $value->id)
+                ->where('dlt','0')
+                ->where('pegawai_id', Auth::user()->pegawai_id)
+                ->limit('1')
+                ->orderBy('id', 'DESC')->count();
+            ?>
                 <tr>
-                    {{-- <td class="hidden-xs">{{ $value->id }}</td> --}}
-                    <td>{{ Get_field::get_data($value->auditor_id, 'users', 'name') }}</td>
-                    <td>{{ Get_field::get_data($value->users_id, 'users', 'name') }}</td>
-                    <td>{{ $value->email }}</td>
-                    <td class="hidden-xs">{{ $value->telp }}</td>
+                    <td class="hidden-xs text-center">{{ $index + 1 }}</td>
+                    <td class="hidden-xs">No : {{ $value->no_surat }} <br>
+                    Tgl : {{ Get_field::format_indo($value->tgl_surat) }}</td>
+                    <td class="hidden-xs">{{ $value->perihal }} <br>
+
+                    @if($value->file_surat != '' OR $value->file_surat != null)
+                    File : 
+                      <a href="{{ url('/document')}}/{!!$value->file_surat!!}" target="_blank">
+                        <span>Download</span></a>
+                      @else
+                              File :  
+                    @endif
+                    </td>
+                    <td class="hidden-xs">
+                        {{ Get_field::get_data(Get_field::get_data($value->asal_surat, 'pegawai', 'unit_kerja_id'), 'unit_kerja', 'nama') }} <br>
+                        [ {{ Get_field::get_data($value->asal_surat, 'pegawai', 'nama') }}  ] 
+                        
+                        
+                    </td>
+                    <td class="hidden-xs">{{ Get_field::get_data($value->tujuan_surat, 'unit_kerja', 'nama') }} <br>
+                        [ {{  Get_field::get_data(Get_field::get_data($value->tujuan_surat, 'unit_kerja', 'pegawai_id'), 'pegawai', 'nama') }} ]</td>
+                    <td class="hidden-xs">{{ Get_field::get_data($value->status, 'status_keluar', 'nama')  }}</td>
+                    
                     <td class="item_btn_group">
-                        @php
-                            $actions = [
-                                ['data-replace' => '#showMember', 'url' => '#showMemberModal', 'ajax-url' => url('members/' . $value->id . '/'), 'name' => ' Lihat', 'icon' => 'eye'], 
-                                ['data-replace' => '#editMember', 'url' => '#editMemberModal', 'ajax-url' => url('members/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'],
-                                ['url' => 'members/' . $value->id, 'name' => 'delete']
-                            ];
-                        @endphp
+                        @if($value->pegawai_id == $pegawaiID)
+                            @if($value->status == '1')
+                                @php
+                                    $actions = [
+                                        ['data-replace' => '#posisiSuratKeluar', 'url' => '#posisiSuratKeluarModal', 'ajax-url' => url('surat-keluar/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye'], 
+                                        ['data-replace' => '#editSuratKeluar', 'url' => '#editSuratKeluarModal', 'ajax-url' => url('surat-keluar/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'],
+                                        ['url' => 'surat-keluar/' . $value->id, 'name' => 'delete']
+                                    ];
+                                @endphp
+                            @else
+                                @php
+                                    $actions = [
+                                        ['data-replace' => '#posisiSuratKeluar', 'url' => '#posisiSuratKeluarModal', 'ajax-url' => url('surat-keluar/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye'], 
+                                    ];
+                                @endphp
+                            @endif
+
+                        @else
+                            @if($value->status == '3' OR $value->status == '3' OR $value->status == '5')
+                                @php
+                                    $actions = [
+                                        ['data-replace' => '#posisiSuratKeluar', 'url' => '#posisiSuratKeluarModal', 'ajax-url' => url('surat-keluar/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye']
+                                    ];
+                                @endphp
+                            @else
+
+                                @if($ceklast == 0)
+                                    @php
+                                    $actions = [
+                                        ['data-replace' => '#posisiSuratKeluar', 'url' => '#posisiSuratKeluarModal', 'ajax-url' => url('surat-keluar/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye'], 
+                                        ['data-replace' => '#disposisiSuratKeluar', 'url' => '#disposisiSuratKeluarModal', 'ajax-url' => url('surat-keluar/' . $value->id . '/disposisi'), 'name' => ' Validasi ', 'icon' => 'plus']
+                                    ];
+                                    @endphp
+                                @else
+                                    @php
+                                    $actions = [
+                                        ['data-replace' => '#posisiSuratKeluar', 'url' => '#posisiSuratKeluarModal', 'ajax-url' => url('surat-keluar/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye']
+                                    ];
+                                    @endphp
+                                 @endif
+
+                            @endif
+
+                        @endif
                         @include('partials.actions', ['actions'=>$actions])
                     </td>
                 </tr>
             @endforeach
+
+
+
+
         </tbody>
     </table>
-    @include('partials.pagination', ['items'=>$members, 'index_route'=>route('members.index')])
+    @include('partials.pagination', ['items'=>$semua_surat_keluar, 'index_route'=>route('surat-keluar.index')])
+    
 </div>
+    

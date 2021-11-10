@@ -15,9 +15,8 @@
                             <tr>
                                 <th width="50" class="hidden-xs">No</th>
                                 <th>Pejabat Pengirim</th>
-                                <th>Tgl Disposisi</th>
+                                <th>Tanggal Disposisi</th>
                                 <th>Pejabat Penerima</th>
-                                <th>Tgl Proses</th>
                                 <th>Lama Proses</th>
                                 <th>Status</th>
                                 <th>Catatan Penting</th>
@@ -30,7 +29,6 @@
                                 <td class="hidden-xs">{{ Get_field::get_data($value->asal_surat, 'pegawai', 'nama') }}</td>
                                 <td class="hidden-xs">{{ Get_field::format_indo($value->tanggal) }}</td>
                                 <td>{{ Get_field::get_data($value->tujuan_surat, 'pegawai', 'nama') }}</td>
-                                <td class="hidden-xs">{{ Get_field::format_indo($value->tanggal_proses) }}</td>
                                 <td class="hidden-xs"></td>
                                 <td>{{ Get_field::get_data($value->status, 'perintah_disposisi', 'nama') }}</td>
                                 <td class="hidden-xs">{{ $value->catatan_penting }} <br>

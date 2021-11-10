@@ -44,7 +44,7 @@
                             if (Auth::user()->role == 'admin') {
                                 # code...
                                 array_push($actions, ['data-replace' => '#showChecklist', 'url' => '#showChecklistModal', 'ajax-url' => url('checklists/' . $value->id . '/'), 'name' => ' Lihat', 'icon' => 'eye'], 
-                                ['data-replace' => '#editChecklist', 'url' => '#editChecklistModal', 'ajax-url' => url('checklists/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'], 
+                                ['data-replace' => '#editChecklist', 'url' => '#editChecklistModal', 'ajax-url' => url('checklists/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'], 
                                 ['url' => 'checklists/' . $value->id . '/print', 'name' => ' Cetak', 'target' => '_blank', 'icon' => 'print']);
                             }else{
 
@@ -55,7 +55,7 @@
                                     }
                                     if (auth()->user()->checkSpPermission('checklists.edit') && session('role') == 'auditor') {
                                         # code...
-                                            $edit = ['data-replace' => '#editChecklist', 'url' => '#editChecklistModal', 'ajax-url' => url('checklists/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'];
+                                            $edit = ['data-replace' => '#editChecklist', 'url' => '#editChecklistModal', 'ajax-url' => url('checklists/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'];
                                             array_push($actions, $edit);
                                     }
                                     if (auth()->user()->checkSpPermission('checklists.print') && session('role') == 'auditor') {
@@ -66,7 +66,7 @@
                                 // if (session('role') == 'auditor') {
                                 //     # code...
                                 //     array_push($actions, ['data-replace' => '#showChecklist', 'url' => '#showChecklistModal', 'ajax-url' => url('checklists/' . $value->id . '/'), 'name' => ' Lihat', 'icon' => 'eye'], 
-                                //     ['data-replace' => '#editChecklist', 'url' => '#editChecklistModal', 'ajax-url' => url('checklists/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'], 
+                                //     ['data-replace' => '#editChecklist', 'url' => '#editChecklistModal', 'ajax-url' => url('checklists/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'], 
                                 //     ['url' => 'checklists/' . $value->id . '/print', 'name' => ' Cetak', 'target' => '_blank', 'icon' => 'print']);
                                 // } else if(session('role') == 'auditee') {
                                 //     # code...

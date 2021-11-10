@@ -14,12 +14,12 @@
                                 @php
                                     // $actions = [
                                     //     ['data-replace' => '#showAgenda', 'url' => '#showAgendaModal', 'ajax-url' => url('agenda/' . $value->id . '/'), 'name' => ' Lihat', 'icon' => 'eye'], 
-                                    //     ['data-replace' => '#editAgenda', 'url' => '#editAgendaModal', 'ajax-url' => url('agenda/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'], 
+                                    //     ['data-replace' => '#editAgenda', 'url' => '#editAgendaModal', 'ajax-url' => url('agenda/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'], 
                                     //     ['url' => 'agenda/' . $value->id . '/print', 'name' => ' Cetak', 'target' => '_blank', 'icon' => 'print']];\
 
 
                                 $actions = [];
-                                        $edit = ['data-replace' => '#editAgenda', 'url' => '#editAgendaModal', 'ajax-url' => url('agenda/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'];
+                                        $edit = ['data-replace' => '#editAgenda', 'url' => '#editAgendaModal', 'ajax-url' => url('agenda/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'];
                                         array_push($actions, $edit);
                                         $delete = ['url' => 'agenda/' . $value->id . '/print', 'name' => ' Cetak', 'target' => '_blank', 'icon' => 'print'];
                                         array_push($actions, $delete);

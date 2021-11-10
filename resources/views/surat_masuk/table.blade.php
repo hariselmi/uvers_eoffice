@@ -13,6 +13,17 @@
         </thead>
         <tbody>
             @foreach ($surat_masuk as $key=>$value)
+
+            <?php 
+
+                $ceklast = DB::table('history_surat_masuk')
+                ->where('surat_masuk_id', $value->id)
+                ->where('dlt','0')
+                ->where('pegawai_id', Auth::user()->pegawai_id)
+                ->limit('1')
+                ->orderBy('id', 'DESC')->count();
+            ?>
+
                 <tr>
                     <td class="hidden-xs text-center">{{ $key+1 }}</td>
                     <td class="hidden-xs">{{ $value->no_surat }}</td>
@@ -31,20 +42,38 @@
                     <td class="hidden-xs">{{ Get_field::get_data($value->status, 'perintah_disposisi', 'nama') }}</td>
                     <td class="item_btn_group">
                         @if($value->status == 1 || $value->status == null)
-                            @php
-                                $actions = [
-                                    ['data-replace' => '#posisiSuratMasuk', 'url' => '#posisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye'], 
-                                    ['data-replace' => '#disposisiSuratMasuk', 'url' => '#disposisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/disposisi'), 'name' => ' Disposisi', 'icon' => 'plus'], 
-                                    ['data-replace' => '#editSuratMasuk', 'url' => '#editSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'],
-                                    ['url' => 'surat-masuk/' . $value->id, 'name' => 'delete']
-                                ];
-                            @endphp
+
+                        @if($ceklast == 0)
+                            @if(Auth::user()->role == 'Member')
+                                @php
+                                    $actions = [
+                                        ['data-replace' => '#posisiSuratMasuk', 'url' => '#posisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye'], 
+                                        ['data-replace' => '#disposisiSuratMasuk', 'url' => '#disposisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/disposisi'), 'name' => ' Validasi', 'icon' => 'plus']
+                                    ];
+                                @endphp
+                            @else
+                                @php
+                                    $actions = [
+                                        ['data-replace' => '#posisiSuratMasuk', 'url' => '#posisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye'], 
+                                        ['data-replace' => '#disposisiSuratMasuk', 'url' => '#disposisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/disposisi'), 'name' => ' Validasi', 'icon' => 'plus'], 
+                                        ['data-replace' => '#editSuratMasuk', 'url' => '#editSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'],
+                                        ['url' => 'surat-masuk/' . $value->id, 'name' => 'delete']
+                                    ];
+                                @endphp
+                            @endif
+                         @else
+                                    @php
+                                    $actions = [
+                                        ['data-replace' => '#posisiSuratMasuk', 'url' => '#posisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye']
+                                    ];
+                                @endphp
+                         @endif
+
+
                         @else
                             @php
                                 $actions = [
-                                    ['data-replace' => '#posisiSuratMasuk', 'url' => '#posisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye'], 
-                                    ['data-replace' => '#editSuratMasuk', 'url' => '#editSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'],
-                                    ['url' => 'surat-masuk/' . $value->id, 'name' => 'delete']
+                                    ['data-replace' => '#posisiSuratMasuk', 'url' => '#posisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye']
                                 ];
                             @endphp
                         @endif

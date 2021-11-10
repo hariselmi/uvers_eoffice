@@ -41,7 +41,7 @@
                         @php
                             // $actions = [
                             //     ['data-replace' => '#showUploadDocument', 'url' => '#showUploadDocumentModal', 'ajax-url' => url('uploaddocuments/' . $value->id . '/'), 'name' => ' Lihat', 'icon' => 'eye'], 
-                            //     ['data-replace' => '#editUploadDocument', 'url' => '#editUploadDocumentModal', 'ajax-url' => url('uploaddocuments/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil']];
+                            //     ['data-replace' => '#editUploadDocument', 'url' => '#editUploadDocumentModal', 'ajax-url' => url('uploaddocuments/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil']];
                                 
                                 $actions = [];
                                     if (auth()->user()->checkSpPermission('uploaddocuments.show')) {
@@ -51,7 +51,7 @@
                                     }
                                     if (auth()->user()->checkSpPermission('uploaddocuments.edit')) {
                                         # code...
-                                        $edit = ['data-replace' => '#editUploadDocument', 'url' => '#editUploadDocumentModal', 'ajax-url' => url('uploaddocuments/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'];
+                                        $edit = ['data-replace' => '#editUploadDocument', 'url' => '#editUploadDocumentModal', 'ajax-url' => url('uploaddocuments/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'];
                                         array_push($actions, $edit);
                                     }
                         @endphp

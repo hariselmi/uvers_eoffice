@@ -54,7 +54,7 @@
 
                                     if (auth()->user()->checkSpPermission('schedules.edit')) {
                                         # code...
-                                        $edit = ['data-replace' => '#editSchedule', 'url' => '#editScheduleModal', 'ajax-url' => url('schedules/' . $value->schedule_id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'];
+                                        $edit = ['data-replace' => '#editSchedule', 'url' => '#editScheduleModal', 'ajax-url' => url('schedules/' . $value->schedule_id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'];
                                         array_push($actions, $edit);
                                     }
                                     if (auth()->user()->checkSpPermission('schedules.destroy')) {

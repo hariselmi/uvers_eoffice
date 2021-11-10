@@ -53,7 +53,7 @@
               </li>
 
               <!-- Menu Footer-->
-              <li class="user-footer">
+              <!-- <li class="user-footer">
                 <div class="pull-left">
                 <a data-replace='#editEmployee' href="#editEmployeeModal" data-ajax-url="{{route('employees.edit', Auth::user()->id)}}" data-toggle="modal" class="btn btn-info">{{__('Profile')}}</a>
                 </div>
@@ -63,7 +63,36 @@
                       {{ csrf_field() }}
                   </form>
                 </div>
-              </li>
+              </li> -->
+
+              @if (Auth::user()->role != 'Admin')
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="pull-left">
+                  <a data-replace='#editUser' href="#editUserModal" data-ajax-url="{{route('user.edit', Auth::user()->id)}}" data-toggle="modal" class="btn btn-info">{{__('Profile')}}</a>
+                  </div>
+                  <div class="pull-right">
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-warning">{{trans('menu.logout')}}</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                  </div>
+                </li>
+              @else
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="pull-left">
+                  <a data-replace='#editEmployee' href="#editEmployeeModal" data-ajax-url="{{route('employees.edit', Auth::user()->id)}}" data-toggle="modal" class="btn btn-info">{{__('Profile')}}</a>
+                  </div>
+                  <div class="pull-right">
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-warning">{{trans('menu.logout')}}</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                  </div>
+                </li>
+              @endif
+              
             </ul>
           </li>
           @endif
@@ -71,8 +100,17 @@
       </div>
     </nav>
   </header>
-  <div class="modal fade sub-modal" id="editEmployeeModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content" id="editEmployee"></div>
+
+  @if (Auth::user()->role != 'Admin')
+    <div class="modal fade sub-modal" id="editUserModal">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content" id="editUser"></div>
+      </div>
     </div>
-  </div>
+  @else
+    <div class="modal fade sub-modal" id="editEmployeeModal">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content" id="editEmployee"></div>
+      </div>
+    </div>
+  @endif

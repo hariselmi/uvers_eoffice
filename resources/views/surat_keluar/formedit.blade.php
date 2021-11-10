@@ -1,28 +1,75 @@
-<div class="modal-content" id="editMember">
-    @if (!empty($member))
-    {{ Form::model($member, ['route' => ['members.update', $member->id], 'method' => 'PUT', 'files' => true]) }}
+<div class="modal-content" id="editSuratKeluar">
+    @if (!empty($surat_keluar))
+    {{ Form::model($surat_keluar, ['route' => ['surat-keluar.update', $surat_keluar->id], 'method' => 'PUT', 'files' => true]) }}
     @endif
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h4 class="modal-title">
-        {{ __('Edit Anggota') }}
+        {{ __('Edit Surat Keluar') }}
     </h4>
 </div>
 <div class="modal-body">
     <div class="row">
         <div class="col-sm-10">
             <div class="form-group row">
-                {{ Form::label('auditor_id', trans('member.chief_auditor') . ' *', ['class' => 'col-sm-3 text-right']) }}
+                {{ Form::label('no_surat', 'No Surat*', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
-                    {!! Form::select('auditor_id', $auditor, null, ['id' => 'edit_auditor_id', 'class' => 'form-control', 'required', 'onchange' => 'getMembers(this.value)']) !!}
+                    {{ Form::text('no_surat', null, ['class' => 'form-control', '']) }}
                 </div>
             </div>
             <div class="form-group row">
-                {{ Form::label('name', trans('member.member_name') . ' *', ['class' => 'col-sm-3 text-right']) }}
+                {{ Form::label('tujuan_surat', 'Tujuan Surat*', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
-                    {!! Form::select('users_id', $users, null, ['id' => 'edit_users_id', 'class' => 'form-control', 'required']) !!}
+                    {!! Form::select('tujuan_surat', $unitKerja, null, ['placeholder' => ' Pilih Tujuan','class' => 'form-control']) !!}
                 </div>
             </div>
+            <div class="form-group row">
+                {{ Form::label('perihal', 'Perihal*', ['class' => 'col-sm-3 text-right']) }}
+                <div class="col-sm-9">
+                    {{ Form::text('perihal', null, ['class' => 'form-control', '']) }}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ Form::label('isi_ringkasan', 'Isi Ringkasan*', ['class' => 'col-sm-3 text-right']) }}
+                <div class="col-sm-9">
+                    {{ Form::textarea('isi_ringkasan', null, ['class' => 'form-control', 'style' => 'height:50px']) }}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ Form::label('tgl_surat', 'Tanggal Surat*', ['class' => 'col-sm-3 text-right']) }}
+                <div class="col-sm-9">
+                    {{ Form::date('tgl_surat', null, ['class' => 'form-control', '']) }}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ Form::label('jenis_id', 'Jenis Surat*', ['class' => 'col-sm-3 text-right']) }}
+                <div class="col-sm-9">
+                    {!! Form::select('jenis_id', $jenisSurat, null, ['placeholder' => 'Pilih Ketua Auditor','class' => 'form-control']) !!}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ Form::label('fileSurat', 'Unggah Berkas', ['class' => 'col-sm-3 text-right']) }}
+
+                <div class="col-sm-9">
+                    {{ Form::file('fileSurat', null, ['class' => 'form-control']) }}
+                    Maksimal 2MB
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                @if($fileSurat != '' OR $fileSurat != null)
+                File Unggahan Awal : 
+                  <a href="{{ url('/document')}}/{!!$fileSurat!!}" target="_blank">
+                    <span> Lihat </span></a>
+                @endif
+               
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>
@@ -30,7 +77,7 @@
     @if (!empty($page))
         <input type="hidden" name="page" value="{{ $page }}" />
     @endif
-    {{ Form::submit(trans('member.submit'), ['class' => 'btn btn-success']) }}
+    {{ Form::submit(trans('Submit'), ['class' => 'btn btn-success']) }}
     <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Tutup') }}</button>
 </div>
 {{ Form::close() }}

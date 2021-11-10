@@ -19,7 +19,14 @@
                     <td class="text-center">{{ $value->email }}</td>
                     <td class="text-center">{{ $value->telepon }}</td>
                     <td class="text-center">{{ Get_field::get_data($value->unit_kerja_id, 'unit_kerja', 'nama') }} </td>
-                    <td class="text-center">{{ Get_field::get_data($value->jabatan_id, 'jabatan', 'nama') }} </td>
+                    <td class="text-center">{{ Get_field::get_data($value->jabatan_id, 'jabatan', 'nama') }} <br>
+                        <?php
+                        if($value->kepala_unit == '2'){
+                            echo "[Kepala Unit]";
+                        }
+                        ?>
+
+                    </td>
                     <td class="text-center">
                         <a href="#editPegawaiModal" data-replace-empty="#editPegawai" data-ajax-url="/pegawai/{{$value->id}}/edit" data-toggle="modal">
                         <button class="btn btn-small btn-warning pull-left" style="margin: 10px;"><i class="fa fa-edit"></i> Edit</button>

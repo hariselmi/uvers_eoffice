@@ -22,7 +22,7 @@
                         @php
                             $actions = [
                                 ['data-replace' => '#showMember', 'url' => '#showMemberModal', 'ajax-url' => url('members/' . $value->id . '/'), 'name' => ' Lihat', 'icon' => 'eye'], 
-                                ['data-replace' => '#editMember', 'url' => '#editMemberModal', 'ajax-url' => url('members/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'],
+                                ['data-replace' => '#editMember', 'url' => '#editMemberModal', 'ajax-url' => url('members/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'],
                                 ['url' => 'members/' . $value->id, 'name' => 'delete']
                             ];
                         @endphp

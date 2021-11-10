@@ -18,17 +18,18 @@
             @if (auth()->user()->checkSpPermission('assaign.roles'))
         <div class="col-md-6">
             <div class="form-group row">
-                {{ Form::label('name', trans('employee.name') . ' *', ['class' => 'col-sm-3 text-right']) }}
-                <div class="col-sm-9">
-                    {{ Form::text('name', null, ['class' => 'form-control']) }}
-                </div>
-            </div>
-            <div class="form-group row">
                 {{ Form::label('pegawai_id', 'Pegawai' . ' *', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
                     {!! Form::select('pegawai_id', $pegawai, null, ['placeholder' => 'Pilih Pegawai', ' ' , 'class' => 'form-control', 'required']) !!}
                 </div>
             </div>
+            <div class="form-group row">
+                {{ Form::label('name', trans('employee.name') . ' *', ['class' => 'col-sm-3 text-right']) }}
+                <div class="col-sm-9">
+                    {{ Form::text('name', null, ['class' => 'form-control']) }}
+                </div>
+            </div>
+
             <div class="form-group row">
                 {{ Form::label('email', trans('employee.email') . ' *', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">

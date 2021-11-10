@@ -23,7 +23,7 @@
                     <td class="item_btn_group">
                         @php
                             $actions = [
-                                ['data-replace' => '#editIdentity', 'url' => '#editIdentityModal', 'ajax-url' => url('identity/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil']
+                                ['data-replace' => '#editIdentity', 'url' => '#editIdentityModal', 'ajax-url' => url('identity/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil']
                             ];
                         @endphp
                         @include('partials.actions', ['actions'=>$actions])

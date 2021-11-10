@@ -18,7 +18,7 @@
                         @php
                             $actions = [
                                 ['data-replace' => '#showStandardDetail', 'url' => '#showStandardDetailModal', 'ajax-url' => url('standarddetails/' . $value->id . '/'), 'name' => ' Lihat', 'icon' => 'eye'], 
-                                ['data-replace' => '#editStandardDetail', 'url' => '#editStandardDetailModal', 'ajax-url' => url('standarddetails/' . $value->id . '/edit'), 'name' => ' Sunting', 'icon' => 'pencil'],
+                                ['data-replace' => '#editStandardDetail', 'url' => '#editStandardDetailModal', 'ajax-url' => url('standarddetails/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'],
                                 ['url' => 'standarddetails/' . $value->id, 'name' => 'delete']
                             ];
                         @endphp

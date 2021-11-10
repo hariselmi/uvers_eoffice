@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Pegawai;
 use App\Http\Requests\EmployeeStoreRequest;
 use App\Http\Requests\EmployeeUpdateRequest;
 use Illuminate\Support\Facades\Input;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Str;
+
 
 class EmployeeController extends Controller
 {
@@ -47,7 +49,17 @@ class EmployeeController extends Controller
             return $this->sendCommonResponse($data, null, 'index');
         }
         $data['employees'] = $this->user->getAll('paginate');
-        $data['pegawai'] = DB::table('pegawai')->where('softdelete', '0')->pluck('nama', 'id');
+
+
+        $data['pegawai'] = DB::table('pegawai')
+            ->select('nama','id')
+             ->where('softdelete', '0')
+             ->where('status', '0')
+             ->pluck('nama', 'id');
+
+
+
+        
         return view('employee.index', $data);
     }
 
@@ -87,7 +99,20 @@ class EmployeeController extends Controller
         $this->assignRoles($user, $request->role);
         
         $data['roles'] = Role::all();
-        $data['pegawai'] = DB::table('pegawai')->where('softdelete', '0')->pluck('nama', 'id');
+
+        //update pegawai
+        $updatePegawai = Pegawai::find($request->pegawai_id);
+        $updatePegawai->status = '1';
+        $updatePegawai->save();
+
+        $data['pegawai'] = DB::table('pegawai')
+            ->select('nama','id')
+             ->where('softdelete', '0')
+             ->where('status', '0')
+             ->pluck('nama', 'id');
+
+
+
     
         return $this->sendCommonResponse($data, __('You have successfully added employee'), 'add');
     }
@@ -102,9 +127,26 @@ class EmployeeController extends Controller
     {
         $data['employee'] = User::find($id);
         $data['roles'] = Role::all();
-        $data['pegawai'] = DB::table('pegawai')->where('softdelete', '0')->pluck('nama', 'id');
+        $data['pegawai'] = DB::table('pegawai')
+            ->select('nama','id')
+             ->where('softdelete', '0')
+             ->where('status', '0')
+             ->pluck('nama', 'id');
         
         return $this->sendCommonResponse($data, null, 'edit');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function userEdit($id)
+    {
+        $data['employee'] = User::find($id);
+        $data['roles'] = Role::all();
+        return $this->sendCommonResponse($data, null, 'userEdit');
     }
 
     /**
@@ -115,12 +157,7 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($id == 1) {
-            // Session::flash('message', 'You cannot edit admin on Lembaga Penjamin Mutu | Universitas Universal');
-            // Session::flash('alert-class', 'alert-danger');
-            //     return Redirect::to('employees');
-            return $this->sendCommonResponse([], ['danger'=>__('You cannot edit super admin')]);    
-        } else {
+
            
             $rules = array(
             'name' => 'required',
@@ -135,8 +172,6 @@ class EmployeeController extends Controller
                  return Redirect::to('employees/' . $id . '/edit')
                 ->withErrors($validator);
             } else {
-
-                dd('ss');
                 $user = User::find($id);
                 $user->name = $request->name;
                 $user->pegawai_id = $request->pegawai_id;
@@ -151,6 +186,40 @@ class EmployeeController extends Controller
                 $data['roles'] = Role::all();
                 $data['employee'] = $user;
                 return $this->sendCommonResponse($data, __('You have successfully updated employee'), 'update');
+            }
+        
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function userUpdate(Request $request, $id)
+    {
+        if ($id == 1) {
+            // Session::flash('message', 'You cannot edit admin on Lembaga Penjamin Mutu | Universitas Universal');
+            // Session::flash('alert-class', 'alert-danger');
+            //     return Redirect::to('employees');
+            return $this->sendCommonResponse([], ['danger'=>__('You cannot edit super admin')]);    
+        } else {
+            $rules = array(
+            'password' => 'nullable|min:6|max:30|confirmed',
+            );
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                 return Redirect::to('userEdit/' . $id)
+                ->withErrors($validator);
+            } else {
+                $user = User::find($id);
+                if (!empty($request->password)) {
+                    $user->password = Hash::make($request->password);
+                }
+                $user->save();
+                $data['roles'] = Role::all();
+                $data['employee'] = $user;
+                return $this->sendCommonResponse($data, __('Berhasil memperbarui data'), 'userUpdate');
             }
         }
     }
@@ -246,7 +315,7 @@ class EmployeeController extends Controller
             'permissions'=>'required',
         ]);
         $role = Role::findById($request->role_id);
-        if ($role->name == 'admin') {
+        if ($role->name == 'Admin') {
             return $this->sendCommonResponse([], ['danger'=>__('You can not edit admin permissions')]);
         }
         $permissions = $request->permissions;
@@ -280,11 +349,17 @@ class EmployeeController extends Controller
             $response['replaceWith']['#showCustomer'] = view('customer.profile', $data)->render();
         }  else if ($option == 'permission-list') {
             $response['replaceWith']['#permissionList'] = view('employee.permission_list', $data)->render();
+        } else if ($option == 'userEdit' || $option == 'userUpdate') {
+            $response['replaceWith']['#editUser'] = view('employee.form_user', $data)->render();
         }
         if ( $option == 'index' || $option == 'add' || $option == 'update' || $option == 'delete' || $option == 'role-create') {
             if (empty($data['employees'])) {
                 $data['employees'] = $this->user->getAll('paginate');
-                $data['pegawai'] = DB::table('pegawai')->where('softdelete', '0')->pluck('nama', 'id');
+                $data['pegawai'] = DB::table('pegawai')
+            ->select('nama','id')
+             ->where('softdelete', '0')
+             ->where('status', '0')
+             ->pluck('nama', 'id');
             }
             if (empty($data['roles'])) {
                 $data['roles'] = Role::all();
