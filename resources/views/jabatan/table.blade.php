@@ -4,7 +4,6 @@
             <tr>
                 <th class="text-center">No</th>
                 <th class="text-center">Jabatan</th>
-                <th class="text-center">Unit Kerja</th>
                 <th class="text-center">Keterangan</th>
                 <th class="text-center">Opsi</th>
             </tr>
@@ -13,21 +12,18 @@
             @foreach ($semua_jabatan as $index=>$value)
                 <tr>
                     <td class="text-center">{{ $index+1 }}</td>
-                    <td class="text-center">{{ $value->nama }}</td>
-                    <td class="text-center">{{ Get_field::get_data($value->unit_kerja_id, 'unit_kerja', 'nama') }} </td>
-                    <td class="text-center">{{ $value->keterangan }}</td>
-                    <td class="text-center">
-                        <a href="#editJabatanModal" data-replace-empty="#editJabatan" data-ajax-url="/jabatan/{{$value->id}}/edit" data-toggle="modal">
-                        <button class="btn btn-small btn-warning pull-left" style="margin: 10px;"><i class="fa fa-edit"></i> Edit</button>
-                        </a>
+                    <td class="text-left">{{ $value->nama }}</td>
+                    <td class="text-left">{{ $value->keterangan }}</td>
 
+                    <td class="item_btn_group">
+                        @php
+                            $actions = [ 
+                                ['data-replace' => '#editJabatan', 'url' => '#editJabatanModal', 'ajax-url' => url('jabatan/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'],
 
-
-                        <a href="#" class="delete-form" onclick="return confirm('Apakah anda yakin?')"><form method="POST" action="/jabatan/{{$value->id}}" accept-charset="UTF-8" class="form-inline">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input name="_method" type="hidden" value="DELETE">
-                        <button class="btn btn-small btn-danger pull-left" style="margin: 10px;"><i class="fa fa-trash"></i> Hapus</button>
-                        </form></a>
+                                ['url' => 'jabatan/' . $value->id, 'name' => 'delete']
+                            ];
+                        @endphp
+                        @include('partials.actions', ['actions'=>$actions])
                     </td>
                 </tr>
             @endforeach

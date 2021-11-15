@@ -11,7 +11,7 @@ class Jabatan extends Model
     protected $table = 'jabatan';
 
     public function getAll($option=null, $search=null) {
-        $results = $this->where('softdelete','0')->latest();
+        $results = $this->where('softdelete','0');
 
         $per_page = !empty($search['per_page']) ? $search['per_page'] : 10;
         if(!empty($search)) {
@@ -31,7 +31,6 @@ class Jabatan extends Model
     public function SaveJabatan(Array $data)
     {
         $this->nama = $data['nama'];
-        $this->unit_kerja_id = $data['unit_kerja_id'];
         $this->keterangan = $data['keterangan'];
         $this->updated_at = date('Y-m-d H:i:s');
         $this->save();

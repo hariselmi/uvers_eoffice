@@ -3,9 +3,9 @@
         <thead>
             <tr>
                 <th width="50" class="hidden-xs text-center">No</th>
-                <th>Jenis Surat</th>
-                <th>Perihal</th>
-                <th>File</th>
+                <th class="text-center">Jenis Surat</th>
+                <th class="text-center">Perihal</th>
+                <th class="text-center">File</th>
             </tr>
         </thead>
         <tbody>

@@ -3,8 +3,8 @@
     <table id="myTable" class="table table-bordered table-striped table-hover">
         <thead>
             <tr>
-                <th>{{ trans('employee.name') }}</th>
-                <th>{{ trans('employee.email') }}</th>
+                <th class="text-center">{{ trans('employee.name') }}</th>
+                <th class="text-center">{{ trans('employee.email') }}</th>
                 <th class="hidden-xs">Role</th>
                 <th class="text-center">{{ __('Action') }}</th>
             </tr>
@@ -57,3 +57,9 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $('#addEmployeeModal').modal('hide');
+    $('#editEmployeeModal').modal('hide');
+    
+</script>

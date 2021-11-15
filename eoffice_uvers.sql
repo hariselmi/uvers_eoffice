@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 02, 2021 at 06:46 AM
+-- Generation Time: Nov 15, 2021 at 05:18 AM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `articles`
+-- Table structure for table `articles_`
 --
 
-CREATE TABLE `articles` (
+CREATE TABLE `articles_` (
   `id` int(10) UNSIGNED NOT NULL,
   `date` date DEFAULT NULL,
   `title` text COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -42,10 +42,10 @@ CREATE TABLE `articles` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `check_lists`
+-- Table structure for table `check_lists_`
 --
 
-CREATE TABLE `check_lists` (
+CREATE TABLE `check_lists_` (
   `id` int(10) UNSIGNED NOT NULL,
   `schedule_id` int(11) DEFAULT NULL,
   `status` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -57,10 +57,10 @@ CREATE TABLE `check_lists` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `check_list_details`
+-- Table structure for table `check_list_details_`
 --
 
-CREATE TABLE `check_list_details` (
+CREATE TABLE `check_list_details_` (
   `id` int(10) UNSIGNED NOT NULL,
   `checklist_id` int(11) NOT NULL,
   `reference` text COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -76,10 +76,10 @@ CREATE TABLE `check_list_details` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `clock`
+-- Table structure for table `clock_`
 --
 
-CREATE TABLE `clock` (
+CREATE TABLE `clock_` (
   `id` int(10) UNSIGNED NOT NULL,
   `nama` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -87,10 +87,10 @@ CREATE TABLE `clock` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `clock`
+-- Dumping data for table `clock_`
 --
 
-INSERT INTO `clock` (`id`, `nama`, `created_at`, `updated_at`) VALUES
+INSERT INTO `clock_` (`id`, `nama`, `created_at`, `updated_at`) VALUES
 (1, '07:00', '2021-07-18 19:50:04', '2021-07-18 19:50:04'),
 (2, '08:00', '2021-07-18 19:50:04', '2021-07-18 19:50:04'),
 (3, '09:00', '2021-07-18 19:50:04', '2021-07-18 19:50:04'),
@@ -107,10 +107,10 @@ INSERT INTO `clock` (`id`, `nama`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `divisions`
+-- Table structure for table `divisions_`
 --
 
-CREATE TABLE `divisions` (
+CREATE TABLE `divisions_` (
   `id` int(10) UNSIGNED NOT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `dlt` enum('0','1') COLLATE utf8_unicode_ci DEFAULT '0',
@@ -120,10 +120,10 @@ CREATE TABLE `divisions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `divisions`
+-- Dumping data for table `divisions_`
 --
 
-INSERT INTO `divisions` (`id`, `parent_id`, `dlt`, `title`, `created_at`, `updated_at`) VALUES
+INSERT INTO `divisions_` (`id`, `parent_id`, `dlt`, `title`, `created_at`, `updated_at`) VALUES
 (1, NULL, '0', 'Universitas Universal', '2021-07-18 15:00:34', '2021-07-18 15:02:03'),
 (2, 1, '0', 'Fakultas Bisnis', '2021-07-18 15:01:02', '2021-07-18 15:01:02'),
 (3, 1, '0', 'Fakultas Komputer', '2021-07-18 15:02:42', '2021-07-18 15:02:42'),
@@ -144,10 +144,10 @@ INSERT INTO `divisions` (`id`, `parent_id`, `dlt`, `title`, `created_at`, `updat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `documents`
+-- Table structure for table `documents_`
 --
 
-CREATE TABLE `documents` (
+CREATE TABLE `documents_` (
   `id` int(10) UNSIGNED NOT NULL,
   `schedule_id` int(11) DEFAULT NULL,
   `status` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -159,10 +159,10 @@ CREATE TABLE `documents` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `document_details`
+-- Table structure for table `document_details_`
 --
 
-CREATE TABLE `document_details` (
+CREATE TABLE `document_details_` (
   `id` int(10) UNSIGNED NOT NULL,
   `document_id` int(11) DEFAULT NULL,
   `document` text COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -175,10 +175,10 @@ CREATE TABLE `document_details` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `findings`
+-- Table structure for table `findings_`
 --
 
-CREATE TABLE `findings` (
+CREATE TABLE `findings_` (
   `id` int(10) UNSIGNED NOT NULL,
   `schedule_id` int(11) DEFAULT NULL,
   `status` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -190,10 +190,10 @@ CREATE TABLE `findings` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `finding_details`
+-- Table structure for table `finding_details_`
 --
 
-CREATE TABLE `finding_details` (
+CREATE TABLE `finding_details_` (
   `id` int(10) UNSIGNED NOT NULL,
   `finding_id` int(11) DEFAULT NULL,
   `category` text COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -215,28 +215,58 @@ CREATE TABLE `finding_details` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `history_surat_keluar`
+--
+
+CREATE TABLE `history_surat_keluar` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `pegawai_id` int(11) DEFAULT NULL,
+  `surat_keluar_id` int(11) DEFAULT NULL,
+  `asal_surat` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tujuan_surat` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `tanggal_proses` date DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `file_surat` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `catatan_penting` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `unit_id` int(11) DEFAULT NULL,
+  `dlt` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `history_surat_masuk`
 --
 
 CREATE TABLE `history_surat_masuk` (
   `id` int(10) UNSIGNED NOT NULL,
+  `pegawai_id` int(11) DEFAULT NULL,
   `surat_masuk_id` int(11) DEFAULT NULL,
-  `no_surat` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `asal_surat` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `tujuan_surat` text COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tgl_posisi` date DEFAULT NULL,
-  `status` tinyint(1) DEFAULT NULL,
-  `dlt` tinyint(1) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `tanggal_proses` date DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `file_surat` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `catatan_penting` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `unit_id` int(11) DEFAULT NULL,
+  `dlt` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `history_surat_masuk`
 --
 
-INSERT INTO `history_surat_masuk` (`id`, `surat_masuk_id`, `no_surat`, `asal_surat`, `tujuan_surat`, `tgl_posisi`, `status`, `dlt`, `created_at`, `updated_at`) VALUES
-(2, 3, '1', '1', '1', '2021-10-30', 0, NULL, NULL, NULL);
+INSERT INTO `history_surat_masuk` (`id`, `pegawai_id`, `surat_masuk_id`, `asal_surat`, `tujuan_surat`, `tanggal`, `tanggal_proses`, `status`, `file_surat`, `created_at`, `updated_at`, `catatan_penting`, `unit_id`, `dlt`) VALUES
+(1, 1, 1, '1', '20', '2021-11-15', NULL, 1, NULL, '2021-11-15 09:10:57', '2021-11-15 09:10:57', '1', 7, 0),
+(2, 1, 1, '1', NULL, '2021-11-15', NULL, 2, NULL, '2021-11-15 09:21:51', '2021-11-15 09:21:51', '1', 7, 0),
+(3, 1, 1, '1', NULL, '2021-11-15', NULL, 2, NULL, '2021-11-15 09:22:19', '2021-11-15 09:22:19', '1', 7, 0),
+(4, 1, 2, '1', NULL, '2021-11-15', NULL, 2, NULL, '2021-11-15 09:24:01', '2021-11-15 09:24:01', '1', 7, 0);
 
 -- --------------------------------------------------------
 
@@ -266,10 +296,10 @@ INSERT INTO `identities` (`id`, `nama`, `facebook`, `whatsapp`, `instagram`, `em
 -- --------------------------------------------------------
 
 --
--- Table structure for table `items`
+-- Table structure for table `items_`
 --
 
-CREATE TABLE `items` (
+CREATE TABLE `items_` (
   `id` int(10) UNSIGNED NOT NULL,
   `upc_ean_isbn` varchar(90) COLLATE utf8_unicode_ci DEFAULT NULL,
   `item_name` varchar(90) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -293,8 +323,9 @@ CREATE TABLE `items` (
 CREATE TABLE `jabatan` (
   `id` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
-  `unit_kerja_id` int(11) DEFAULT NULL,
   `keterangan` varchar(255) DEFAULT NULL,
+  `atasan_id` int(11) DEFAULT NULL,
+  `hak_approval` enum('0','1') DEFAULT '0',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `softdelete` enum('0','1') DEFAULT '0'
@@ -304,20 +335,19 @@ CREATE TABLE `jabatan` (
 -- Dumping data for table `jabatan`
 --
 
-INSERT INTO `jabatan` (`id`, `nama`, `unit_kerja_id`, `keterangan`, `created_at`, `updated_at`, `softdelete`) VALUES
-(1, '2', 2, '2', '2021-09-28 20:50:40', '2021-09-28 20:50:52', '1'),
-(2, '1', 3, '1', '2021-09-28 20:50:58', '2021-10-29 19:34:25', '0'),
-(3, '1', 2, '1', '2021-10-29 19:16:07', '2021-10-29 19:34:21', '0'),
-(4, 'ketua', 2, '2 tahun', '2021-10-29 19:24:42', '2021-10-29 19:34:17', '0'),
-(5, '1', 3, '1', '2021-10-29 19:26:21', '2021-10-29 19:26:21', '0'),
-(6, '1', 2, '1', '2021-10-29 19:26:49', '2021-10-29 19:31:31', '1'),
-(7, '1', 2, '2', '2021-10-29 19:27:42', '2021-10-29 19:31:30', '1'),
-(8, '1', 3, '1', '2021-10-29 19:29:14', '2021-10-29 19:31:27', '1'),
-(9, '1', 3, '1', '2021-10-29 19:30:11', '2021-10-29 19:31:25', '1'),
-(10, 'KETUA', 3, 'SANDI', '2021-10-29 21:23:09', '2021-10-29 21:23:09', '0'),
-(11, 'STAF', 3, 'STAF PRODI SI', '2021-10-29 21:23:22', '2021-10-29 21:23:22', '0'),
-(12, 'Rektor', 4, 'Rektor', '2021-10-30 13:25:09', '2021-10-30 13:25:09', '0'),
-(13, 'Staf Rektor', 4, 'Staf Rektor', '2021-10-30 13:25:28', '2021-10-30 13:25:28', '0');
+INSERT INTO `jabatan` (`id`, `nama`, `keterangan`, `atasan_id`, `hak_approval`, `created_at`, `updated_at`, `softdelete`) VALUES
+(1, 'Administrator', 'Administrator', 1, '1', '2021-11-04 22:45:25', '2021-11-15 09:06:52', '0'),
+(2, 'Rektor', 'Rektor', 1, '1', '2021-11-04 22:45:25', '2021-11-04 22:45:25', '0'),
+(3, 'Wakil Rektor', 'Wakil Rektor', 2, '1', '2021-11-04 22:45:25', '2021-11-04 22:45:25', '0'),
+(4, 'Dekan', 'Dekan', 2, '1', '2021-11-04 22:45:25', '2021-11-04 22:45:25', '0'),
+(5, 'Sekretaris Dekan', 'Sekretaris Dekan', 4, '1', '2021-11-04 22:45:25', '2021-11-04 22:45:25', '0'),
+(6, 'Koordinator Program Studi', 'Koordinator Program Studi', 4, '1', '2021-11-04 22:45:25', '2021-11-04 22:45:25', '0'),
+(7, 'Dosen', 'Dosen', 6, '1', '2021-11-04 22:45:25', '2021-11-04 22:45:25', '0'),
+(20, 'Staff Admin', 'Staff Admin Rektorat', NULL, '0', '2021-11-10 10:37:41', '2021-11-10 10:37:41', '0'),
+(21, 'tes', 'tes', NULL, '0', '2021-11-15 08:35:50', '2021-11-15 08:39:02', '1'),
+(22, 'tes', 'tes', NULL, '0', '2021-11-15 08:35:52', '2021-11-15 08:38:18', '1'),
+(23, 'tes', 'tes', NULL, '0', '2021-11-15 08:36:56', '2021-11-15 08:38:29', '1'),
+(24, 'tes', 'tes', NULL, '0', '2021-11-15 08:38:12', '2021-11-15 08:38:58', '1');
 
 -- --------------------------------------------------------
 
@@ -339,26 +369,35 @@ CREATE TABLE `jenis_surat` (
 --
 
 INSERT INTO `jenis_surat` (`id`, `nama`, `keterangan`, `created_at`, `updated_at`, `softdelete`) VALUES
-(1, 'Surat Permohonan', 'Surat Permohonan', NULL, NULL, '1'),
-(2, 'Surat Keputusan', 'Surat Keputusan', NULL, '2021-09-08 21:24:28', '1'),
-(3, 'Surat Kuasa', 'Surat Kuasa', NULL, '2021-09-08 21:26:46', '1'),
-(4, 'Surat Perintah', 'Surat Perintah', NULL, '2021-09-08 21:42:52', '1'),
-(5, 'Surat', 'aa', '2021-09-08 21:53:51', '2021-09-08 21:53:51', '0'),
+(1, 'Surat Permohonan', 'Surat Permohonan', NULL, NULL, '0'),
+(2, 'Surat Keputusan', 'Surat Keputusan', NULL, '2021-09-08 21:24:28', '0'),
+(3, 'Surat Kuasa', 'Surat Kuasa', NULL, '2021-09-08 21:26:46', '0'),
+(4, 'Surat Perintah', 'Surat Perintah', NULL, '2021-09-08 21:42:52', '0'),
+(5, 'Surat Dinas', 'Surat Dinas', '2021-09-08 21:53:51', '2021-11-15 09:06:21', '0'),
 (6, 'Surat Edaran', 'Surat Edaran', NULL, NULL, '0'),
 (7, 'Surat Undangan', 'Surat Undangan', NULL, NULL, '0'),
-(12, 'asa', 'a', '2021-09-08 21:52:10', '2021-09-08 21:52:10', '0'),
-(13, '1', '1', '2021-09-08 22:01:24', '2021-09-28 19:19:17', '1'),
-(14, '1', '1', '2021-09-08 22:02:05', '2021-09-08 22:35:07', '1'),
-(15, '11', '33', '2021-09-08 22:02:54', '2021-09-08 22:35:04', '1'),
-(16, '3', '33', '2021-09-08 22:03:12', '2021-09-08 22:34:09', '1'),
-(17, '33', '33', '2021-09-08 22:03:55', '2021-09-08 22:06:48', '1'),
-(18, 'aa', 'aa', '2021-09-08 22:06:27', '2021-09-08 22:06:36', '1'),
-(19, '11', '1', '2021-09-08 22:16:27', '2021-09-08 22:19:07', '1'),
-(20, 'ss', 'ss', '2021-09-28 19:17:03', '2021-09-28 19:19:14', '1'),
-(21, 'q', NULL, '2021-09-28 19:18:59', '2021-09-28 19:19:12', '1'),
-(22, 'Surat Dinas', 'Surat Dinas', '2021-09-28 19:27:44', '2021-09-28 19:27:44', '0'),
-(23, '1', '1', '2021-09-28 19:29:52', '2021-09-28 19:29:52', '0'),
-(24, '1', '1', '2021-09-28 19:30:00', '2021-09-28 19:30:00', '0');
+(8, 'Surat Tugas', 'Surat Tugas', NULL, NULL, '0'),
+(25, 'tes', 'tes', '2021-11-15 08:46:52', '2021-11-15 08:46:58', '1'),
+(26, '1', 'r', '2021-11-15 08:47:04', '2021-11-15 08:47:33', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kepala_unit`
+--
+
+CREATE TABLE `kepala_unit` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kepala_unit`
+--
+
+INSERT INTO `kepala_unit` (`id`, `nama`) VALUES
+(1, 'Tidak'),
+(2, 'Iya');
 
 -- --------------------------------------------------------
 
@@ -380,16 +419,21 @@ CREATE TABLE `media_surat` (
 --
 
 INSERT INTO `media_surat` (`id`, `nama`, `keterangan`, `created_at`, `updated_at`, `softdelete`) VALUES
-(1, '22', '22', '2021-09-28 19:57:41', '2021-09-28 19:57:51', '1'),
-(2, 'Email', 'Email', '2021-10-29 23:11:18', '2021-10-29 23:11:18', '0');
+(1, 'Website', 'Website', '2021-09-28 19:57:41', '2021-11-15 09:06:32', '0'),
+(2, 'Email', 'Email', '2021-09-28 19:57:41', '2021-09-28 19:57:41', '0'),
+(3, 'Kurir', 'Kurir', '2021-09-28 19:57:41', '2021-09-28 19:57:41', '0'),
+(4, 'Whatsapp', 'Whatsapp', NULL, NULL, '0'),
+(5, 'Lainnya', 'Lainnya', NULL, NULL, '0'),
+(6, 'Tst', 'Tst', '2021-11-15 08:48:33', '2021-11-15 08:48:40', '1'),
+(7, 'rr', 'rr', '2021-11-15 08:52:18', '2021-11-15 08:52:22', '1');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `members`
+-- Table structure for table `members_`
 --
 
-CREATE TABLE `members` (
+CREATE TABLE `members_` (
   `id` int(10) UNSIGNED NOT NULL,
   `auditor_id` int(11) DEFAULT NULL,
   `users_id` int(11) DEFAULT NULL,
@@ -432,7 +476,7 @@ CREATE TABLE `model_has_permissions` (
 
 CREATE TABLE `model_has_roles` (
   `role_id` int(10) UNSIGNED NOT NULL,
-  `model_type` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `model_type` varchar(191) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -442,16 +486,30 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\User', 1),
-(2, 'App\\User', 7),
-(2, 'App\\User', 8);
+(2, 'App\\User', 12),
+(2, 'App\\User', 13),
+(2, 'App\\User', 14),
+(2, 'App\\User', 15),
+(2, 'App\\User', 16),
+(2, 'App\\User', 17),
+(2, 'App\\User', 18),
+(2, 'App\\User', 19),
+(2, 'App\\User', 20),
+(2, 'App\\User', 21),
+(2, 'App\\User', 22),
+(2, 'App\\User', 23),
+(2, 'App\\User', 25),
+(2, 'App\\User', 26),
+(2, 'App\\User', 27),
+(3, 'App\\User', 24);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pages`
+-- Table structure for table `pages_`
 --
 
-CREATE TABLE `pages` (
+CREATE TABLE `pages_` (
   `id` int(10) UNSIGNED NOT NULL,
   `nama` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -460,10 +518,10 @@ CREATE TABLE `pages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `pages`
+-- Dumping data for table `pages_`
 --
 
-INSERT INTO `pages` (`id`, `nama`, `content`, `created_at`, `updated_at`) VALUES
+INSERT INTO `pages_` (`id`, `nama`, `content`, `created_at`, `updated_at`) VALUES
 (1, 'Proses Bisnis Uvers', '<div class=\"content row\">\r\n<div class=\"col-list row\">\r\n<div class=\"col-md-12 pad-r-md res-m-bttm\">\r\n<p><img alt=\"\" src=\"/file/images/proses.jpg\" style=\"height:534px; width:846px\" /></p>\r\n\r\n<p>Bagan Proses Bisnis Universitas Universal menggambarkan alur proses yang berlangsung di dalam Universitas Universal dalam menjalankan aktivitas tridharma perguruan tinggi. Bagan ini menjadi landasan bagi tim LPM dalam menyusun dan merancang Standar Universitas Universal yang mengacu kepada Standar Nasional Pendidikan Tinggi sebagaimana yang diamanahkan dalam Permenristekdikti Nomor 44 Tahun 2015</p>\r\n\r\n<p>Secara umum proses bisnis terbagi ke dalam tiga proses utama, yaitu&nbsp;<strong>Proses Inti, Proses Pendukung</strong>, dan&nbsp;<strong>Manajemen Mutu</strong></p>\r\n\r\n<p><strong>PROSES INTI</strong></p>\r\n\r\n<p>Bagian ini berisi proses-proses utama yang terkait dengan pelaksanaan tridharma perguruan tinggi menyangkut aktivitas di bidang pendidikan dan pengajaran, penelitian, dan pengabdian kepada masyarakat. Lebih spesifik lagi bagian ini memperlihatkan apa yang dilakukan oleh Universitas Universal sebagai mulai dari calon mahasiswa masuk ke dalam sistem hingga lulus sebagai wisudawan</p>\r\n\r\n<p><strong>PROSES PENDUKUNG</strong></p>\r\n\r\n<p>Bagian ini berisi proses-proses yang mendukung terlaksananya proses inti melalui aktivitas dukungan dalam administrasi umum, keuangan, dan operasional</p>\r\n\r\n<p><strong>MANAJEMEN MUTU</strong></p>\r\n\r\n<p>LPM memainkan peran penting dalam bagian ini sebagai pengelola yang melakukan penjaminan terhadap pelaksanaan standar mutu pada proses inti maupun proses pendukung</p>\r\n</div>\r\n</div>\r\n</div>', NULL, '2021-07-18 12:51:27'),
 (2, 'Kebijakan dan Standar SPMI', '<div class=\"content row\">\r\n				<div class=\"col-list row\">\r\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\r\n						<p class=\"alignjustify\"><strong>Kebijakan SPMI</strong> merupakan dokumen induk yang berisi landasan dasar pengelolaan dan pelaksanaan SPMI di Universitas Universal</p>\r\n					</div>\r\n				</div>\r\n			</div>\r\n			<div class=\"content row\">\r\n				<div class=\"col-list row\">\r\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\r\n						<div class=\"box-s2 bg-white\">\r\n							<p><a href=\"dokumen/KS/KS-UVERS.pdf\" target=\"_blank\">KS-UVERS Kebijakan SPMI Universitas Universal</a></p>\r\n						</div>\r\n					</div>\r\n				</div>\r\n			</div>\r\n			<div class=\"content row\">\r\n				<div class=\"col-list row\">\r\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\r\n						<p class=\"alignjustify\">Secara garis besar, susunan <strong>Standar SPMI</strong> yang berlaku di Universitas Universal mengacu kepada 24 Standar Nasional Pendidikan Tinggi (SN Dikti) sebagaimana yang diamanahkan dalam Permenristekdikti Nomor 44 tahun 2015 dan tersaji pada tabel berikut ini</p>\r\n					</div>\r\n				</div>\r\n			</div>\r\n			<div class=\"content row\" style=\"padding-top: 15px;\">\r\n				<div class=\"col-list row\">\r\n					<div class=\"col-md-4 res-m-bttm pad-r-md\">\r\n						<p class=\"alignjustify\"><strong>Standar Pendidikan Universitas Universal</strong></p>\r\n					</div>\r\n					\r\n					<div class=\"col-md-8\">\r\n						<ol>\r\n							<li><a href=\"dokumen/PD1/STD-PD-1 Standar Kompetensi Lulusan.pdf\" target=\"_blank\">STD-PD-1 Standar Kompetensi Lulusan</a></li>\r\n							<li><a href=\"dokumen/PD2/STD-PD-2 Standar Isi Pembelajaran.pdf\" target=\"_blank\">STD-PD-2 Standar Isi Pembelajaran</a></li>\r\n							<li><a href=\"dokumen/PD3/STD-PD-3 Standar Proses Pembelajaran.pdf\" target=\"_blank\">STD-PD-3 Standar Proses Pembelajaran</a></li>\r\n							<li><a href=\"dokumen/PD4/STD-PD-4 Standar Penilaian Pembelajaran.pdf\" target=\"_blank\">STD-PD-4 Standar Penilaian Pembelajaran</a></li>\r\n							<li><a href=\"dokumen/PD5/STD-PD-5 Standar Dosen - Tenaga Kependidikan.pdf\" target=\"_blank\">STD-PD-5 Standar Dosen dan Tenaga Kependidikan</a></li>\r\n							<li><a href=\"dokumen/PD6/STD-PD-6 Standar Sarana Prasarana Pembelajaran.pdf\" target=\"_blank\">STD-PD-6 Standar Sarana Prasarana Pembelajaran</a></li>\r\n							<li><a href=\"dokumen/PD7/STD-PD-7 Standar Pengelolaan Pembelajaran.pdf\" target=\"_blank\">STD-PD-7 Standar Pengelolaan Pembelajaran</a></li>\r\n							<li><a href=\"dokumen/PD8/STD-PD-8 Standar Pembiayaan Pembelajaran.pdf\" target=\"_blank\">STD-PD-8 Standar Pembiayaan Pembelajaran</a></li>\r\n						</ol>\r\n					</div>\r\n				</div>\r\n			</div>\r\n			<div class=\"content row\" style=\"padding-top: 15px;\">\r\n				<div class=\"col-list row\">\r\n					<div class=\"col-md-4 res-m-bttm pad-r-md\">\r\n						<p class=\"alignjustify\"><strong>Standar Penelitian Universitas Universal</strong></p>\r\n					</div>\r\n					\r\n					<div class=\"col-md-8\">\r\n						<ol>\r\n							<li><a href=\"std-pl-1.php\">Standar Hasil Penelitian</a></li>\r\n							<li><a href=\"std-pl-2.php\">Standar Isi Penelitian</a></li>\r\n							<li><a href=\"std-pl-3.php\">Standar Proses Penelitian</a></li>\r\n							<li><a href=\"std-pl-4.php\">Standar Penilaian Penelitian</a></li>\r\n							<li><a href=\"std-pl-5.php\">Standar Peneliti</a></li>\r\n							<li><a href=\"std-pl-6.php\">Standar Sarana Prasarana Penelitian</a></li>\r\n							<li><a href=\"std-pl-7.php\">Standar Pengelolaan Penelitian</a></li>\r\n							<li><a href=\"std-pl-8.php\">Standar Pendanaan dan Pembiayaan Penelitian</a></li>\r\n						</ol>\r\n					</div>\r\n				</div>\r\n			</div>\r\n			<div class=\"content row\" style=\"padding-top: 15px;\">\r\n				<div class=\"col-list row\">\r\n					<div class=\"col-md-4 res-m-bttm pad-r-md\">\r\n						<p class=\"alignjustify\"><strong>Standar Pengabdian kepada Masyarakat Universitas Universal</strong></p>\r\n					</div>\r\n					\r\n					<div class=\"col-md-8\">\r\n						<ol>\r\n							<li><a href=\"std-pm-1.php\">Standar Hasil Pengabdian kepada Masyarakat</a></li>\r\n							<li><a href=\"std-pm-2.php\">Standar Isi Pengabdia kepada Masyarakat</a>n</li>\r\n							<li><a href=\"std-pm-3.php\">Standar Proses Pengabdian kepada Masyarakat</a></li>\r\n							<li><a href=\"std-pm-4.php\">Standar Penilaian Pengabdian kepada Masyarakat</a></li>\r\n							<li><a href=\"std-pm-5.php\">Standar Pelaksana Pengabdian kepada Masyarakat</a></li>\r\n							<li><a href=\"std-pm-6.php\">Standar Sarana Prasarana Pengabdian kepada Masyarakat</a></li>\r\n							<li><a href=\"std-pm-7.php\">Standar Pengelolaan Pengabdian kepada Masyarakat</a></li>\r\n							<li><a href=\"std-pm-8.php\">Standar Pendanaan dan Pembiayaan Pengabdian kepada Masyarakat</a></li>\r\n						</ol>\r\n					</div>\r\n				</div>\r\n			</div>\r\n			<div class=\"content row\">\r\n				<div class=\"col-list row\">\r\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\r\n						<div class=\"box-s2 bg-white\">\r\n							<p><a href=\"STD/STD-UVERS.pdf\">STD-UVERS Standar SPMI Universitas Universal</a></p>\r\n						</div>\r\n					</div>\r\n				</div>\r\n			</div>', NULL, '2021-07-17 16:36:18'),
 (3, 'Standar Pendidikan - Standar Kompetensi Lulusan', '<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<div class=\"box-s2 bg-white text-center\">\n							<p><strong>STD-PD-1 STANDAR KOMPETENSI LULUSAN</strong></p>\n						</div>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Penetapan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD1/M1.STD-PD-1 Manual Penetapan Standar Kompetensi Lulusan.pdf\">M1.STD-PD-1 Manual Penetapan Standar Kompetensi Lulusan</a></li>\n							<li><a href=\"PD1/F-M1.STD-PD-1.1 Template Standar Kompetensi Lulusan.docx\">F-M1.STD-PD-1.1 Template Standar Kompetensi Lulusan</a></li>\n							<li><a href=\"PD1/F-M1.STD-PD-1.2 Formulir Uji Publik Standar Kompetensi Lulusan.docx\">F-M1.STD-PD-1.2 Formulir Uji Publik Standar Kompetensi Lulusan</a></li>\n							<li><a href=\"PD1/F-M1.STD-PD-1.3 Template SOP Standar Kompetensi Lulusan.docx\">F-M1.STD-PD-1.3 Template SOP Standar Kompetensi Lulusan</a></li>\n							<li><a href=\"PD1/F-M1.STD-PD-1.4 Template Formulir Standar Kompetensi Lulusan.docx\">F-M1.STD-PD-1.4 Template Formulir Standar Kompetensi Lulusan</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pelaksanaan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD1/M2.STD-PD-1 Manual Pelaksanaan Standar Kompetensi Lulusan.pdf\">M2.STD-PD-1 Manual Pelaksanaan Standar Kompetensi Lulusan</a></li>\n							<li><a href=\"PD1/P-M2.STD-PD-1.1 Pedoman Penyusunan dan Evaluasi Kurikulum.pdf\">P-M2.STD-PD-1.1 Pedoman Penyusunan dan Evaluasi Kurikulum</a></li>\n							<li><a href=\"PD1/P-M2.STD-PD-1.2 Pedoman Kesetaraan Jenjang KKNI.pdf\">P-M2.STD-PD-1.2 Pedoman Kesetaraan Jenjang KKNI</a></li>\n							<li><a href=\"PD1/P-M2.STD-PD-1.3 Pedoman Rumusan Sikap dan Keterampilan Umum.pdf\">P-M2.STD-PD-1.3 Pedoman Rumusan Sikap dan Keterampilan Umum</a></li>\n							<li><a href=\"PD1/F-M2.STD-PD-1.1 Tim Penyusun Kurikulum dan Rencana Kegiatan.docx\">F-M2.STD-PD-1.1 Tim Penyusun Kurikulum dan Rencana Kegiatan</a></li>\n							<li><a href=\"PD1/F-M2.STD-PD-1.2 Daftar Pemangku Kepentingan.docx\">F-M2.STD-PD-1.2 Daftar Pemangku Kepentingan</a></li>\n							<li><a href=\"PD1/F-M2.STD-PD-1.3 Matriks Profil dan Capaian Pembelajaran Lulusan.docx\">F-M2.STD-PD-1.3 Matriks Profil dan Capaian Pembelajaran Lulusan</a></li>\n							<li><a href=\"PD1/F-M2.STD-PD-1.4 Formulir Uji Publik Kurikulum.docx\">F-M2.STD-PD-1.4 Formulir Uji Publik Kurikulum</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Evaluasi Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD1/M3.STD-PD-1 Manual Evaluasi Standar Kompetensi Lulusan.pdf\">M3.STD-PD-1 Manual Evaluasi Standar Kompetensi Lulusan</a></li>\n							<li><a href=\"PD1/P-M3.STD-PD-1.1 Prosedur Audit Mutu Internal.pdf\">P-M3.STD-PD-1.1 Prosedur Audit Mutu Internal</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.1 Formulir Monitoring Evaluasi Profil dan CPL Prodi.docx\">F-M3.STD-PD-1.1 Formulir Monitoring Evaluasi Profil dan CPL Prodi</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.2 Rekapitulasi Hasil Monitoring Evaluasi Profil dan CPL Prodi.docx\">F-M3.STD-PD-1.2 Rekapitulasi Hasil Monitoring Evaluasi Profil dan CPL Prodi</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.3 Formulir Perencanaan Audit Mutu Internal.docx\">F-M3.STD-PD-1.3 Formulir Perencanaan Audit Mutu Internal</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.4 Catatan Pelaksanaan Audit Mutu Internal.xlsx\">F-M3.STD-PD-1.4 Catatan Pelaksanaan Audit Mutu Internal</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.5 Laporan Hasil Audit Mutu Internal.docx\">F-M3.STD-PD-1.5 Laporan Hasil Audit Mutu Internal</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pengendalian Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD1/M4.STD-PD-1 Manual Pengendalian Standar Kompetensi Lulusan.pdf\">M4.STD-PD-1 Manual Pengendalian Standar Kompetensi Lulusan</a></li>\n							<li><a href=\"PD1/F-M4.STD-PD-1.1 Formulir Rapat Tinjauan Manajemen.docx\">F-M4.STD-PD-1.1 Formulir Rapat Tinjauan Manajemen</a></li>\n							<li><a href=\"PD1/F-M4.STD-PD-1.2 Formulir Catatan Tindak Lanjut Hasil Rapat Tinjauan Manajemen.docx\">F-M4.STD-PD-1.2 Formulir Catatan Tindak Lanjut Hasil Rapat Tinjauan Manajemen</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Peningkatan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD1/M5.STD-PD-1 Manual Peningkatan Standar Kompetensi Lulusan.pdf\">M5.STD-PD-1 Manual Peningkatan Standar Kompetensi Lulusan</a></li>\n							<li><a href=\"PD1/F-M5.STD-PD-1.1 Formulir Rekomendasi Standar Kompetensi Lulusan.docx\">F-M5.STD-PD-1.1 Formulir Rekomendasi Standar Kompetensi Lulusan</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			', NULL, NULL),
@@ -472,7 +530,7 @@ INSERT INTO `pages` (`id`, `nama`, `content`, `created_at`, `updated_at`) VALUES
 (6, 'Standar Pendidikan - Standar Penilaian Pembelajaran', '\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<div class=\"box-s2 bg-white text-center\">\n							<p><strong>STD-PD-4 STANDAR PENILAIAN PEMBELAJARAN</strong></p>\n						</div>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Penetapan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD4/M1.STD-PD-4 Manual Penetapan Standar Penilaian Pembelajaran.pdf\">M1.STD-PD-4 Manual Penetapan Standar Penilaian Pembelajaran</a></li>\n							<li><a href=\"PD4/F-M1.STD-PD-4.1 Template Standar Penilaian Pembelajaran.docx\">F-M1.STD-PD-4.1 Template Standar Penilaian Pembelajaran</a></li>\n							<li><a href=\"PD4/F-M1.STD-PD-4.2 Formulir Uji Publik Standar Penilaian Pembelajaran.docx\">F-M1.STD-PD-4.2 Formulir Uji Publik Standar Penilaian Pembelajaran</a></li>\n							<li><a href=\"PD4/F-M1.STD-PD-4.3 Template SOP Standar Penilaian Pembelajaran.docx\">F-M1.STD-PD-4.3 Template SOP Standar Penilaian Pembelajaran</a></li>\n							<li><a href=\"PD4/F-M1.STD-PD-4.4 Template Formulir Standar Penilaian Pembelajaran.docx\">F-M1.STD-PD-4.4 Template Formulir Standar Penilaian Pembelajaran</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pelaksanaan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD4/M2.STD-PD-4 Manual Pelaksanaan Standar Penilaian Pembelajaran.pdf\">M2.STD-PD-4 Manual Pelaksanaan Standar Penilaian Pembelajaran</a></li>\n							<li><a href=\"PD4/P-M2.STD-PD-4.1 Pedoman Pembuatan Soal Ujian.pdf\">P-M2.STD-PD-4.1 Pedoman Pembuatan Soal Ujian</a></li>\n							<li><a href=\"PD4/P-M2.STD-PD-4.2 Pedoman Ujian.pdf\">P-M2.STD-PD-4.2 Pedoman Ujian</a></li>\n							<li><a href=\"PD4/P-M2.STD-PD-4.3 Tata Tertib Ujian.pdf\">P-M2.STD-PD-4.3 Tata Tertib Ujian</a></li>\n							<li><a href=\"PD4/P-M2.STD-PD-4.4 Sanksi Pelanggaran Ujian.pdf\">P-M2.STD-PD-4.4 Sanksi Pelanggaran Ujian</a></li>\n							<li><a href=\"PD4/F-M2.STD-PD-4.1 Template Soal Ujian.docx\">F-M2.STD-PD-4.1 Template Soal Ujian</a></li>\n							<li><a href=\"PD4/F-M2.STD-PD-4.2 Rekapitulasi Pengumpulan Soal Ujian.docx\">F-M2.STD-PD-4.2 Rekapitulasi Pengumpulan Soal Ujian</a></li>\n							<li><a href=\"PD4/F-M2.STD-PD-4.3 Jadwal Ujian.xlsx\">F-M2.STD-PD-4.3 Jadwal Ujian</a></li>\n							<li><a href=\"PD4/F-M2.STD-PD-4.4 Template Label Amplop Berkas Ujian.docx\">F-M2.STD-PD-4.4 Template Label Amplop Berkas Ujian</a></li>\n							<li><a href=\"PD4/F-M2.STD-PD-4.5 Daftar Hadir Ujian.xlsx\">F-M2.STD-PD-4.5 Daftar Hadir Ujian</a></li>\n							<li><a href=\"PD4/F-M2.STD-PD-4.6 Berita Acara Ujian.docx\">F-M2.STD-PD-4.6 Berita Acara Ujian</a></li>\n							<li><a href=\"PD4/F-M2.STD-PD-4.7 Daftar Pengambilan Pengembalian Berkas Ujian.xlsx\">F-M2.STD-PD-4.7 Daftar Pengambilan Pengembalian Berkas Ujian</a></li>\n							<li><a href=\"PD4/F-M2.STD-PD-4.8 Daftar Serah Terima Berkas Jawaban Ujian.xlsx\">F-M2.STD-PD-4.8 Daftar Serah Terima Berkas Jawaban Ujian</a></li>\n							<li><a href=\"PD4/F-M2.STD-PD-4.9 Daftar Penilaian Mata Kuliah.xlsx\">F-M2.STD-PD-4.9 Daftar Penilaian Mata Kuliah</a></li>\n							<li><a href=\"PD4/F-M2.STD-PD-4.10 Daftar Nilai Mahasiswa.xlsx\">F-M2.STD-PD-4.10 Daftar Nilai Mahasiswa</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Evaluasi Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD4/M3.STD-PD-4 Manual Evaluasi Standar Penilaian Pembelajaran.pdf\">M3.STD-PD-4 Manual Evaluasi Standar Penilaian Pembelajaran</a></li>\n							<li><a href=\"PD1/P-M3.STD-PD-1.1 Prosedur Audit Mutu Internal.pdf\">P-M3.STD-PD-1.1 Prosedur Audit Mutu Internal</a></li>\n							<li><a href=\"PD4/F-M3.STD-PD-4.1 Formulir Monitoring Standar Penilaian Pembelajaran.docx\">F-M3.STD-PD-4.1 Formulir Monitoring Standar Penilaian Pembelajaran</a></li>\n							<li><a href=\"PD4/F-M3.STD-PD-4.2 Rekapitulasi Hasil Monitoring Evaluasi Standar Penilaian Pembelajaran.docx\">F-M3.STD-PD-4.2 Rekapitulasi Hasil Monitoring Evaluasi Standar Penilaian Pembelajaran</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.3 Formulir Perencanaan Audit Mutu Internal.docx\">F-M3.STD-PD-1.3 Formulir Perencanaan Audit Mutu Internal</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.4 Catatan Pelaksanaan Audit Mutu Internal.xlsx\">F-M3.STD-PD-1.4 Catatan Pelaksanaan Audit Mutu Internal</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.5 Laporan Hasil Audit Mutu Internal.docx\">F-M3.STD-PD-1.5 Laporan Hasil Audit Mutu Internal</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pengendalian Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD4/M4.STD-PD-4 Manual Pengendalian Standar Penilaian Pembelajaran.pdf\">M4.STD-PD-4 Manual Pengendalian Standar Penilaian Pembelajaran</a></li>\n							<li><a href=\"PD1/F-M4.STD-PD-1.1 Formulir Rapat Tinjauan Manajemen.docx\">F-M4.STD-PD-1.1 Formulir Rapat Tinjauan Manajemen</a></li>\n							<li><a href=\"PD1/F-M4.STD-PD-1.2 Formulir Catatan Tindak Lanjut Hasil Rapat Tinjauan Manajemen.docx\">F-M4.STD-PD-1.2 Formulir Catatan Tindak Lanjut Hasil Rapat Tinjauan Manajemen</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Peningkatan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD4/M5.STD-PD-4 Manual Peningkatan Standar Penilaian Pembelajaran.pdf\">M5.STD-PD-4 Manual Peningkatan Standar Penilaian Pembelajaran</a></li>\n							<li><a href=\"PD4/F-M5.STD-PD-4.1 Formulir Rekomendasi Standar Penilaian Pembelajaran.docx\">F-M5.STD-PD-4.1 Formulir Rekomendasi Standar Penilaian Pembelajaran</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>', NULL, NULL),
 (7, 'Standar Pendidikan - Standar Dosen dan Tenaga Kependidikan', '\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<div class=\"box-s2 bg-white text-center\">\n							<p><strong>STD-PD-5 STANDAR DOSEN DAN TENAGA KEPENDIDIKAN</strong></p>\n						</div>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Penetapan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n<ol><font face=\"verdana\" size=\"2\">\n<li><a href=\"PD5/M1.STD-PD-5 Manual Penetapan Standar Dosen - Tenaga Kependidikan.pdf\">M1.STD-PD-5 Manual Penetapan Standar Dosen - Tenaga Kependidikan</a></li>\n<li><a href=\"PD5/F-M1.STD-PD-5.1 Template Standar Dosen - Tenaga Kependidikan.docx\">F-M1.STD-PD-5.1 Template Standar Dosen - Tenaga Kependidikan</a></li>\n<li><a href=\"PD5/F-M1.STD-PD-5.2 Formulir Uji Publik Standar Dosen - Tenaga Kependidikan.docx\">F-M1.STD-PD-5.2 Formulir Uji Publik Standar Dosen - Tenaga Kependidikan</a></li>\n<li><a href=\"PD5/F-M1.STD-PD-5.3 Template SOP Standar Dosen - Tenaga Kependidikan.docx\">F-M1.STD-PD-5.3 Template SOP Standar Dosen - Tenaga Kependidikan</a></li>\n<li><a href=\"PD5/F-M1.STD-PD-5.4 Template Formulir Standar Dosen - Tenaga Kependidikan.docx\">F-M1.STD-PD-5.4 Template Formulir Standar Dosen - Tenaga Kependidikan</a></li>\n</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pelaksanaan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n<li><a href=\"PD5/M2.STD-PD-5 Manual Pelaksanaan Standar Dosen - Tenaga Kependidikan.pdf\">M2.STD-PD-5 Manual Pelaksanaan Standar Dosen - Tenaga Kependidikan</a></li>\n<li><a href=\"PD5/F-M2.STD-PD-5.1 Form Permintaan Dosen.docx\">F-M2.STD-PD-5.1 Form Permintaan Dosen</a></li>\n<li><a href=\"PD5/F-M2.STD-PD-5.2 Kuesioner Umpan Balik Dosen.docx\">F-M2.STD-PD-5.2 Kuesioner Umpan Balik Dosen</a></li>\n<li><a href=\"PD5/F-M2.STD-PD-5.3 Kuesioner Umpan Balik Dosen Tamu.docx\">F-M2.STD-PD-5.3 Kuesioner Umpan Balik Dosen Tamu</a></li>\n<li><a href=\"PD5/F-M2.STD-PD-5.4 Laporan Pengolahan Umpan Balik Dosen.xlsx\">F-M2.STD-PD-5.4 Laporan Pengolahan Umpan Balik Dosen</a></li>\n<li><a href=\"PD5/F-M2.STD-PD-5.5 Laporan Pengolahan Umpan Balik Dosen Tamu.xlsx\">F-M2.STD-PD-5.5 Laporan Pengolahan Umpan Balik Dosen Tamu</a></li>\n</font></ol>\n					</div>\n				</div>\n			</div>\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Evaluasi Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n<li><a href=\"PD5/M3.STD-PD-5 Manual Evaluasi Standar Dosen - Tenaga Kependidikan.pdf\">M3.STD-PD-5 Manual Evaluasi Standar Dosen - Tenaga Kependidikan</a></li>\n<li><a href=\"PD1/P-M3.STD-PD-1.1 Prosedur Audit Mutu Internal.pdf\">P-M3.STD-PD-1.1 Prosedur Audit Mutu Internal</a></li>\n<li><a href=\"PD5/F-M3.STD-PD-5.1 Formulir Monitoring Standar Dosen - Tenaga Kependidikan.docx\">F-M3.STD-PD-5.1 Formulir Monitoring Standar Dosen - Tenaga Kependidikan</a></li>\n<li><a href=\"PD5/F-M3.STD-PD-5.2 Rekapitulasi Hasil Monitoring Evaluasi Standar Dosen - Tenaga Kependidikan.docx\">F-M3.STD-PD-5.2 Rekapitulasi Hasil Monitoring Evaluasi Standar Dosen - Tenaga Kependidikan</a></li>\n<li><a href=\"PD1/F-M3.STD-PD-1.3 Formulir Perencanaan Audit Mutu Internal.docx\">F-M3.STD-PD-1.3 Formulir Perencanaan Audit Mutu Internal</a></li>\n<li><a href=\"PD1/F-M3.STD-PD-1.4 Catatan Pelaksanaan Audit Mutu Internal.xlsx\">F-M3.STD-PD-1.4 Catatan Pelaksanaan Audit Mutu Internal</a></li>\n<li><a href=\"PD1/F-M3.STD-PD-1.5 Laporan Hasil Audit Mutu Internal.docx\">F-M3.STD-PD-1.5 Laporan Hasil Audit Mutu Internal</a></li>\n</font></ol>\n					</div>\n				</div>\n			</div>\n\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pengendalian Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n<ol><font face=\"verdana\" size=\"2\">\n<li><a href=\"PD5/M4.STD-PD-5 Manual Pengendalian Standar Dosen - Tenaga Kependidikan.pdf\">M4.STD-PD-5 Manual Pengendalian Standar Dosen - Tenaga Kependidikan</a></li>\n<li><a href=\"PD1/F-M4.STD-PD-1.1 Formulir Rapat Tinjauan Manajemen.docx\">F-M4.STD-PD-1.1 Formulir Rapat Tinjauan Manajemen</a></li>\n<li><a href=\"PD1/F-M4.STD-PD-1.2 Formulir Catatan Tindak Lanjut Hasil Rapat Tinjauan Manajemen.docx\">F-M4.STD-PD-1.2 Formulir Catatan Tindak Lanjut Hasil Rapat Tinjauan Manajemen</a></li>\n</font></ol>\n					</div>\n				</div>\n			</div>\n\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Peningkatan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n<ol><font face=\"verdana\" size=\"2\">\n<li><a href=\"PD5/M5.STD-PD-5 Manual Peningkatan Standar Dosen - Tenaga Kependidikan.pdf\">M5.STD-PD-5 Manual Peningkatan Standar Dosen - Tenaga Kependidikan</a></li>\n<li><a href=\"PD5/F-M5.STD-PD-5.1 Formulir Rekomendasi Standar Dosen - Tenaga Kependidikan.docx\">F-M5.STD-PD-5.1 Formulir Rekomendasi Standar Dosen - Tenaga Kependidikan</a></li>\n</font></ol>\n					</div>\n				</div>\n			</div>\n\n\n\n\n', NULL, NULL),
 (8, 'Standar Pendidikan - Standar Sarana Prasarana Pembelajaran', '\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<div class=\"box-s2 bg-white text-center\">\n							<p><strong>STD-PD-6 STANDAR SARANA PRASARANA PEMBELAJARAN</strong></p>\n						</div>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Penetapan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD6/M1.STD-PD-6 Manual Penetapan Standar Sarana Prasarana Pembelajaran.pdf\">M1.STD-PD-6 Manual Penetapan Standar Sarana Prasarana Pembelajaran</a></li>\n							<li><a href=\"PD6/F-M1.STD-PD-6.1 Template Standar Sarana Prasarana Pembelajaran.docx\">F-M1.STD-PD-6.1 Template Standar Sarana Prasarana Pembelajaran</a></li>\n							<li><a href=\"PD6/F-M1.STD-PD-6.2 Formulir Uji Publik Standar Sarana Prasarana Pembelajaran.docx\">F-M1.STD-PD-6.2 Formulir Uji Publik Standar Sarana Prasarana Pembelajaran</a></li>\n							<li><a href=\"PD6/F-M1.STD-PD-6.3 Template SOP Standar Sarana Prasarana Pembelajaran.docx\">F-M1.STD-PD-6.3 Template SOP Standar Sarana Prasarana Pembelajaran</a></li>\n							<li><a href=\"PD6/F-M1.STD-PD-6.4 Template Formulir Standar Sarana Prasarana Pembelajaran.docx\">F-M1.STD-PD-6.4 Template Formulir Standar Sarana Prasarana Pembelajaran</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pelaksanaan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD6/M2.STD-PD-6 Manual Pelaksanaan Standar Sarana Prasarana Pembelajaran.pdf\">M2.STD-PD-6 Manual Pelaksanaan Standar Sarana Prasarana Pembelajaran</a></li>\n							<li><a href=\"PD6/F-M2.STD-PD-6.1 Form Pengajuan Pustaka.docx\">F-M2.STD-PD-6.1 Form Pengajuan Pustaka</a></li>\n							<li><a href=\"PD6/F-M2.STD-PD-6.2 Form Pengadaan Sarana Prasarana Pembelajaran.docx\">F-M2.STD-PD-6.2 Form Pengadaan Sarana Prasarana Pembelajaran</a></li>\n							<li><a href=\"PD6/F-M2.STD-PD-6.3 Kuesioner Umpan Balik Layanan Sarana Prasarana.docx\">F-M2.STD-PD-6.3 Kuesioner Umpan Balik Layanan Sarana Prasarana</a></li>\n							<li><a href=\"PD6/F-M2.STD-PD-6.4 Laporan Pengolahan Umpan Balik Layanan Sarana Prasarana.xlsx\">F-M2.STD-PD-6.4 Laporan Pengolahan Umpan Balik Layanan Sarana Prasarana</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Evaluasi Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD6/M3.STD-PD-6 Manual Evaluasi Standar Sarana Prasarana Pembelajaran.pdf\">M3.STD-PD-6 Manual Evaluasi Standar Sarana Prasarana Pembelajaran</a></li>\n							<li><a href=\"PD1/P-M3.STD-PD-1.1 Prosedur Audit Mutu Internal.pdf\">P-M3.STD-PD-1.1 Prosedur Audit Mutu Internal</a></li>\n							<li><a href=\"PD6/F-M3.STD-PD-6.1 Formulir Monitoring Standar Sarana Prasarana Pembelajaran.docx\">F-M3.STD-PD-6.1 Formulir Monitoring Standar Sarana Prasarana Pembelajaran</a></li>\n							<li><a href=\"PD6/F-M3.STD-PD-6.2 Rekapitulasi Hasil Monitoring Evaluasi Standar Sarana Prasarana Pembelajaran.docx\">F-M3.STD-PD-6.2 Rekapitulasi Hasil Monitoring Evaluasi Standar Sarana Prasarana Pembelajaran</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.3 Formulir Perencanaan Audit Mutu Internal.docx\">F-M3.STD-PD-1.3 Formulir Perencanaan Audit Mutu Internal</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.4 Catatan Pelaksanaan Audit Mutu Internal.xlsx\">F-M3.STD-PD-1.4 Catatan Pelaksanaan Audit Mutu Internal</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.5 Laporan Hasil Audit Mutu Internal.docx\">F-M3.STD-PD-1.5 Laporan Hasil Audit Mutu Internal</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pengendalian Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD6/M4.STD-PD-6 Manual Pengendalian Standar Sarana Prasarana Pembelajaran.pdf\">M4.STD-PD-6 Manual Pengendalian Standar Sarana Prasarana Pembelajaran</a></li>\n							<li><a href=\"PD1/F-M4.STD-PD-1.1 Formulir Rapat Tinjauan Manajemen.docx\">F-M4.STD-PD-1.1 Formulir Rapat Tinjauan Manajemen</a></li>\n							<li><a href=\"PD1/F-M4.STD-PD-1.2 Formulir Catatan Tindak Lanjut Hasil Rapat Tinjauan Manajemen.docx\">F-M4.STD-PD-1.2 Formulir Catatan Tindak Lanjut Hasil Rapat Tinjauan Manajemen</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Peningkatan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD6/M5.STD-PD-6 Manual Peningkatan Standar Sarana Prasarana Pembelajaran.pdf\">M5.STD-PD-6 Manual Peningkatan Standar Sarana Prasarana Pembelajaran</a></li>\n							<li><a href=\"PD6/F-M5.STD-PD-6.1 Formulir Rekomendasi Standar Sarana Prasarana Pembelajaran.docx\">F-M5.STD-PD-6.1 Formulir Rekomendasi Standar Sarana Prasarana Pembelajaran</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>', NULL, NULL);
-INSERT INTO `pages` (`id`, `nama`, `content`, `created_at`, `updated_at`) VALUES
+INSERT INTO `pages_` (`id`, `nama`, `content`, `created_at`, `updated_at`) VALUES
 (9, 'Standar Pendidikan - Standar Pengelolaan Pembelajaran', '\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<div class=\"box-s2 bg-white text-center\">\n							<p><strong>STD-PD-7 STANDAR PENGELOLAAN PEMBELAJARAN</strong></p>\n						</div>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Penetapan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD7/M1.STD-PD-7 Manual Penetapan Standar Pengelolaan Pembelajaran.pdf\">M1.STD-PD-7 Manual Penetapan Standar Pengelolaan Pembelajaran</a></li>\n							<li><a href=\"PD7/F-M1.STD-PD-7.1 Template Standar Pengelolaan Pembelajaran.docx\">F-M1.STD-PD-7.1 Template Standar Pengelolaan Pembelajaran</a></li>\n							<li><a href=\"PD7/F-M1.STD-PD-7.2 Formulir Uji Publik Standar Pengelolaan Pembelajaran.docx\">F-M1.STD-PD-7.2 Formulir Uji Publik Standar Pengelolaan Pembelajaran</a></li>\n							<li><a href=\"PD7/F-M1.STD-PD-7.3 Template SOP Standar Pengelolaan Pembelajaran.docx\">F-M1.STD-PD-7.3 Template SOP Standar Pengelolaan Pembelajaran</a></li>\n							<li><a href=\"PD7/F-M1.STD-PD-7.4 Template Formulir Standar Pengelolaan Pembelajaran.docx\">F-M1.STD-PD-7.4 Template Formulir Standar Pengelolaan Pembelajaran</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pelaksanaan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD7/M2.STD-PD-7 Manual Pelaksanaan Standar Pengelolaan Pembelajaran.pdf\">M2.STD-PD-7 Manual Pelaksanaan Standar Pengelolaan Pembelajaran</a></li>\n							<li><a href=\"PD7/P-M2.STD-PD-7.1 Pedoman Standar Kehadiran Perkuliahan.pdf\">P-M2.STD-PD-7.1 Pedoman Standar Kehadiran Perkuliahan</a></li>\n							<li><a href=\"PD7/P-M2.STD-PD-7.2 Petunjuk Teknis Status Ketidakhadiran Perkuliahan.pdf\">P-M2.STD-PD-7.2 Petunjuk Teknis Status Ketidakhadiran Perkuliahan</a></li>\n							<li><a href=\"PD7/F-M2.STD-PD-7.1 Template Kalender Akademik.xlsx\">F-M2.STD-PD-7.1 Template Kalender Akademik</a></li>\n							<li><a href=\"PD7/F-M2.STD-PD-7.2 Rekapitulasi Pelaksanaan Perkuliahan.docx\">F-M2.STD-PD-7.2 Rekapitulasi Pelaksanaan Perkuliahan</a></li>\n							<li><a href=\"PD7/F-M2.STD-PD-7.3 Rekapitulasi Kehadiran Perkuliahan.xlsx\">F-M2.STD-PD-7.3 Rekapitulasi Kehadiran Perkuliahan</a></li>\n							<li><a href=\"PD7/F-M2.STD-PD-7.4 Daftar Mahasiswa Tidak Berhak Mengikuti UAS.xlsx\">F-M2.STD-PD-7.4 Daftar Mahasiswa Tidak Berhak Mengikuti UAS</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Evaluasi Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD7/M3.STD-PD-7 Manual Evaluasi Standar Pengelolaan Pembelajaran.pdf\">M3.STD-PD-7 Manual Evaluasi Standar Pengelolaan Pembelajaran</a></li>\n							<li><a href=\"PD1/P-M3.STD-PD-1.1 Prosedur Audit Mutu Internal.pdf\">P-M3.STD-PD-1.1 Prosedur Audit Mutu Internal</a></li>\n							<li><a href=\"PD7/F-M3.STD-PD-7.1 Formulir Monitoring Standar Pengelolaan Pembelajaran.docx\">F-M3.STD-PD-7.1 Formulir Monitoring Standar Pengelolaan Pembelajaran</a></li>\n							<li><a href=\"PD7/F-M3.STD-PD-7.2 Rekapitulasi Hasil Monitoring Evaluasi Standar Pengelolaan Pembelajaran.docx\">F-M3.STD-PD-7.2 Rekapitulasi Hasil Monitoring Evaluasi Standar Pengelolaan Pembelajaran</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.3 Formulir Perencanaan Audit Mutu Internal.docx\">F-M3.STD-PD-1.3 Formulir Perencanaan Audit Mutu Internal</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.4 Catatan Pelaksanaan Audit Mutu Internal.xlsx\">F-M3.STD-PD-1.4 Catatan Pelaksanaan Audit Mutu Internal</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.5 Laporan Hasil Audit Mutu Internal.docx\">F-M3.STD-PD-1.5 Laporan Hasil Audit Mutu Internal</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pengendalian Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD7/M4.STD-PD-7 Manual Pengendalian Standar Pengelolaan Pembelajaran.pdf\">M4.STD-PD-7 Manual Pengendalian Standar Pengelolaan Pembelajaran</a></li>\n							<li><a href=\"PD1/F-M4.STD-PD-1.1 Formulir Rapat Tinjauan Manajemen.docx\">F-M4.STD-PD-1.1 Formulir Rapat Tinjauan Manajemen</a></li>\n							<li><a href=\"PD1/F-M4.STD-PD-1.2 Formulir Catatan Tindak Lanjut Hasil Rapat Tinjauan Manajemen.docx\">F-M4.STD-PD-1.2 Formulir Catatan Tindak Lanjut Hasil Rapat Tinjauan Manajemen</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Peningkatan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD7/M5.STD-PD-7 Manual Peningkatan Standar Pengelolaan Pembelajaran.pdf\">M5.STD-PD-7 Manual Peningkatan Standar Pengelolaan Pembelajaran</a></li>\n							<li><a href=\"PD7/F-M5.STD-PD-7.1 Formulir Rekomendasi Standar Pengelolaan Pembelajaran.docx\">F-M5.STD-PD-7.1 Formulir Rekomendasi Standar Pengelolaan Pembelajaran</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>', NULL, NULL),
 (10, 'Standar Pendidikan - Standar Pembiayaan Pembelajaran', '\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<div class=\"box-s2 bg-white text-center\">\n							<p><strong>STD-PD-8 STANDAR PEMBIAYAAN PEMBELAJARAN</strong></p>\n						</div>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Penetapan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD8/M1.STD-PD-8 Manual Penetapan Standar Pembiayaan Pembelajaran.pdf\">M1.STD-PD-8 Manual Penetapan Standar Pembiayaan Pembelajaran</a></li>\n							<li><a href=\"PD8/F-M1.STD-PD-8.1 Template Standar Pembiayaan Pembelajaran.docx\">F-M1.STD-PD-8.1 Template Standar Pembiayaan Pembelajaran</a></li>\n							<li><a href=\"PD8/F-M1.STD-PD-8.2 Formulir Uji Publik Standar Pembiayaan Pembelajaran.docx\">F-M1.STD-PD-8.2 Formulir Uji Publik Standar Pembiayaan Pembelajaran</a></li>\n							<li><a href=\"PD8/F-M1.STD-PD-8.3 Template SOP Standar Pembiayaan Pembelajaran.docx\">F-M1.STD-PD-8.3 Template SOP Standar Pembiayaan Pembelajaran</a></li>\n							<li><a href=\"PD8/F-M1.STD-PD-8.4 Template Formulir Standar Pembiayaan Pembelajaran.docx\">F-M1.STD-PD-8.4 Template Formulir Standar Pembiayaan Pembelajaran</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pelaksanaan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD8/M2.STD-PD-8 Manual Pelaksanaan Standar Pembiayaan Pembelajaran.pdf\">M2.STD-PD-8 Manual Pelaksanaan Standar Pembiayaan Pembelajaran</a></li>\n							<li><a href=\"PD8/F-M2.STD-PD-8.1 Template Rencana Kegiatan dan Anggaran Tahunan.xlsx\">F-M2.STD-PD-8.1 Template Rencana Kegiatan dan Anggaran Tahunan</a></li>\n							<li><a href=\"PD8/F-M2.STD-PD-8.2 Proposal Kegiatan Akademik.docx\">F-M2.STD-PD-8.2 Proposal Kegiatan Akademik</a></li>\n							<li><a href=\"PD8/F-M2.STD-PD-8.3 Laporan Pertanggungjawaban Kegiatan Akademik.docx\">F-M2.STD-PD-8.3 Laporan Pertanggungjawaban Kegiatan Akademik</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Evaluasi Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD8/M3.STD-PD-8 Manual Evaluasi Standar Pembiayaan Pembelajaran.pdf\">M3.STD-PD-8 Manual Evaluasi Standar Pembiayaan Pembelajaran</a></li>\n							<li><a href=\"PD1/P-M3.STD-PD-1.1 Prosedur Audit Mutu Internal.pdf\">P-M3.STD-PD-1.1 Prosedur Audit Mutu Internal</a></li>\n							<li><a href=\"PD8/F-M3.STD-PD-8.1 Formulir Monitoring Standar Pembiayaan Pembelajaran.docx\">F-M3.STD-PD-8.1 Formulir Monitoring Standar Pembiayaan Pembelajaran</a></li>\n							<li><a href=\"PD8/F-M3.STD-PD-8.2 Rekapitulasi Hasil Monitoring Evaluasi Standar Pembiayaan Pembelajaran.docx\">F-M3.STD-PD-8.2 Rekapitulasi Hasil Monitoring Evaluasi Standar Pembiayaan Pembelajaran</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.3 Formulir Perencanaan Audit Mutu Internal.docx\">F-M3.STD-PD-1.3 Formulir Perencanaan Audit Mutu Internal</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.4 Catatan Pelaksanaan Audit Mutu Internal.xlsx\">F-M3.STD-PD-1.4 Catatan Pelaksanaan Audit Mutu Internal</a></li>\n							<li><a href=\"PD1/F-M3.STD-PD-1.5 Laporan Hasil Audit Mutu Internal.docx\">F-M3.STD-PD-1.5 Laporan Hasil Audit Mutu Internal</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pengendalian Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD8/M4.STD-PD-8 Manual Pengendalian Standar Pembiayaan Pembelajaran.pdf\">M4.STD-PD-8 Manual Pengendalian Standar Pembiayaan Pembelajaran</a></li>\n							<li><a href=\"PD1/F-M4.STD-PD-1.1 Formulir Rapat Tinjauan Manajemen.docx\">F-M4.STD-PD-1.1 Formulir Rapat Tinjauan Manajemen</a></li>\n							<li><a href=\"PD1/F-M4.STD-PD-1.2 Formulir Catatan Tindak Lanjut Hasil Rapat Tinjauan Manajemen.docx\">F-M4.STD-PD-1.2 Formulir Catatan Tindak Lanjut Hasil Rapat Tinjauan Manajemen</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Peningkatan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<ol><font face=\"verdana\" size=\"2\">\n							<li><a href=\"PD8/M5.STD-PD-8 Manual Peningkatan Standar Pembiayaan Pembelajaran.pdf\">M5.STD-PD-8 Manual Peningkatan Standar Pembiayaan Pembelajaran</a></li>\n							<li><a href=\"PD8/F-M5.STD-PD-8.1 Formulir Rekomendasi Standar Pembiayaan Pembelajaran.docx\">F-M5.STD-PD-8.1 Formulir Rekomendasi Standar Pembiayaan Pembelajaran</a></li>\n						</font></ol>\n					</div>\n				</div>\n			</div>', NULL, NULL),
 (11, 'Standar Penelitian - Standar Hasil Penelitian', '\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<div class=\"box-s2 bg-white text-center\">\n							<p><strong> STD-PL-1 STANDAR HASIL PENELITIAN </strong></p>\n						</div>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Penetapan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM1 -->\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pelaksanaan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM2 -->\n					</div>\n				</div>\n			</div>\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Evaluasi Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM3 -->\n					</div>\n				</div>\n			</div>\n\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pengendalian Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n					<!-- FORM4 -->\n					</div>\n				</div>\n			</div>\n\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Peningkatan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM5 -->\n					</div>\n				</div>\n			</div>', NULL, NULL),
@@ -489,7 +547,7 @@ INSERT INTO `pages` (`id`, `nama`, `content`, `created_at`, `updated_at`) VALUES
 (22, 'Standar Pengabdian - Standar Penilaian Pengabdian', '\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<div class=\"box-s2 bg-white text-center\">\n							<p><strong> STD-PL-1 STANDAR HASIL PENELITIAN </strong></p>\n						</div>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Penetapan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM1 -->\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pelaksanaan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM2 -->\n					</div>\n				</div>\n			</div>\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Evaluasi Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM3 -->\n					</div>\n				</div>\n			</div>\n\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pengendalian Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n					<!-- FORM4 -->\n					</div>\n				</div>\n			</div>\n\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Peningkatan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM5 -->\n					</div>\n				</div>\n			</div>', NULL, NULL),
 (23, 'Standar Pengabdian - Standar Pelaksana Pengabdian', '\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<div class=\"box-s2 bg-white text-center\">\n							<p><strong> STD-PL-1 STANDAR HASIL PENELITIAN </strong></p>\n						</div>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Penetapan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM1 -->\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pelaksanaan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM2 -->\n					</div>\n				</div>\n			</div>\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Evaluasi Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM3 -->\n					</div>\n				</div>\n			</div>\n\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pengendalian Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n					<!-- FORM4 -->\n					</div>\n				</div>\n			</div>\n\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Peningkatan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM5 -->\n					</div>\n				</div>\n			</div>', NULL, NULL),
 (24, 'Standar Pengabdian - Standar Sarana Prasarana Pengabdian', '\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<div class=\"box-s2 bg-white text-center\">\n							<p><strong> STD-PL-1 STANDAR HASIL PENELITIAN </strong></p>\n						</div>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Penetapan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM1 -->\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pelaksanaan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM2 -->\n					</div>\n				</div>\n			</div>\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Evaluasi Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM3 -->\n					</div>\n				</div>\n			</div>\n\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pengendalian Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n					<!-- FORM4 -->\n					</div>\n				</div>\n			</div>\n\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Peningkatan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM5 -->\n					</div>\n				</div>\n			</div>\n', NULL, NULL);
-INSERT INTO `pages` (`id`, `nama`, `content`, `created_at`, `updated_at`) VALUES
+INSERT INTO `pages_` (`id`, `nama`, `content`, `created_at`, `updated_at`) VALUES
 (25, 'Standar Pengabdian - Standar Pengelolaan Pengabdian', '\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<div class=\"box-s2 bg-white text-center\">\n							<p><strong> STD-PL-1 STANDAR HASIL PENELITIAN </strong></p>\n						</div>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Penetapan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM1 -->\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pelaksanaan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM2 -->\n					</div>\n				</div>\n			</div>\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Evaluasi Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM3 -->\n					</div>\n				</div>\n			</div>\n\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pengendalian Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n					<!-- FORM4 -->\n					</div>\n				</div>\n			</div>\n\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Peningkatan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM5 -->\n					</div>\n				</div>\n			</div>', NULL, NULL),
 (26, 'Standar Pengabdian - Standar Pendanaan Pengabdian', '\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<div class=\"box-s2 bg-white text-center\">\n							<p><strong> STD-PL-1 STANDAR HASIL PENELITIAN </strong></p>\n						</div>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Penetapan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM1 -->\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pelaksanaan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM2 -->\n					</div>\n				</div>\n			</div>\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Evaluasi Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM3 -->\n					</div>\n				</div>\n			</div>\n\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Pengendalian Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n					<!-- FORM4 -->\n					</div>\n				</div>\n			</div>\n\n\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>Manual Peningkatan Standar</strong></p>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row bg-white\" style=\"padding: 25px;\">\n				<div class=\"col-list row\">\n					\n					<div class=\"col-md-12 \">\n						<!-- FORM5 -->\n					</div>\n				</div>\n			</div>', NULL, NULL),
 (27, 'Daftar SOP Uvers - SOP Admisi', '\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<div class=\"box-s2 bg-white text-center\">\n							<p><strong> SOP BAGIAN ADMISI </strong></p>\n						</div>\n					</div>\n				</div>\n			</div>\n			<div class=\"content row\">\n				<div class=\"col-list row\">\n					<div class=\"col-md-12 res-m-bttm pad-r-md\">\n						<p class=\"alignjustify\"><strong>segera menyusul..</strong></p>\n					</div>\n				</div>\n			</div>', NULL, NULL),
@@ -500,10 +558,10 @@ INSERT INTO `pages` (`id`, `nama`, `content`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_resets`
+-- Table structure for table `password_resets_`
 --
 
-CREATE TABLE `password_resets` (
+CREATE TABLE `password_resets_` (
   `email` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
   `token` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -521,19 +579,36 @@ CREATE TABLE `pegawai` (
   `email` varchar(100) DEFAULT NULL,
   `telepon` varchar(15) DEFAULT NULL,
   `unit_kerja_id` int(11) DEFAULT NULL,
+  `kepala_unit` enum('1','2') DEFAULT '1',
   `jabatan_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `softdelete` enum('0','1') DEFAULT '0'
+  `softdelete` enum('0','1') DEFAULT '0',
+  `status` enum('0','1') DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pegawai`
 --
 
-INSERT INTO `pegawai` (`id`, `nama`, `email`, `telepon`, `unit_kerja_id`, `jabatan_id`, `created_at`, `updated_at`, `softdelete`) VALUES
-(1, 'Hariselmi', 'hariselmi1@gmail.com', '081267544081', 2, 4, '2021-10-29 20:05:56', '2021-10-29 20:05:56', '0'),
-(2, 'Haris', 'haris@uvers.ac.id', '081267544081', 4, 13, '2021-10-30 13:26:36', '2021-10-30 13:26:36', '0');
+INSERT INTO `pegawai` (`id`, `nama`, `email`, `telepon`, `unit_kerja_id`, `kepala_unit`, `jabatan_id`, `created_at`, `updated_at`, `softdelete`, `status`) VALUES
+(1, 'Administrator', 'eoffice@uvers.ac.id', '0812345678', 7, '2', 1, '2021-11-04 22:46:26', '2021-11-09 19:36:23', '0', '1'),
+(14, 'Dr. Kisdarjono', 'kisdarjono@gmail.com', '081234567890', 2, '2', 2, '2021-11-09 14:22:40', '2021-11-09 19:36:17', '0', '1'),
+(15, 'Dr. techn Aswandy, M.T', 'aswandy@uvers.ac.id', '08123456789', 2, '1', 3, '2021-11-09 14:23:12', '2021-11-09 14:33:03', '0', '1'),
+(16, 'Emi Lestari, S.E., M.M.', 'emilestari@uvers.ac.id', '08123456789', 2, '1', 3, '2021-11-09 14:23:42', '2021-11-09 14:33:31', '0', '1'),
+(17, 'Dr. Didi Sundiman, S.T., M.M.', 'didisundiman@uvers.ac.id', '081234567890', 3, '2', 4, '2021-11-09 14:24:25', '2021-11-09 19:36:09', '0', '1'),
+(18, 'Hardi Bahar, S.E., M.Si.', 'hardibahar@uvers.ac.id', '081234567890', 3, '1', 5, '2021-11-09 14:24:52', '2021-11-09 19:36:02', '0', '1'),
+(19, 'Mohamad Trio Febriantoro, S.E., M.M', 'mohamadttriofebriantoro@uvers.ac.id', '081234567890', 8, '2', 6, '2021-11-09 14:25:36', '2021-11-09 19:41:00', '0', '1'),
+(20, 'Agung Joni Saputra, S.E., M.Akt.', 'agungjonisaputra@uvers.ac.id', '081234567890', 107, '2', 6, '2021-11-09 14:29:53', '2021-11-09 19:26:58', '0', '1'),
+(21, 'Hariselmi', 'hariselmi@uvers.ac.id', '081234567890', 8, '1', 7, '2021-11-09 14:31:02', '2021-11-09 19:36:47', '0', '1'),
+(22, 'Admin Eoffice', 'admin@uvers.ac.id', '08123456789', 1, '1', 1, '2021-11-09 23:37:40', '2021-11-09 23:38:16', '0', '1'),
+(23, 'Ilham Saputra', 'ilham@gmail.com', '08125467654', 2, '1', 20, '2021-11-10 10:38:21', '2021-11-10 10:40:14', '0', '1'),
+(24, 'Akhmad Rezki Purnajaya, S.Kom., M.Kom.', 'akhmadrezkipurnajaya@gmail.com', '08125676533', 10, '2', 6, '2021-11-10 10:43:49', '2021-11-15 08:55:58', '0', '1'),
+(25, 'Akhmad Rezki Purnajaya, S.Kom., M.Kom.', 'akhmadrezkipurnajaya@gmail.com', '08125676533', 10, '1', 6, '2021-11-10 10:44:09', '2021-11-10 10:44:09', '0', '0'),
+(26, 'Akhmad Rezki Purnajaya, S.Kom., M.Kom.', 'akhmadrezkipurnajaya@gmail.com', '08125676533', 10, '1', 6, '2021-11-10 10:46:39', '2021-11-10 10:46:39', '0', '0'),
+(27, 'Akhmad Rezki Purnajaya, S.Kom., M.Kom.', 'akhmadrezkipurnajaya@gmail.com', '08125676533', 10, '1', 6, '2021-11-10 10:49:15', '2021-11-10 10:49:15', '0', '0'),
+(28, 'Dedi Rahman Habibie', 'dedi@uvers.ac.id', '0812345678', 2, '1', 20, '2021-11-15 08:31:52', '2021-11-15 08:54:49', '0', '1'),
+(29, '1', '1', '1', 6, '1', 20, '2021-11-15 08:42:07', '2021-11-15 08:42:25', '1', '0');
 
 -- --------------------------------------------------------
 
@@ -555,7 +630,10 @@ CREATE TABLE `perintah_disposisi` (
 --
 
 INSERT INTO `perintah_disposisi` (`id`, `nama`, `keterangan`, `created_at`, `updated_at`, `softdelete`) VALUES
-(1, 'tolak', 'tolak', '2021-09-28 20:06:17', '2021-09-28 20:06:26', '0');
+(1, 'Disposisi', 'Disposisi', '2021-09-28 20:06:17', '2021-09-28 20:06:17', '0'),
+(2, 'Diterima', 'Diterima', '2021-09-28 20:06:17', '2021-09-28 20:06:17', '0'),
+(3, 'Ditolak', 'Ditolak', '2021-09-28 20:06:17', '2021-09-28 20:06:17', '0'),
+(4, 'Selesai', 'Selesai', '2021-09-28 20:06:17', '2021-09-28 20:06:17', '0');
 
 -- --------------------------------------------------------
 
@@ -781,17 +859,17 @@ CREATE TABLE `prioritas_surat` (
 --
 
 INSERT INTO `prioritas_surat` (`id`, `nama`, `keterangan`, `created_at`, `updated_at`, `softdelete`) VALUES
-(1, '222', '2221', '2021-09-28 19:30:45', '2021-09-28 19:31:09', '1'),
-(2, 'segera', 'segera', '2021-09-28 19:30:53', '2021-09-28 19:37:34', '1'),
-(3, 'Sangat segera', 'Sangat segera', '2021-09-28 19:37:19', '2021-09-28 19:37:19', '0');
+(1, 'Biasa', '2221', '2021-09-28 19:30:45', '2021-09-28 19:31:09', '0'),
+(2, 'Segera', 'segera', '2021-09-28 19:30:53', '2021-09-28 19:37:34', '0'),
+(3, 'Sangat Segera', 'Sangat segera', '2021-09-28 19:37:19', '2021-09-28 19:37:19', '0');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reports`
+-- Table structure for table `reports_`
 --
 
-CREATE TABLE `reports` (
+CREATE TABLE `reports_` (
   `id` int(10) UNSIGNED NOT NULL,
   `schedule_id` int(11) DEFAULT NULL,
   `dlt` enum('0','1') COLLATE utf8_unicode_ci DEFAULT '0',
@@ -818,10 +896,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'web', '2021-07-13 05:58:16', '2021-07-13 05:58:16'),
-(2, 'member', 'web', '2021-07-13 13:18:50', '2021-07-13 13:18:50'),
-(4, 'pimpinan', 'web', '2021-07-30 19:35:16', '2021-07-30 19:35:16'),
-(5, 'tes', 'web', '2021-10-29 20:10:43', '2021-10-29 20:10:43');
+(1, 'Admin', 'web', '2021-07-13 05:58:16', '2021-07-13 05:58:16'),
+(2, 'Member', 'web', '2021-07-13 13:18:50', '2021-07-13 13:18:50'),
+(3, 'Staff', 'web', '2021-07-30 19:35:16', '2021-07-30 19:35:16');
 
 -- --------------------------------------------------------
 
@@ -840,7 +917,6 @@ CREATE TABLE `role_has_permissions` (
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (163, 1),
-(163, 2),
 (164, 1),
 (165, 1),
 (166, 1),
@@ -849,107 +925,60 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (169, 1),
 (170, 1),
 (171, 1),
-(171, 2),
 (172, 1),
 (173, 1),
 (174, 1),
-(174, 2),
 (175, 1),
 (176, 1),
-(176, 2),
 (177, 1),
-(177, 2),
 (178, 1),
-(178, 2),
 (179, 1),
-(179, 2),
 (180, 1),
-(180, 2),
 (181, 1),
-(181, 2),
 (182, 1),
-(182, 2),
 (183, 1),
-(183, 2),
 (184, 1),
-(184, 2),
 (185, 1),
-(185, 2),
 (186, 1),
-(186, 2),
 (187, 1),
-(187, 2),
 (188, 1),
-(188, 2),
 (189, 1),
-(189, 2),
 (190, 1),
-(190, 2),
 (191, 1),
-(191, 2),
 (192, 1),
-(192, 2),
 (193, 1),
-(193, 2),
 (194, 1),
-(194, 2),
 (195, 1),
-(195, 2),
 (196, 1),
-(196, 2),
 (197, 1),
-(197, 2),
 (198, 1),
-(198, 2),
 (199, 1),
-(199, 2),
 (200, 1),
-(200, 2),
 (201, 1),
-(201, 2),
 (202, 1),
-(202, 2),
 (203, 1),
-(203, 2),
 (204, 1),
-(204, 2),
 (205, 1),
-(205, 2),
 (206, 1),
-(206, 2),
 (207, 1),
-(207, 2),
 (208, 1),
-(208, 2),
 (209, 1),
-(209, 2),
 (210, 1),
-(210, 2),
 (211, 1),
-(211, 2),
 (212, 1),
-(212, 2),
 (213, 1),
-(213, 2),
 (214, 1),
-(214, 2),
 (215, 1),
-(215, 2),
 (216, 1),
-(216, 2),
 (217, 1),
-(217, 2),
 (218, 1),
-(218, 4),
 (219, 1),
 (220, 1),
 (221, 1),
-(221, 4),
 (222, 1),
 (223, 1),
 (224, 1),
 (225, 1),
-(225, 4),
 (226, 1),
 (227, 1),
 (228, 1),
@@ -972,7 +1001,11 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (245, 1),
 (246, 1),
 (247, 1),
+(247, 2),
+(247, 3),
 (248, 1),
+(248, 2),
+(248, 3),
 (249, 1),
 (250, 1),
 (251, 1),
@@ -1039,10 +1072,10 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `schedules`
+-- Table structure for table `schedules_`
 --
 
-CREATE TABLE `schedules` (
+CREATE TABLE `schedules_` (
   `id` int(10) UNSIGNED NOT NULL,
   `period_id` int(11) DEFAULT NULL,
   `schedule_date` date DEFAULT NULL,
@@ -1088,21 +1121,13 @@ CREATE TABLE `sifat_surat` (
   `softdelete` enum('0','1') DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `sifat_surat`
---
-
-INSERT INTO `sifat_surat` (`id`, `nama`, `keterangan`, `created_at`, `updated_at`, `softdelete`) VALUES
-(1, '222', '2221', '2021-09-28 19:30:45', '2021-09-28 19:31:09', '1'),
-(2, '1111', '111', '2021-09-28 19:30:53', '2021-09-28 19:30:59', '0');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sliders`
+-- Table structure for table `sliders_`
 --
 
-CREATE TABLE `sliders` (
+CREATE TABLE `sliders_` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `thumbnail` text COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -1113,19 +1138,19 @@ CREATE TABLE `sliders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `sliders`
+-- Dumping data for table `sliders_`
 --
 
-INSERT INTO `sliders` (`id`, `title`, `thumbnail`, `status`, `created_at`, `updated_at`, `dlt`) VALUES
+INSERT INTO `sliders_` (`id`, `title`, `thumbnail`, `status`, `created_at`, `updated_at`, `dlt`) VALUES
 (1, '11', 'slider-a.jpg', '1', NULL, '2021-07-18 12:51:44', '0');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `standards`
+-- Table structure for table `standards_`
 --
 
-CREATE TABLE `standards` (
+CREATE TABLE `standards_` (
   `id` int(10) UNSIGNED NOT NULL,
   `standard` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
   `dlt` enum('0','1') COLLATE utf8_unicode_ci DEFAULT '0',
@@ -1134,10 +1159,10 @@ CREATE TABLE `standards` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `standards`
+-- Dumping data for table `standards_`
 --
 
-INSERT INTO `standards` (`id`, `standard`, `dlt`, `created_at`, `updated_at`) VALUES
+INSERT INTO `standards_` (`id`, `standard`, `dlt`, `created_at`, `updated_at`) VALUES
 (1, 'Standar Pendidikan', '0', '2021-07-13 05:58:26', '2021-07-18 12:57:44'),
 (2, 'Standar Penelitian', '0', '2021-07-13 05:58:26', '2021-07-13 05:58:26'),
 (3, 'Standar Pengabdian', '0', '2021-07-13 05:58:26', '2021-07-13 05:58:26');
@@ -1145,10 +1170,10 @@ INSERT INTO `standards` (`id`, `standard`, `dlt`, `created_at`, `updated_at`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `standard_details`
+-- Table structure for table `standard_details_`
 --
 
-CREATE TABLE `standard_details` (
+CREATE TABLE `standard_details_` (
   `id` int(10) UNSIGNED NOT NULL,
   `standard_id` int(11) DEFAULT NULL,
   `standard_details` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -1159,10 +1184,10 @@ CREATE TABLE `standard_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `standard_details`
+-- Dumping data for table `standard_details_`
 --
 
-INSERT INTO `standard_details` (`id`, `standard_id`, `standard_details`, `no_document`, `dlt`, `created_at`, `updated_at`) VALUES
+INSERT INTO `standard_details_` (`id`, `standard_id`, `standard_details`, `no_document`, `dlt`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Standar Kompetensi Lulusan', 'Standar Kompetensi Lulusan', '0', '2021-07-13 05:58:26', '2021-07-13 05:58:26'),
 (2, 1, 'Standar Isi Pembelajaran', 'Standar Isi Pembelajaran', '0', '2021-07-13 05:58:26', '2021-07-13 05:58:26'),
 (3, 1, 'Standar Proses Pembelajaran', 'Standar Proses Pembelajaran', '0', '2021-07-13 05:58:27', '2021-07-13 05:58:27'),
@@ -1191,10 +1216,10 @@ INSERT INTO `standard_details` (`id`, `standard_id`, `standard_details`, `no_doc
 -- --------------------------------------------------------
 
 --
--- Table structure for table `standard_documents`
+-- Table structure for table `standard_documents_`
 --
 
-CREATE TABLE `standard_documents` (
+CREATE TABLE `standard_documents_` (
   `id` int(10) UNSIGNED NOT NULL,
   `standard_detail_id` int(11) DEFAULT NULL,
   `no_document` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -1207,11 +1232,106 @@ CREATE TABLE `standard_documents` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `status_keluar`
+--
+
+CREATE TABLE `status_keluar` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `keterangan` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `softdelete` enum('0','1') DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `status_keluar`
+--
+
+INSERT INTO `status_keluar` (`id`, `nama`, `keterangan`, `created_at`, `updated_at`, `softdelete`) VALUES
+(1, 'Menunggu Persetujuan', NULL, NULL, NULL, '0'),
+(2, 'Disposisi', 'Disposisi', '2021-09-28 20:06:17', '2021-09-28 20:06:17', '0'),
+(3, 'Diterima', 'Diterima', '2021-09-28 20:06:17', '2021-09-28 20:06:17', '0'),
+(4, 'Ditolak', 'Ditolak', '2021-09-28 20:06:17', '2021-09-28 20:06:17', '0'),
+(5, 'Selesai', 'Selesai', '2021-09-28 20:06:17', '2021-09-28 20:06:17', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status_laporan`
+--
+
+CREATE TABLE `status_laporan` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `keterangan` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `softdelete` enum('0','1') DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `status_laporan`
+--
+
+INSERT INTO `status_laporan` (`id`, `nama`, `keterangan`, `created_at`, `updated_at`, `softdelete`) VALUES
+(1, 'Menunggu Laporan', 'Menunggu Laporan', '2021-09-28 20:06:17', '2021-09-28 20:06:17', '0'),
+(2, 'Menunggu Persetujuan', 'Menunggu Persetujuan', '2021-09-28 20:06:17', '2021-09-28 20:06:17', '0'),
+(3, 'Laporan di Tolak', 'Laporan di Tolak', '2021-09-28 20:06:17', '2021-09-28 20:06:17', '0'),
+(4, 'Laporan di Terima', 'Laporan di Terima', '2021-09-28 20:06:17', '2021-09-28 20:06:17', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_keluar`
+--
+
+CREATE TABLE `surat_keluar` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `pegawai_id` int(11) DEFAULT NULL,
+  `unit_kerja_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `no_surat` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `perihal` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `asal_surat` int(11) DEFAULT NULL,
+  `tujuan_surat` int(11) DEFAULT NULL,
+  `isi_ringkasan` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tgl_surat` date DEFAULT NULL,
+  `jenis_id` int(11) DEFAULT NULL,
+  `file_surat` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `laporan` enum('0','1') COLLATE utf8_unicode_ci DEFAULT '0',
+  `status_laporan_id` int(11) DEFAULT NULL,
+  `laporan_pegawai_id` int(11) DEFAULT NULL,
+  `laporan_unit_kerja_id` int(11) DEFAULT NULL,
+  `laporan_pegawai_approval_id` int(11) DEFAULT NULL,
+  `laporan_catatan` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `laporan_file` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `dlt` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `surat_keluar`
+--
+
+INSERT INTO `surat_keluar` (`id`, `pegawai_id`, `unit_kerja_id`, `status`, `no_surat`, `perihal`, `asal_surat`, `tujuan_surat`, `isi_ringkasan`, `tgl_surat`, `jenis_id`, `file_surat`, `laporan`, `status_laporan_id`, `laporan_pegawai_id`, `laporan_unit_kerja_id`, `laporan_pegawai_approval_id`, `laporan_catatan`, `laporan_file`, `created_at`, `updated_at`, `dlt`) VALUES
+(1, 16, 2, 1, '1', '1', 16, 6, '1', '2021-11-15', 1, NULL, '0', NULL, 16, 2, NULL, NULL, NULL, '2021-11-15 09:32:40', '2021-11-15 09:36:45', 1),
+(2, 16, 2, 1, '1', '1', 16, 3, '1', '2021-11-15', 2, NULL, '0', NULL, 16, 2, NULL, NULL, NULL, '2021-11-15 09:35:33', '2021-11-15 09:35:45', 1),
+(3, 1, 7, 1, '1', '1', 1, 2, '1', '2021-11-15', 1, '1716465180006140_docx', '0', NULL, 1, 7, NULL, NULL, NULL, '2021-11-15 09:39:36', '2021-11-15 09:59:17', 0),
+(4, 1, 7, 1, '1', '1', 1, 4, '1', '2021-11-16', 2, '1716464141355941_pdf', '0', NULL, 1, 7, NULL, NULL, NULL, '2021-11-15 09:42:46', '2021-11-15 09:42:46', 0),
+(5, 1, 7, 1, '1', '1', 1, 2, '1', '2021-11-15', 1, '1716464690563693_docx', '0', NULL, 1, 7, NULL, NULL, NULL, '2021-11-15 09:51:30', '2021-11-15 09:51:30', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `surat_masuk`
 --
 
 CREATE TABLE `surat_masuk` (
   `id` int(10) UNSIGNED NOT NULL,
+  `pegawai_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
   `no_surat` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `perihal` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `asal_surat` text COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -1219,24 +1339,29 @@ CREATE TABLE `surat_masuk` (
   `isi_ringkasan` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `tgl_surat` date DEFAULT NULL,
   `jenis_id` int(11) DEFAULT NULL,
-  `prioritas_id` int(11) DEFAULT NULL,
-  `sifat_id` int(11) DEFAULT NULL,
   `media_id` int(11) DEFAULT NULL,
-  `lokasi_penyimpanan` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `file_surat` text COLLATE utf8_unicode_ci DEFAULT NULL,
-  `dlt` tinyint(1) DEFAULT NULL,
+  `laporan` enum('0','1') COLLATE utf8_unicode_ci DEFAULT '0',
+  `status_laporan_id` int(11) DEFAULT NULL,
+  `laporan_pegawai_id` int(11) DEFAULT NULL,
+  `laporan_unit_kerja_id` int(11) DEFAULT NULL,
+  `laporan_pegawai_approval_id` int(11) DEFAULT NULL,
+  `laporan_catatan` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `laporan_file` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `dlt` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `surat_masuk`
 --
 
-INSERT INTO `surat_masuk` (`id`, `no_surat`, `perihal`, `asal_surat`, `tujuan_surat`, `isi_ringkasan`, `tgl_surat`, `jenis_id`, `prioritas_id`, `sifat_id`, `media_id`, `lokasi_penyimpanan`, `file_surat`, `dlt`, `created_at`, `updated_at`) VALUES
-(1, '11', '22', '1', '1', '33', '2021-10-30', 22, 3, 2, 2, 'test', NULL, 1, '2021-10-29 23:17:59', '2021-10-30 01:01:45'),
-(2, '1', '2', '1', '1', 'test', '2021-10-30', 7, 3, 2, 2, 'test', NULL, 1, '2021-10-30 01:02:07', '2021-10-30 01:02:42'),
-(3, '1', 'test', '1', '1', 'test', '2021-10-30', 7, 3, 2, 2, 'test', NULL, 0, '2021-10-30 01:03:03', '2021-10-30 01:03:03');
+INSERT INTO `surat_masuk` (`id`, `pegawai_id`, `status`, `no_surat`, `perihal`, `asal_surat`, `tujuan_surat`, `isi_ringkasan`, `tgl_surat`, `jenis_id`, `media_id`, `file_surat`, `laporan`, `status_laporan_id`, `laporan_pegawai_id`, `laporan_unit_kerja_id`, `laporan_pegawai_approval_id`, `laporan_catatan`, `laporan_file`, `created_at`, `updated_at`, `dlt`) VALUES
+(1, 1, 2, '001', 'Pelatihan BKD', 'LL2DIkti', '0', 'Pelatihan BKD', '2021-11-14', 7, 1, '1716465536780329_pdf', '1', 1, 1, 7, NULL, NULL, NULL, '2021-11-14 13:45:40', '2021-11-15 10:04:57', 0),
+(2, 1, 2, '1', '1', '1', '0', '1', '2021-11-15', 1, 1, NULL, '1', 1, 1, 7, NULL, NULL, NULL, '2021-11-15 09:21:34', '2021-11-15 09:21:41', 0),
+(3, 1, NULL, '1', '1', '1', '0', '1', '2021-11-15', 1, 2, NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL, '2021-11-15 09:37:48', '2021-11-15 09:37:48', 0),
+(4, 1, NULL, '1', '1', '1', '0', '1', '2021-11-15', 3, 1, NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL, '2021-11-15 09:38:59', '2021-11-15 10:02:10', 0);
 
 -- --------------------------------------------------------
 
@@ -1247,6 +1372,7 @@ INSERT INTO `surat_masuk` (`id`, `no_surat`, `perihal`, `asal_surat`, `tujuan_su
 CREATE TABLE `unit_kerja` (
   `id` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
+  `pegawai_id` int(11) DEFAULT NULL,
   `kepala_unit` varchar(255) DEFAULT NULL,
   `keterangan` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -1258,19 +1384,29 @@ CREATE TABLE `unit_kerja` (
 -- Dumping data for table `unit_kerja`
 --
 
-INSERT INTO `unit_kerja` (`id`, `nama`, `kepala_unit`, `keterangan`, `created_at`, `updated_at`, `softdelete`) VALUES
-(1, 'rektor', '2', '2', '2021-09-28 20:50:40', '2021-09-28 20:50:52', '1'),
-(2, 'dekan', '1', '1', '2021-09-28 20:50:58', '2021-09-28 20:50:58', '0'),
-(3, 'prodi', '3', '3', '2021-10-29 19:11:08', '2021-10-29 19:11:08', '0'),
-(4, 'Rektorat', 'Pak Rektor', 'Rektor', '2021-10-30 13:24:55', '2021-10-30 13:24:55', '0');
+INSERT INTO `unit_kerja` (`id`, `nama`, `pegawai_id`, `kepala_unit`, `keterangan`, `created_at`, `updated_at`, `softdelete`) VALUES
+(1, 'Administrator', NULL, '', 'Administrator', '2021-11-04 22:45:14', '2021-11-15 09:06:42', '0'),
+(2, 'Rektorat', NULL, '', 'Rektor', '2021-11-04 22:45:14', '2021-11-04 22:45:14', '0'),
+(3, 'Direktorat Akademik', NULL, '', 'Kepala Bagian', '2021-11-04 22:45:14', '2021-11-04 22:45:14', '0'),
+(4, 'Direktorat Kepegawaian', NULL, '', 'Kepala Bagian', '2021-11-04 22:45:14', '2021-11-04 22:45:14', '0'),
+(5, 'Direktorat Umum', NULL, '', 'Kepala Bagian', '2021-11-04 22:45:14', '2021-11-04 22:45:14', '0'),
+(6, 'UPT TIK', NULL, '', 'Kepala Bagian', '2021-11-04 22:45:14', '2021-11-04 22:45:14', '0'),
+(7, 'LPPM', NULL, '', 'Kepala Bagian', '2021-11-04 22:45:14', '2021-11-04 22:45:14', '0'),
+(8, 'Fakultas Bisnis', NULL, '', 'Dekan', '2021-11-04 22:45:14', '2021-11-04 22:45:14', '0'),
+(9, 'Fakultas Komputer', NULL, '', 'Dekan', '2021-11-04 22:45:14', '2021-11-04 22:45:14', '0'),
+(10, 'Fakultas Pendidikan bahasa dan Budaya', NULL, '', 'Dekan', '2021-11-04 22:45:14', '2021-11-04 22:45:14', '0'),
+(11, 'Fakultas Seni', NULL, '', 'Dekan', '2021-11-04 22:45:14', '2021-11-04 22:45:14', '0'),
+(12, 'Fakultas Teknik', NULL, '', 'Dekan', '2021-11-04 22:45:14', '2021-11-04 22:45:14', '0'),
+(13, 'tes', NULL, NULL, NULL, '2021-11-15 08:40:16', '2021-11-15 08:40:35', '1'),
+(14, 'tes', NULL, NULL, NULL, '2021-11-15 08:40:22', '2021-11-15 08:40:43', '1');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `upload_documents`
+-- Table structure for table `upload_documents_`
 --
 
-CREATE TABLE `upload_documents` (
+CREATE TABLE `upload_documents_` (
   `id` int(10) UNSIGNED NOT NULL,
   `schedule_id` int(11) DEFAULT NULL,
   `status` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -1280,10 +1416,10 @@ CREATE TABLE `upload_documents` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `upload_documents`
+-- Dumping data for table `upload_documents_`
 --
 
-INSERT INTO `upload_documents` (`id`, `schedule_id`, `status`, `dlt`, `created_at`, `updated_at`) VALUES
+INSERT INTO `upload_documents_` (`id`, `schedule_id`, `status`, `dlt`, `created_at`, `updated_at`) VALUES
 (1, 1, '0', '0', '2021-07-30 18:54:59', '2021-07-30 18:54:59'),
 (2, 2, '0', '0', '2021-07-30 18:55:41', '2021-07-30 18:55:41'),
 (3, 3, '0', '0', '2021-07-31 01:30:32', '2021-07-31 01:30:32'),
@@ -1292,10 +1428,10 @@ INSERT INTO `upload_documents` (`id`, `schedule_id`, `status`, `dlt`, `created_a
 -- --------------------------------------------------------
 
 --
--- Table structure for table `upload_document_details`
+-- Table structure for table `upload_document_details_`
 --
 
-CREATE TABLE `upload_document_details` (
+CREATE TABLE `upload_document_details_` (
   `id` int(10) UNSIGNED NOT NULL,
   `upload_document_id` int(11) NOT NULL,
   `document_detail_id` int(11) NOT NULL,
@@ -1329,66 +1465,82 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `pegawai_id`, `name`, `email`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'admin', 'admin@uvers.ac.id', '$2y$10$7BMEXHdMnm2mFnpYFtmsQ.FdiZ/7Dob8HilfbIQ.orZX6j9nS4TPC', 'admin', NULL, '2021-07-21 16:41:53', '2021-07-21 16:41:53'),
-(7, 1, 'Hariselmi', 'hariselmi1@gmail.com', '$2y$10$JKSke1bWkWHFaIVrwgg8EOZSlk/TU0CMY.Kjg3GCwYOMfOQ7/9/dO', 'member', NULL, '2021-10-29 20:15:24', '2021-10-29 20:15:24'),
-(8, 1, 'Hariselmi', 'hariselmi2@gmail.com', '$2y$10$z9TTACGKPrhrMXha3lnoPOcNi2qY6qNVDzPSLcgCHcXgQOOP6egeu', 'member', NULL, '2021-10-29 20:15:49', '2021-10-29 20:15:49');
+(1, 1, 'Administrator', 'eoffice@uvers.ac.id', '$2y$10$6nvTM03kZVQmX1M97dw/4.9dfw7UM19K3DadFdD.1hybeR9ezysJ6', 'Admin', NULL, '2021-11-04 22:47:26', '2021-11-09 10:45:02'),
+(16, 14, 'Dr. Kisdarjono', 'kisdarjono@gmail.com', '$2y$10$KhRmMtag57xNrQ1sLZLl1OMI/x1Uwhi6belVwgPBFxgrmjyNsUxQe', 'Member', NULL, '2021-11-09 14:32:27', '2021-11-09 14:32:27'),
+(17, 15, 'Dr. techn Aswandy, M.T', 'aswandy@uvers.ac.id', '$2y$10$M6tPfTUojuB3Tn6es4iFRuVIUHKIva7FhxIBP9C1B4Md1lZINDJPS', 'Member', NULL, '2021-11-09 14:33:03', '2021-11-09 14:33:03'),
+(18, 16, 'Emi Lestari, S.E., M.M.', 'emilestari@uvers.ac.id', '$2y$10$WjqDPV8ztQjRUZ8awGF09ewPfmJL34MPiEOAbvXq5kwy/jxl60RTq', 'Member', NULL, '2021-11-09 14:33:31', '2021-11-09 14:33:31'),
+(19, 17, 'Dr. Didi Sundiman, S.T., M.M.', 'didisundiman@uvers.ac.id', '$2y$10$av9TvmFRtg3tvjkSKhM90utvZrjdTU4jc53a1.DwI/X3lu9M7AobK', 'Member', NULL, '2021-11-09 14:33:55', '2021-11-09 14:33:55'),
+(20, 18, 'Hardi Bahar, S.E., M.Si.', 'hardibahar@uvers.ac.id', '$2y$10$fqEBMLy/VTQsjnPChrdeue0JiDAOfU.5k7z1Vq1efE5e88CgtQRNG', 'Member', NULL, '2021-11-09 14:34:16', '2021-11-09 14:34:16'),
+(21, 19, 'Mohamad Trio Febriantoro, S.E., M.M', 'mohamadttriofebriantoro@uvers.ac.id', '$2y$10$/X5PPUPliBn0ybk7vlwaIuY5opOp195/bQ5WbYtlP4E/VMs4tMcjm', 'Member', NULL, '2021-11-09 14:34:46', '2021-11-09 14:34:46'),
+(22, 20, 'Agung Joni Saputra, S.E., M.Akt.', 'agungjonisaputra@uvers.ac.id', '$2y$10$aq5omaYfelnLEn9N8dlIZuUQlE.jVEDaJvlQGWNK8KrbA4jkRa77K', 'Member', NULL, '2021-11-09 14:35:05', '2021-11-09 22:31:50'),
+(23, 21, 'Hariselmi', 'hariselmi@uvers.ac.id', '$2y$10$o8JiPULpCvitvx1pm6q3we4zzRnBkXTUE5pPpOys15mu3ubnjQSPS', 'Member', NULL, '2021-11-09 14:35:30', '2021-11-09 14:35:30'),
+(24, 22, 'Admin Eoffice', 'admin@uvers.ac.id', '$2y$10$90wICn8DbuPzQQ5f.da9oeFGAfX1CVx4L/VLxAIMeKaiM00y5tUbO', 'Staff', NULL, '2021-11-09 23:38:16', '2021-11-09 23:38:16'),
+(25, 23, 'Ilham Saputra', 'ilham@gmail.com', '$2y$10$30Jpmyli5pL1GMkkGxhmnuaqdPXYbe2PW70LnxjBkd1/u9PKd0amm', 'Member', NULL, '2021-11-10 10:40:14', '2021-11-10 10:40:14'),
+(26, 28, 'Dedi Rahman Habibie', 'dedi@uvers.ac.id', '$2y$10$ITmJuO5GYOSc20CWGu4ci.1P3YuUEz1IFKjFpGK/RERGTMjjK8vKu', 'Member', NULL, '2021-11-15 08:54:49', '2021-11-15 08:54:49'),
+(27, 25, 'ahmad', 'ahmad@uvers.ac.id', '$2y$10$NLncTatb.O7W/cc.KIuR6ea39IdKmXuZDL1fqSSIyK4gBWlmAq.ke', 'Member', NULL, '2021-11-15 08:55:58', '2021-11-15 09:04:29');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `articles`
+-- Indexes for table `articles_`
 --
-ALTER TABLE `articles`
+ALTER TABLE `articles_`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `check_lists`
+-- Indexes for table `check_lists_`
 --
-ALTER TABLE `check_lists`
+ALTER TABLE `check_lists_`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `check_list_details`
+-- Indexes for table `check_list_details_`
 --
-ALTER TABLE `check_list_details`
+ALTER TABLE `check_list_details_`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `clock`
+-- Indexes for table `clock_`
 --
-ALTER TABLE `clock`
+ALTER TABLE `clock_`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `divisions`
+-- Indexes for table `divisions_`
 --
-ALTER TABLE `divisions`
+ALTER TABLE `divisions_`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `documents`
+-- Indexes for table `documents_`
 --
-ALTER TABLE `documents`
+ALTER TABLE `documents_`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `document_details`
+-- Indexes for table `document_details_`
 --
-ALTER TABLE `document_details`
+ALTER TABLE `document_details_`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `findings`
+-- Indexes for table `findings_`
 --
-ALTER TABLE `findings`
+ALTER TABLE `findings_`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `finding_details`
+-- Indexes for table `finding_details_`
 --
-ALTER TABLE `finding_details`
+ALTER TABLE `finding_details_`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `history_surat_keluar`
+--
+ALTER TABLE `history_surat_keluar`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1404,9 +1556,9 @@ ALTER TABLE `identities`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `items`
+-- Indexes for table `items_`
 --
-ALTER TABLE `items`
+ALTER TABLE `items_`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1422,15 +1574,21 @@ ALTER TABLE `jenis_surat`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
+-- Indexes for table `kepala_unit`
+--
+ALTER TABLE `kepala_unit`
+  ADD PRIMARY KEY (`id`) USING BTREE;
+
+--
 -- Indexes for table `media_surat`
 --
 ALTER TABLE `media_surat`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indexes for table `members`
+-- Indexes for table `members_`
 --
-ALTER TABLE `members`
+ALTER TABLE `members_`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1454,15 +1612,15 @@ ALTER TABLE `model_has_roles`
   ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
 
 --
--- Indexes for table `pages`
+-- Indexes for table `pages_`
 --
-ALTER TABLE `pages`
+ALTER TABLE `pages_`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `password_resets`
+-- Indexes for table `password_resets_`
 --
-ALTER TABLE `password_resets`
+ALTER TABLE `password_resets_`
   ADD KEY `password_resets_email_index` (`email`),
   ADD KEY `password_resets_token_index` (`token`);
 
@@ -1497,9 +1655,9 @@ ALTER TABLE `prioritas_surat`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indexes for table `reports`
+-- Indexes for table `reports_`
 --
-ALTER TABLE `reports`
+ALTER TABLE `reports_`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1516,9 +1674,9 @@ ALTER TABLE `role_has_permissions`
   ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
--- Indexes for table `schedules`
+-- Indexes for table `schedules_`
 --
-ALTER TABLE `schedules`
+ALTER TABLE `schedules_`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1535,34 +1693,52 @@ ALTER TABLE `sifat_surat`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indexes for table `sliders`
+-- Indexes for table `sliders_`
 --
-ALTER TABLE `sliders`
+ALTER TABLE `sliders_`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `standards`
+-- Indexes for table `standards_`
 --
-ALTER TABLE `standards`
+ALTER TABLE `standards_`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `standard_details`
+-- Indexes for table `standard_details_`
 --
-ALTER TABLE `standard_details`
+ALTER TABLE `standard_details_`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `standard_documents`
+-- Indexes for table `standard_documents_`
 --
-ALTER TABLE `standard_documents`
+ALTER TABLE `standard_documents_`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `status_keluar`
+--
+ALTER TABLE `status_keluar`
+  ADD PRIMARY KEY (`id`) USING BTREE;
+
+--
+-- Indexes for table `status_laporan`
+--
+ALTER TABLE `status_laporan`
+  ADD PRIMARY KEY (`id`) USING BTREE;
+
+--
+-- Indexes for table `surat_keluar`
+--
+ALTER TABLE `surat_keluar`
+  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Indexes for table `surat_masuk`
 --
 ALTER TABLE `surat_masuk`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Indexes for table `unit_kerja`
@@ -1571,15 +1747,15 @@ ALTER TABLE `unit_kerja`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indexes for table `upload_documents`
+-- Indexes for table `upload_documents_`
 --
-ALTER TABLE `upload_documents`
+ALTER TABLE `upload_documents_`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `upload_document_details`
+-- Indexes for table `upload_document_details_`
 --
-ALTER TABLE `upload_document_details`
+ALTER TABLE `upload_document_details_`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1594,64 +1770,70 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `articles`
+-- AUTO_INCREMENT for table `articles_`
 --
-ALTER TABLE `articles`
+ALTER TABLE `articles_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `check_lists`
+-- AUTO_INCREMENT for table `check_lists_`
 --
-ALTER TABLE `check_lists`
+ALTER TABLE `check_lists_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `check_list_details`
+-- AUTO_INCREMENT for table `check_list_details_`
 --
-ALTER TABLE `check_list_details`
+ALTER TABLE `check_list_details_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `clock`
+-- AUTO_INCREMENT for table `clock_`
 --
-ALTER TABLE `clock`
+ALTER TABLE `clock_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `divisions`
+-- AUTO_INCREMENT for table `divisions_`
 --
-ALTER TABLE `divisions`
+ALTER TABLE `divisions_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `documents`
+-- AUTO_INCREMENT for table `documents_`
 --
-ALTER TABLE `documents`
+ALTER TABLE `documents_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `document_details`
+-- AUTO_INCREMENT for table `document_details_`
 --
-ALTER TABLE `document_details`
+ALTER TABLE `document_details_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `findings`
+-- AUTO_INCREMENT for table `findings_`
 --
-ALTER TABLE `findings`
+ALTER TABLE `findings_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `finding_details`
+-- AUTO_INCREMENT for table `finding_details_`
 --
-ALTER TABLE `finding_details`
+ALTER TABLE `finding_details_`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `history_surat_keluar`
+--
+ALTER TABLE `history_surat_keluar`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `history_surat_masuk`
 --
 ALTER TABLE `history_surat_masuk`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `identities`
@@ -1660,33 +1842,39 @@ ALTER TABLE `identities`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `items`
+-- AUTO_INCREMENT for table `items_`
 --
-ALTER TABLE `items`
+ALTER TABLE `items_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `jenis_surat`
 --
 ALTER TABLE `jenis_surat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `kepala_unit`
+--
+ALTER TABLE `kepala_unit`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `media_surat`
 --
 ALTER TABLE `media_surat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `members`
+-- AUTO_INCREMENT for table `members_`
 --
-ALTER TABLE `members`
+ALTER TABLE `members_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -1696,22 +1884,22 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `pages`
+-- AUTO_INCREMENT for table `pages_`
 --
-ALTER TABLE `pages`
+ALTER TABLE `pages_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `perintah_disposisi`
 --
 ALTER TABLE `perintah_disposisi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `periods`
@@ -1732,9 +1920,9 @@ ALTER TABLE `prioritas_surat`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `reports`
+-- AUTO_INCREMENT for table `reports_`
 --
-ALTER TABLE `reports`
+ALTER TABLE `reports_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -1744,9 +1932,9 @@ ALTER TABLE `roles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `schedules`
+-- AUTO_INCREMENT for table `schedules_`
 --
-ALTER TABLE `schedules`
+ALTER TABLE `schedules_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -1759,61 +1947,79 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `sifat_surat`
 --
 ALTER TABLE `sifat_surat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `sliders`
+-- AUTO_INCREMENT for table `sliders_`
 --
-ALTER TABLE `sliders`
+ALTER TABLE `sliders_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `standards`
+-- AUTO_INCREMENT for table `standards_`
 --
-ALTER TABLE `standards`
+ALTER TABLE `standards_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- AUTO_INCREMENT for table `standard_details`
+-- AUTO_INCREMENT for table `standard_details_`
 --
-ALTER TABLE `standard_details`
+ALTER TABLE `standard_details_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT for table `standard_documents`
+-- AUTO_INCREMENT for table `standard_documents_`
 --
-ALTER TABLE `standard_documents`
+ALTER TABLE `standard_documents_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `status_keluar`
+--
+ALTER TABLE `status_keluar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `status_laporan`
+--
+ALTER TABLE `status_laporan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `surat_keluar`
+--
+ALTER TABLE `surat_keluar`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `surat_masuk`
 --
 ALTER TABLE `surat_masuk`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `unit_kerja`
 --
 ALTER TABLE `unit_kerja`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `upload_documents`
+-- AUTO_INCREMENT for table `upload_documents_`
 --
-ALTER TABLE `upload_documents`
+ALTER TABLE `upload_documents_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `upload_document_details`
+-- AUTO_INCREMENT for table `upload_document_details_`
 --
-ALTER TABLE `upload_document_details`
+ALTER TABLE `upload_document_details_`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables

@@ -12,20 +12,18 @@
             @foreach ($semua_media_surat as $index=>$value)
                 <tr>
                     <td class="text-center">{{ $index+1 }}</td>
-                    <td class="text-center">{{ $value->nama }}</td>
-                    <td class="text-center">{{ $value->keterangan }}</td>
-                    <td class="text-center">
-                        <a href="#editMediaSuratModal" data-replace-empty="#editMediaSurat" data-ajax-url="/media-surat/{{$value->id}}/edit" data-toggle="modal">
-                        <button class="btn btn-small btn-warning pull-left" style="margin: 10px;"><i class="fa fa-edit"></i> Edit</button>
-                        </a>
+                    <td class="text-left">{{ $value->nama }}</td>
+                    <td class="text-left">{{ $value->keterangan }}</td>
 
+                    <td class="item_btn_group">
+                        @php
+                            $actions = [ 
+                                ['data-replace' => '#editMediaSurat', 'url' => '#editMediaSuratModal', 'ajax-url' => url('media-surat/' . $value->id . '/edit'), 'name' => ' Edit', 'icon' => 'pencil'],
 
-
-                        <a href="#" class="delete-form" onclick="return confirm('Apakah anda yakin?')"><form method="POST" action="/media-surat/{{$value->id}}" accept-charset="UTF-8" class="form-inline">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input name="_method" type="hidden" value="DELETE">
-                        <button class="btn btn-small btn-danger pull-left" style="margin: 10px;"><i class="fa fa-trash"></i> Hapus</button>
-                        </form></a>
+                                ['url' => 'media-surat/' . $value->id, 'name' => 'delete']
+                            ];
+                        @endphp
+                        @include('partials.actions', ['actions'=>$actions])
                     </td>
                 </tr>
             @endforeach

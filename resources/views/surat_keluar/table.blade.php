@@ -3,12 +3,12 @@
         <thead>
             <tr>
                 <th width="50" class="hidden-xs text-center">No</th>
-                <th>No Surat</th>
-                <th>Perihal</th>
-                <th>Asal Surat</th>
-                <th>Tujuan Surat</th>
-                <th>Status</th>
-                <th>Aksi</th>
+                <th class="text-center">No Surat</th>
+                <th class="text-center">Perihal</th>
+                <th class="text-center">Asal Surat</th>
+                <th class="text-center">Tujuan Surat</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -106,3 +106,9 @@
     
 </div>
     
+<script type="text/javascript">
+    $('#addSuratKeluarModal').modal('hide');
+    $('#showSuratKeluarModal').modal('hide');
+    $('#posisiSuratKeluarModal').modal('hide');
+    $('#editSuratKeluarModal').modal('hide');
+</script>

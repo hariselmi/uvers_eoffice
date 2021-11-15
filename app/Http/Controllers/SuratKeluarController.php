@@ -187,10 +187,19 @@ class SuratKeluarController extends Controller
         // dd($request->all());
         //
         $input = $request->all();
-        $this->validator($input)->validate();
+        $this->validatorUpdate($input)->validate();
+
         $fileSurat = $request->file('fileSurat');
 
         if ($fileSurat) {
+
+        $validateData = $request->validate([
+            'fileSurat' => 'file|mimes:png,jpg,jpeg,pdf,doc,docx,xls,xlsx|between:0,2048',
+        ],[
+            'fileSurat.mimes' => 'Extensi file unggahan tidak didukung',
+            'fileSurat.between' => 'Ukuran file unggahan max 2MB',
+        ]);
+
             # code...
             $nameGenerate = hexdec(uniqid());
             $imgExtention = strtolower($fileSurat->getClientOriginalExtension());
@@ -200,6 +209,8 @@ class SuratKeluarController extends Controller
             $lastImage = $uploadLocation.$newName;
             $fileSurat->move($uploadLocation,$newName);
         }
+
+
         
         $suratKeluar = (new SuratKeluar())->getById($id);
         $suratKeluar->no_surat = $request->no_surat;
@@ -207,7 +218,7 @@ class SuratKeluarController extends Controller
         $suratKeluar->asal_surat = Auth::user()->pegawai_id;
         $suratKeluar->tujuan_surat = $request->tujuan_surat;
         $suratKeluar->tgl_surat = $request->tgl_surat;
-        $surat->unit_kerja_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
+        $suratKeluar->unit_kerja_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
         $suratKeluar->jenis_id = $request->jenis_id;
         $suratKeluar->isi_ringkasan = $request->isi_ringkasan;
         $suratKeluar->file_surat = $fileSurat ? $newName : Get_field::get_data($id, 'surat_keluar', 'file_surat');
@@ -381,7 +392,19 @@ class SuratKeluarController extends Controller
             'perihal'=>'required',
             'isi_ringkasan'=>'required',
             'tgl_surat'=>'required',
-            'jenis_id'=>'required'
+            'jenis_id'=>'required',
+            'fileSurat'=>'required',
+        ]);
+    }
+
+    protected function validatorUpdate(Array $data)
+    {
+        return Validator::make($data, [
+            'no_surat'=>'required',
+            'perihal'=>'required',
+            'isi_ringkasan'=>'required',
+            'tgl_surat'=>'required',
+            'jenis_id'=>'required',
         ]);
     }
 
@@ -408,6 +431,7 @@ class SuratKeluarController extends Controller
         if ( in_array($option, ['index', 'add', 'update', 'delete', 'import','disposisi'])) {
             if (empty($data['semua_surat_keluar'])) {
                 $data['semua_surat_keluar'] = $suratKeluarObj->getAll('paginate');
+                $data['pegawaiID'] = Auth::user()->pegawai_id;
             }
             $response['replaceWith']['#suratKeluarTable'] = view('surat_keluar.table', $data)->render();
         }

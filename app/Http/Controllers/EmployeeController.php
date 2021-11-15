@@ -54,7 +54,6 @@ class EmployeeController extends Controller
         $data['pegawai'] = DB::table('pegawai')
             ->select('nama','id')
              ->where('softdelete', '0')
-             ->where('status', '0')
              ->pluck('nama', 'id');
 
 
@@ -130,7 +129,6 @@ class EmployeeController extends Controller
         $data['pegawai'] = DB::table('pegawai')
             ->select('nama','id')
              ->where('softdelete', '0')
-             ->where('status', '0')
              ->pluck('nama', 'id');
         
         return $this->sendCommonResponse($data, null, 'edit');
@@ -146,6 +144,12 @@ class EmployeeController extends Controller
     {
         $data['employee'] = User::find($id);
         $data['roles'] = Role::all();
+
+        $data['pegawai'] = DB::table('pegawai')
+            ->select('nama','id')
+             ->where('softdelete', '0')
+             ->pluck('nama', 'id');
+
         return $this->sendCommonResponse($data, null, 'userEdit');
     }
 
@@ -185,6 +189,11 @@ class EmployeeController extends Controller
                 $this->assignRoles($user, $request->role);
                 $data['roles'] = Role::all();
                 $data['employee'] = $user;
+
+        $data['pegawai'] = DB::table('pegawai')
+            ->select('nama','id')
+             ->where('softdelete', '0')
+             ->pluck('nama', 'id');
                 return $this->sendCommonResponse($data, __('You have successfully updated employee'), 'update');
             }
         
@@ -219,6 +228,12 @@ class EmployeeController extends Controller
                 $user->save();
                 $data['roles'] = Role::all();
                 $data['employee'] = $user;
+
+                        $data['pegawai'] = DB::table('pegawai')
+            ->select('nama','id')
+             ->where('softdelete', '0')
+             ->pluck('nama', 'id');
+
                 return $this->sendCommonResponse($data, __('Berhasil memperbarui data'), 'userUpdate');
             }
         }
@@ -355,10 +370,9 @@ class EmployeeController extends Controller
         if ( $option == 'index' || $option == 'add' || $option == 'update' || $option == 'delete' || $option == 'role-create') {
             if (empty($data['employees'])) {
                 $data['employees'] = $this->user->getAll('paginate');
-                $data['pegawai'] = DB::table('pegawai')
+            $data['pegawai'] = DB::table('pegawai')
             ->select('nama','id')
              ->where('softdelete', '0')
-             ->where('status', '0')
              ->pluck('nama', 'id');
             }
             if (empty($data['roles'])) {

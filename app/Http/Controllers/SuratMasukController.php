@@ -55,6 +55,8 @@ class SuratMasukController extends Controller
             $data['mediaSurat'] = MediaSurat::where('softdelete', '0')->pluck('nama', 'id');
 
             $data['fileSurat'] = '';
+
+            $data['unitkerjaid'] = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
         
             $data['surat_masuk'] = $this->suratMasuk->getAll('paginate');
         return view('surat_masuk.index', $data);
@@ -157,6 +159,7 @@ class SuratMasukController extends Controller
         $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
         $data['mediaSurat'] = MediaSurat::where('softdelete', '0')->pluck('nama', 'id');
         $data['fileSurat'] = Get_field::get_data($id, 'surat_masuk', 'file_surat');
+        $data['unitkerjaid'] = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
         return $this->sendCommonResponse($data, null, 'edit');
     }
 
@@ -172,7 +175,7 @@ class SuratMasukController extends Controller
         // dd($request->all());
         //
         $input = $request->all();
-        $this->validator($input)->validate();
+        $this->validatorUpdate($input)->validate();
         $fileSurat = $request->file('fileSurat');
 
         if ($fileSurat) {
@@ -195,13 +198,14 @@ class SuratMasukController extends Controller
         $suratMasuk->jenis_id = $request->jenis_id;
         $suratMasuk->media_id = $request->media_id;
         $suratMasuk->isi_ringkasan = $request->isi_ringkasan;
-        $suratMasuk->file_surat = $fileSurat ? $newName : null;
+        $suratMasuk->file_surat = $fileSurat ? $newName : Get_field::get_data($id, 'surat_masuk', 'file_surat');
         $suratMasuk->dlt = '0';
         $suratMasuk->save();
 
         $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
         $data['mediaSurat'] = MediaSurat::where('softdelete', '0')->pluck('nama', 'id');
         $data['fileSurat'] = Get_field::get_data($id, 'surat_masuk', 'file_surat');
+        $data['unitkerjaid'] = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
         return $this->sendCommonResponse($data, 'Anda telah berhasil memperbarui surat masuk', 'update');
     }
 
@@ -246,6 +250,7 @@ class SuratMasukController extends Controller
 
 
         $data['pegawai'] = Pegawai::where('softdelete', '0')->pluck('nama', 'id');
+        $data['unitkerjaid'] = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
 
 
         $data['history_surat_masuk'] = DB::table('history_surat_masuk')
@@ -330,6 +335,8 @@ class SuratMasukController extends Controller
 
         $data['surat_masuk_id'] = $request->surat_masuk_id;
 
+        $data['unitkerjaid'] = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
+
         return $this->sendCommonResponse($data, 'Anda telah berhasil memperbarui surat masuk', 'disposisi');
     }
 
@@ -352,8 +359,26 @@ class SuratMasukController extends Controller
             'tgl_surat'=>'required',
             'jenis_id'=>'required',
             'media_id'=>'required',
+            'fileSurat'=>'required',
+            
         ]);
     }
+
+        protected function validatorUpdate(Array $data)
+    {
+        return Validator::make($data, [
+            'no_surat'=>'required',
+            'perihal'=>'required',
+            'asal_surat'=>'required',
+            'isi_ringkasan'=>'required',
+            'tgl_surat'=>'required',
+            'jenis_id'=>'required',
+            'media_id'=>'required',
+            
+        ]);
+    }
+
+
 
     private function sendCommonResponse($data=[], $notify = '', $option = null) 
     {
@@ -378,6 +403,7 @@ class SuratMasukController extends Controller
         if ( in_array($option, ['index', 'add', 'update', 'delete', 'import','disposisi'])) {
             if (empty($data['surat_masuk'])) {
                 $data['surat_masuk'] = $suratMasukObj->getAll('paginate');
+                $data['unitkerjaid'] = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
             }
             $response['replaceWith']['#suratMasukTable'] = view('surat_masuk.table', $data)->render();
         }

@@ -41,7 +41,6 @@ class JabatanController extends Controller
         }
 
         $data['semua_jabatan'] = $this->jabatan->getAll('paginate');
-        $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
         return view('jabatan.index', $data);
     }
 
@@ -69,7 +68,7 @@ class JabatanController extends Controller
         $semua_jabatan = new Jabatan;
         $semua_jabatan->SaveJabatan($input);
 
-        $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
+        $data['semua_jabatan'] = $this->jabatan->getAll('paginate');
         
         return $this->sendCommonResponse($data, 'Data berhasil ditambahkan', 'add');
     }
@@ -84,7 +83,6 @@ class JabatanController extends Controller
     {
         //
         $data['jabatan'] = Jabatan::find($id);
-        $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
 
         return $this->sendCommonResponse($data, null, 'show');
     }
@@ -99,7 +97,6 @@ class JabatanController extends Controller
     {
         //
         $data['jabatan'] = Jabatan::find($id);
-        $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
         return $this->sendCommonResponse($data, null, 'edit');
     }
 
@@ -120,7 +117,6 @@ class JabatanController extends Controller
         
         $semua_jabatan->SaveJabatan($input);
         $data['jabatan'] = $semua_jabatan;
-        $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
         return $this->sendCommonResponse($data, 'Data berhasil diedit', 'update');
     }
 

@@ -3,14 +3,14 @@
         <thead>
             <tr>
                 <th width="50" class="hidden-xs text-center">No</th>
-                <th>No Surat</th>
-                <th>Tanggal</th>
-                <th>Perihal</th>
-                <th>Asal Surat</th>
-                <th>User</th>
-                <th>Status</th>
-                <th>Laporan</th>
-                <th>Aksi</th>
+                <th class="text-center">No Surat</th>
+                <th class="text-center">Tanggal</th>
+                <th class="text-center">Perihal</th>
+                <th class="text-center">Asal Surat</th>
+                <th class="text-center">User</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Laporan</th>
+                <th class="text-center">Aksi</th>
             </tr>
         </thead>
         <tbody>

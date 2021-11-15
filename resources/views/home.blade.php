@@ -9,6 +9,7 @@
             <div class="panel-heading">
                 @include('partials.flash')
                 <h3>{{ __('Dashboard e-Office - Universitas Universal') }}</h3>
+                <h4>Selamat Datang, {{ Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'nama') }}</h4>
  
             </div>
             <div class="panel-body">
