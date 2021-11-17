@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Pegawai extends Model
 {
@@ -16,7 +17,9 @@ class Pegawai extends Model
         $per_page = !empty($search['per_page']) ? $search['per_page'] : 10;
         if(!empty($search)) {
             if(!empty($search['search'])) {
-                $results = $results->where('nama', 'LIKE', '%'.$search['search'].'%');
+                $results = $results->where([['nama', 'LIKE', '%'.$search['search'].'%'], ['softdelete','0']])
+                ->orWhere([['email', 'LIKE', '%'.$search['search'].'%'], ['softdelete','0']])
+                ->orWhere([['telepon', 'LIKE', '%'.$search['search'].'%'], ['softdelete','0']]);
             }
         }
         if($option=='paginate') {
@@ -36,7 +39,8 @@ class Pegawai extends Model
         $this->jabatan_id = $data['jabatan_id'];
         $this->unit_kerja_id = $data['unit_kerja_id'];
         $this->kepala_unit = $data['kepala_unit'];
-        //$this->updated_at = date('Y-m-d H:i:s');
+        $this->created_at = Carbon::now();
+        $this->updated_at = Carbon::now();
         $this->save();
     }
 

@@ -138,13 +138,12 @@ class PelaporanEofficeController extends Controller
         }
 
             if ($fileSurat) {
-                # code...
-                DB::table('surat_masuk')->where('id', $request->surat_masuk_id)->update([
+                DB::table('surat_masuk_laporan')->where('id', $request->surat_masuk_id)->update([
                     'laporan_file' => $newName,
                 ]);
             }
 
-            DB::table('surat_masuk')->where('id', $request->surat_masuk_id)->update([
+            DB::table('surat_masuk_laporan')->where('id', $request->surat_masuk_id)->update([
                 'laporan_catatan' => $request->catatan_penting,
                 'status_laporan_id' => '2',
             ]);
@@ -162,18 +161,18 @@ class PelaporanEofficeController extends Controller
         $input = $request->all();
         $this->validatorValidasi($input)->validate();
 
-            DB::table('surat_masuk')->where('id', $request->surat_masuk_id)->update([
+            DB::table('surat_masuk_laporan')->where('id', $request->surat_masuk_id)->update([
                 'status_laporan_id' => $request->status_laporan_id,
                 'laporan_pegawai_approval_id' => Auth::user()->pegawai_id,
             ]);
 
             if ($request->status_laporan_id == '3'){
-                DB::table('surat_masuk')->where('id', $request->surat_masuk_id)->update([
-                'status' => '3'
+                DB::table('surat_masuk_laporan')->where('id', $request->surat_masuk_id)->update([
+                'status' => '4'
                 ]);
             }elseif($request->status_laporan_id == '4') {
-                DB::table('surat_masuk')->where('id', $request->surat_masuk_id)->update([
-                'status' => '4'
+                DB::table('surat_masuk_laporan')->where('id', $request->surat_masuk_id)->update([
+                'status' => '5'
             ]);
             }
         

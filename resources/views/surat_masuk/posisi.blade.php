@@ -18,19 +18,20 @@
                                 <th>Tgl Disposisi</th>
                                 <th>Pejabat Penerima</th>
                                 <th>Status</th>
-                                <th>Lama Proses</th>
                                 <th>Isi Ringkasan</th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach ($history_surat_masuk as $key=>$value)
-                            <tr>
+                        <?php
+                        $color = Get_field::get_data($value->surat_masuk_model, 'disposisi_model', 'nama')
+                        ?>
+                            <tr style="background-color: <?=$color?>">
                                 <td class="hidden-xs">{{ $key+1 }}</td>
                                 <td class="hidden-xs">{{ Get_field::get_data($value->asal_surat, 'pegawai', 'nama') }}</td>
                                 <td class="hidden-xs">{{ Get_field::format_indo($value->tanggal) }}</td>
                                 <td>{{ Get_field::get_data($value->tujuan_surat, 'pegawai', 'nama') }}</td>
                                 <td>{{ Get_field::get_data($value->status, 'perintah_disposisi', 'nama') }}</td>
-                                <td class="hidden-xs"></td>
                                 <td class="hidden-xs">{{ $value->catatan_penting }}
                                 @if($value->file_surat != '' && $value->file_surat != null)
                                 File : 

@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Pegawai;
 use App\User;
 use Auth;
+use \Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use Carbon\Carbon;
 
 class PegawaiController extends Controller
 {
@@ -73,7 +75,7 @@ class PegawaiController extends Controller
         $input = $request->all();
         $this->validator($input)->validate();
 
-        //update kepala unit
+        //update kepala unit yg lama
         if($request->kepala_unit == '2')
         {
             DB::table('pegawai')->where('unit_kerja_id', $request->unit_kerja_id)->update([
@@ -84,19 +86,46 @@ class PegawaiController extends Controller
         $semua_pegawai = new Pegawai;
         $semua_pegawai->SavePegawai($input);
 
-        //update kepala unit
+        //update kepala unit baru
         if($request->kepala_unit == '2')
         {
             DB::table('unit_kerja')->where('id', $request->unit_kerja_id)->update([
-                'pegawai_id' => $semua_pegawai
+                'pegawai_id' => $semua_pegawai->id
             ]);
         }
+
+
+
+        // insert table users 
+        $user = new User;
+        $user->name = $request->nama;
+        $user->pegawai_id = $semua_pegawai->id;
+        $user->email = $request->email;
+        $user->role = 'Member';
+        $user->password = Hash::make('12345678');
+        $user->save();
+        $this->assignRoles($user, 'Member');
 
         $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
         $data['jabatan'] = DB::table('jabatan')->where('softdelete', '0')->pluck('nama', 'id');
         $data['kepalaunit'] = DB::table('kepala_unit')->pluck('nama', 'id');
         
         return $this->sendCommonResponse($data, 'Data berhasil ditambahkan', 'add');
+    }
+
+    public function assignRoles($user, $role)
+    {
+        if ($user->id == 1) {
+            Session::flash('message', 'You can not assign admin role');
+            Session::flash('alert-class', 'alert-danger');
+            return back();
+        }
+        $all_past_roles = $user->getRoleNames();
+
+        foreach ($all_past_roles as $value) {
+            $user->removeRole($value);
+        }
+        $user->assignRole($role);
     }
 
     /**
@@ -166,7 +195,7 @@ class PegawaiController extends Controller
 
         $data['pegawai'] = $semua_pegawai;
 
-       $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
+        $data['unitkerja'] = DB::table('unit_kerja')->where('softdelete', '0')->pluck('nama', 'id');
 
         $data['jabatan'] = DB::table('jabatan')->where('softdelete', '0')->pluck('nama', 'id');
         $data['kepalaunit'] = DB::table('kepala_unit')->pluck('nama', 'id');
@@ -187,7 +216,7 @@ class PegawaiController extends Controller
         //
         try {
             $pegawai = Pegawai::find($id);
-            //$pegawai->updated_at = date('Y-m-d H:i:s');
+            $pegawai->updated_at = date('Y-m-d H:i:s');
             $pegawai->softdelete = '1';
             $pegawai->save();
 

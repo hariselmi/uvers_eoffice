@@ -1,3 +1,5 @@
+<script type="text/javascript" src="{{ asset('assets/js/autocomplete.js') }}"></script>
+
 <div class="modal-content" id="editSuratMasuk">
     @if (!empty($surat_masuk))
     {{ Form::model($surat_masuk, ['route' => ['surat-masuk.update', $surat_masuk->id], 'method' => 'PUT', 'files' => true]) }}
@@ -26,7 +28,7 @@
             <div class="form-group row">
                 {{ Form::label('asal_surat', 'Asal Surat*', ['class' => 'col-sm-3 text-right']) }}
                 <div class="col-sm-9">
-                    {{ Form::text('asal_surat', null, ['class' => 'form-control', '']) }}
+                    {{ Form::text('asal_surat', null, ['class' => 'typeahead form-control', '']) }}
                 </div>
             </div>
             <div class="form-group row">
@@ -84,3 +86,15 @@
 </div>
 {{ Form::close() }}
 </div>
+
+
+<script>
+  var path = "{{ route('autocomplete')  }}";
+  $('input.typeahead').typeahead({
+      source:  function (query, process) {
+      return $.get(path, { term: query }, function (data) {
+              return process(data);
+          });
+      }
+  });
+</script>

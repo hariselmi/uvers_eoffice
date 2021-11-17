@@ -52,21 +52,35 @@
                             @endphp
                             @elseif($value->status_laporan_id == '2')
 
-                            @if($value->laporan_pegawai_id == Auth::user()->pegawai_id)
-                            
-                                @php
-                                $actions = [
-                                ['data-replace' => '#validasiPelaporanEoffice', 'url' => '#', 'ajax-url' => url('pelaporan-eoffice/' . $value->id . '/validasi'), 'name' => ' Menunggu Persetujuan ', 'icon' => 'tutup']
-                                ];
-                                @endphp
-                            @else
-                                @php
-                                $actions = [
-                                ['data-replace' => '#validasiPelaporanEoffice', 'url' => '#validasiPelaporanEofficeModal', 'ajax-url' => url('pelaporan-eoffice/' . $value->id . '/validasi'), 'name' => ' Validasi ', 'icon' => 'check']
-                                ];
-                                @endphp
+                            <?php $unit_kerja_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id'); ?>
+                                @if($unit_kerja_id == '1' OR $unit_kerja_id == '2')
 
-                            @endif
+                                    @php
+                                        $actions = [
+                                        ['data-replace' => '#validasiPelaporanEoffice', 'url' => '#validasiPelaporanEofficeModal', 'ajax-url' => url('pelaporan-eoffice/' . $value->id . '/validasi'), 'name' => ' Validasi ', 'icon' => 'check']
+                                        ];
+                                        @endphp
+
+                                @else
+
+                                    @if($value->laporan_pegawai_id == Auth::user()->pegawai_id)
+                                    
+                                        @php
+                                        $actions = [
+                                        ['data-replace' => '#validasiPelaporanEoffice', 'url' => '#', 'ajax-url' => url('pelaporan-eoffice/' . $value->id . '/validasi'), 'name' => ' Menunggu Persetujuan ', 'icon' => 'tutup']
+                                        ];
+                                        @endphp
+
+
+                                    @else
+                                        @php
+                                        $actions = [
+                                        ['data-replace' => '#validasiPelaporanEoffice', 'url' => '#validasiPelaporanEofficeModal', 'ajax-url' => url('pelaporan-eoffice/' . $value->id . '/validasi'), 'name' => ' Validasi ', 'icon' => 'check']
+                                        ];
+                                        @endphp
+
+                                    @endif
+                                @endif
 
                             @else
                             @php

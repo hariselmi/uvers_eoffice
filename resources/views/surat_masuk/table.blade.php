@@ -26,7 +26,7 @@
 
                 <tr>
                     <td class="hidden-xs text-center">{{ $key+1 }}</td>
-                    <td class="hidden-xs">{{ $value->no_surat }}</td>
+                    <td class="hidden-xs">{{ $value->no_surat }} </td>
                     <td class="hidden-xs">{{ Get_field::format_indo($value->tgl_surat) }}</td>
                     <td class="hidden-xs">{{ $value->perihal }} <br>
 
@@ -54,7 +54,7 @@
                                     @endphp
                                 @else
 
-                                    @if($value->status == 1 || $value->status == null)
+                                    @if($value->status == 2 or $value->status == 3 or $value->status == 4)
 
                                     @if($ceklast == 0)
                                         @if(Auth::user()->role == 'Member')
@@ -87,6 +87,7 @@
                                         @php
                                             $actions = [
                                                 ['data-replace' => '#posisiSuratMasuk', 'url' => '#posisiSuratMasukModal', 'ajax-url' => url('surat-masuk/' . $value->id . '/posisi'), 'name' => ' Posisi', 'icon' => 'eye']
+
                                             ];
                                         @endphp
                                     @endif

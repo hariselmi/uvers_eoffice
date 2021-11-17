@@ -118,6 +118,7 @@ class SuratMasukController extends Controller
         $surat->perihal = $request->perihal;
         $surat->asal_surat = $request->asal_surat;
         $surat->tujuan_surat = '0';
+        $surat->status = '1';
         $surat->tgl_surat = $request->tgl_surat;
         $surat->jenis_id = $request->jenis_id;
         $surat->media_id = $request->media_id;
@@ -232,12 +233,37 @@ class SuratMasukController extends Controller
 
     public function posisi($id)
     {
-        //
+
+
+        $unit_kerja_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
+
+        if ($unit_kerja_id == '1' OR $unit_kerja_id == '2') {
+
         $data['history_surat_masuk'] = DB::table('history_surat_masuk')
         ->select('history_surat_masuk.*')
         ->leftJoin('surat_masuk', 'history_surat_masuk.surat_masuk_id', 'surat_masuk.id')
         ->where(['history_surat_masuk.dlt'=> '0', 'history_surat_masuk.surat_masuk_id'=>$id])
+        ->orderBy('history_surat_masuk.surat_masuk_model','ASC')
+        ->orderBy('history_surat_masuk.id','ASC')
         ->get();
+
+        }else{
+
+        $data['history_surat_masuk'] = DB::table('history_surat_masuk')
+        ->select('history_surat_masuk.*')
+        ->leftJoin('surat_masuk', 'history_surat_masuk.surat_masuk_id', 'surat_masuk.id')
+        ->where(['history_surat_masuk.dlt' => '0', 'history_surat_masuk.surat_masuk_id' => $id, 'history_surat_masuk.asal_surat' => Auth::user()->pegawai_id])
+        ->orWhere(function($query) {
+                $query->where('history_surat_masuk.dlt', '0')
+                        ->where('history_surat_masuk.tujuan_surat', Auth::user()->pegawai_id);
+                })
+        ->orderBy('history_surat_masuk.surat_masuk_model','ASC')
+        ->orderBy('history_surat_masuk.id','ASC')
+        ->get();
+
+
+        }
+
 
         return $this->sendCommonResponse($data, null, 'posisi');
     }
@@ -246,17 +272,55 @@ class SuratMasukController extends Controller
     public function disposisi($id)
     {
         
-        $data['perintahDisposisi'] =  DB::table('perintah_disposisi')->where([['softdelete' , '0'],['id', '<', '4']])->pluck('nama', 'id');
+        $data['perintahDisposisi'] =  DB::table('perintah_disposisi')->where([['softdelete' , '0'],['id', '>', '1'],['id', '<', '5']])->pluck('nama', 'id');
 
 
-        $data['pegawai'] = Pegawai::where('softdelete', '0')->pluck('nama', 'id');
+        $data['pegawai'] = Pegawai::select(DB::raw("CONCAT(pegawai.nama,' [',unit_kerja.nama, '] [', jabatan.nama,']') AS namatelepon"), 'pegawai.id')
+                            ->leftJoin('unit_kerja', 'unit_kerja.id', 'pegawai.unit_kerja_id')
+                            ->leftJoin('jabatan', 'jabatan.id', 'pegawai.jabatan_id')
+                            ->where('pegawai.softdelete', '0')
+                            ->where('pegawai.id', '!=' , Auth::user()->pegawai_id)
+                            ->where('pegawai.id', '!=' , '1')
+                            ->orderBy('pegawai.jabatan_id','ASC')
+                            ->orderBy('pegawai.unit_kerja_id','ASC')
+                            ->get()->pluck('namatelepon', 'id');
+
+
         $data['unitkerjaid'] = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
 
+        $unit_kerja_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
+
+        if ($unit_kerja_id == '1' OR $unit_kerja_id == '2') {
 
         $data['history_surat_masuk'] = DB::table('history_surat_masuk')
         ->select('history_surat_masuk.*')
+        ->leftJoin('surat_masuk', 'history_surat_masuk.surat_masuk_id', 'surat_masuk.id')
         ->where(['history_surat_masuk.dlt'=> '0', 'history_surat_masuk.surat_masuk_id'=>$id])
+        ->orderBy('history_surat_masuk.surat_masuk_model','ASC')
+        ->orderBy('history_surat_masuk.id','ASC')
         ->get();
+
+        }else{
+
+        $data['history_surat_masuk'] = DB::table('history_surat_masuk')
+        ->select('history_surat_masuk.*')
+        ->leftJoin('surat_masuk', 'history_surat_masuk.surat_masuk_id', 'surat_masuk.id')
+        ->where(['history_surat_masuk.dlt' => '0', 'history_surat_masuk.surat_masuk_id' => $id, 'history_surat_masuk.asal_surat' => Auth::user()->pegawai_id])
+        ->orWhere(function($query) {
+                $query->where('history_surat_masuk.dlt', '0')
+                        ->where('history_surat_masuk.tujuan_surat', Auth::user()->pegawai_id);
+                })
+        ->orderBy('history_surat_masuk.surat_masuk_model','ASC')
+        ->orderBy('history_surat_masuk.id','ASC')
+        ->get();
+
+
+        }
+
+
+
+
+
 
         $data['surat_masuk_id'] = $id;
 
@@ -291,24 +355,71 @@ class SuratMasukController extends Controller
             $fileSurat->move($uploadLocation,$newName);
         }
 
-        if ($request->status == '2') {
-            # code...
+        if ($request->status == '3') {
 
+        $unit_kerja_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
+
+        if ($unit_kerja_id == '1' OR $unit_kerja_id == '2') {
             DB::table('surat_masuk')->where('id', $request->surat_masuk_id)->update([
-                'laporan' => '1',
-                'status_laporan_id' => '1',
-                'laporan_unit_kerja_id' => Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id'),
-                'laporan_pegawai_id' => Auth::user()->pegawai_id,
+            'status' => $request->status,
             ]);
 
         }
 
-        DB::table('surat_masuk')->where('id', $request->surat_masuk_id)->update([
+            DB::table('surat_masuk_laporan')->insert([
+
+                'surat_masuk_id' => $request->surat_masuk_id,
+                'pegawai_id' => Get_field::get_data($request->surat_masuk_id, 'surat_masuk', 'pegawai_id'),
+                'status' => $request->status,
+                'no_surat' => Get_field::get_data($request->surat_masuk_id, 'surat_masuk', 'no_surat'),
+                'perihal' => Get_field::get_data($request->surat_masuk_id, 'surat_masuk', 'perihal'),
+                'asal_surat' => Get_field::get_data($request->surat_masuk_id, 'surat_masuk', 'asal_surat'),
+                'tujuan_surat' => Get_field::get_data($request->surat_masuk_id, 'surat_masuk', 'tujuan_surat'),
+                'isi_ringkasan' => Get_field::get_data($request->surat_masuk_id, 'surat_masuk', 'isi_ringkasan'),
+                'tgl_surat' => Get_field::get_data($request->surat_masuk_id, 'surat_masuk', 'tgl_surat'),
+                'jenis_id' => Get_field::get_data($request->surat_masuk_id, 'surat_masuk', 'jenis_id'),
+                'media_id' => Get_field::get_data($request->surat_masuk_id, 'surat_masuk', 'media_id'),
+                'file_surat' => Get_field::get_data($request->surat_masuk_id, 'surat_masuk', 'file_surat'),
+                'laporan' => '1',
+                'status_laporan_id' => '1',
+                'laporan_unit_kerja_id' => Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id'),
+                'laporan_pegawai_id' => Auth::user()->pegawai_id,
+                'dlt' => '0',
+            ]);
+            
+
+        }
+
+        if ($request->status == '2' OR $request->status == '4') {
+
+            DB::table('surat_masuk')->where('id', $request->surat_masuk_id)->update([
             'status' => $request->status,
-        ]);
+            ]);
+
+        }
+
+
+
+        $cari_model_surat = DB::table('history_surat_masuk')
+            ->select('surat_masuk_model')
+            ->where('surat_masuk_id', '=', $request->surat_masuk_id)
+            ->where('tujuan_surat', '=', Auth::user()->pegawai_id)
+            ->where('dlt','0')->first();
+
+        if(!empty($cari_model_surat)){
+            $surat_masuk_model = $cari_model_surat->surat_masuk_model;
+        }else{
+            $hitung_masuk_model = DB::table('history_surat_masuk')
+             ->where('pegawai_id', '=', Auth::user()->pegawai_id)
+             ->where('surat_masuk_id', '=', $request->surat_masuk_id)
+             ->count();
+
+             $surat_masuk_model = $hitung_masuk_model + 1;
+        }
 
         DB::table('history_surat_masuk')->insert([
             'surat_masuk_id' => $request->surat_masuk_id,
+            'surat_masuk_model' => $surat_masuk_model,
             'pegawai_id' => Auth::user()->pegawai_id,
             'asal_surat' => Auth::user()->pegawai_id,
             'tujuan_surat' => $request->tujuan_surat,
@@ -322,14 +433,48 @@ class SuratMasukController extends Controller
             'unit_id' => Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id'),
         ]);
 
-        $data['pegawai'] = Pegawai::where('softdelete', '0')->pluck('nama', 'id');
+        $data['pegawai'] = Pegawai::select(DB::raw("CONCAT(pegawai.nama,' [',unit_kerja.nama, '] [', jabatan.nama,']') AS namatelepon"), 'pegawai.id')
+                            ->leftJoin('unit_kerja', 'unit_kerja.id', 'pegawai.unit_kerja_id')
+                            ->leftJoin('jabatan', 'jabatan.id', 'pegawai.jabatan_id')
+                            ->where('pegawai.softdelete', '0')
+                            ->where('pegawai.id', '!=' , Auth::user()->pegawai_id)
+                            ->where('pegawai.id', '!=' , '1')
+                            ->orderBy('pegawai.jabatan_id','ASC')
+                            ->orderBy('pegawai.unit_kerja_id','ASC')
+                            ->get()->pluck('namatelepon', 'id');
+
+
         $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
         $data['mediaSurat'] = MediaSurat::where('softdelete', '0')->pluck('nama', 'id');
 
+        $unit_kerja_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
+
+        if ($unit_kerja_id == '1' OR $unit_kerja_id == '2') {
+
         $data['history_surat_masuk'] = DB::table('history_surat_masuk')
         ->select('history_surat_masuk.*')
+        ->leftJoin('surat_masuk', 'history_surat_masuk.surat_masuk_id', 'surat_masuk.id')
         ->where(['history_surat_masuk.dlt'=> '0', 'history_surat_masuk.surat_masuk_id'=>$request->surat_masuk_id])
+        ->orderBy('history_surat_masuk.surat_masuk_model','ASC')
+        ->orderBy('history_surat_masuk.id','ASC')
         ->get();
+
+        }else{
+
+        $data['history_surat_masuk'] = DB::table('history_surat_masuk')
+        ->select('history_surat_masuk.*')
+        ->leftJoin('surat_masuk', 'history_surat_masuk.surat_masuk_id', 'surat_masuk.id')
+        ->where(['history_surat_masuk.dlt' => '0', 'history_surat_masuk.surat_masuk_id' => $request->surat_masuk_id, 'history_surat_masuk.asal_surat' => Auth::user()->pegawai_id])
+        ->orWhere(function($query) {
+                $query->where('history_surat_masuk.dlt', '0')
+                        ->where('history_surat_masuk.tujuan_surat', Auth::user()->pegawai_id);
+                })
+        ->orderBy('history_surat_masuk.surat_masuk_model','ASC')
+        ->orderBy('history_surat_masuk.id','ASC')
+        ->get();
+
+
+        }
 
         $data['perintahDisposisi'] =  DB::table('perintah_disposisi')->where([['softdelete' , '0'],['id', '<', '4']])->pluck('nama', 'id');
 
@@ -409,5 +554,14 @@ class SuratMasukController extends Controller
         }
         return $this->sendResponse($response);
     }
+
+    public function autocomplete(Request $request){
+        return SuratMasuk::select('asal_surat')
+        ->where('asal_surat', 'like', "%{$request->term}%")
+        ->groupBy('asal_surat')
+        ->pluck('asal_surat');
+    }
+
+
 
 }

@@ -65,11 +65,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js"></script>
 <script src="{{asset('assets/login/js/file-upload.js')}}"></script>
-<script type="text/javascript">
-   $( document ).ready(function() {
-      $('input').attr('autocomplete','off');
-  });
-</script>
+
+
 
 </body>
 </html>

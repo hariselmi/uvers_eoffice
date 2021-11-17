@@ -40,14 +40,14 @@ class SuratMasuk extends Model
             $unit_kerja_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
 
             if ($unit_kerja_id == '1' OR $unit_kerja_id == '2') {
-                # code...
                 $results = $this->select('*')->where('dlt','0')->orderBy('surat_masuk.created_at','DESC');
             }else{
 
-                $results = $this->select('surat_masuk.*')
+                $results = $this->select('surat_masuk.*', 'history_surat_masuk.surat_masuk_model')
                 ->join('history_surat_masuk', 'history_surat_masuk.surat_masuk_id', 'surat_masuk.id')
                 ->where([['surat_masuk.dlt','0'], ['history_surat_masuk.tujuan_surat', Auth::user()->pegawai_id]])
                 ->orderBy('surat_masuk.created_at','DESC');
+                
 
             }
         }
@@ -57,13 +57,16 @@ class SuratMasuk extends Model
         $per_page = !empty($search['per_page']) ? $search['per_page'] : 10;
         if(!empty($search)) {
             if(!empty($search['search'])) {
-                $results = $results->where([['name', 'LIKE', '%'.$search['search'].'%'], ['dlt','0']]);
+                $results = $results->where([['perihal', 'LIKE', '%'.$search['search'].'%'], ['dlt','0']])
+                ->orWhere([['no_surat', 'LIKE', '%'.$search['search'].'%'], ['dlt','0']])
+                ->orWhere([['tgl_surat', 'LIKE', '%'.$search['search'].'%'], ['dlt','0']])
+                ->orWhere([['asal_surat', 'LIKE', '%'.$search['search'].'%'], ['dlt','0']]);
             }
         }
         if($option=='paginate') {
             return $results->paginate($per_page);
         } else if ($option == 'select') {
-            return $results->pluck('name', 'id');
+            return $results->pluck('perihal', 'id');
         } else {
             return $results->get();
         }

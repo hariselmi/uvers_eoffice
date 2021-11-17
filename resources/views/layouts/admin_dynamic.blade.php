@@ -1,10 +1,11 @@
+  
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>{{__('Lembaga Penjamin Mutu | Universitas Universal')}}</title>
-	<meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="icon" href="{{asset('images/fuvers.png')}}"  />
@@ -24,36 +25,28 @@
   <link rel="stylesheet" type="text/css" href="{{asset('dist/clockpicker/bootstrap-clockpicker.min.css')}}">
 
   <style>
-
     .entry:not(:first-of-type)
       {
           margin-top: 10px;
       }
-
       .glyphicon
       {
           font-size: 12px;
       }
-
       .pt-3-half { padding-top: 1.4rem; }
-
       .tableFixHead          { overflow: auto; height: 400px; width: 100%; }
       .tableFixHead thead th { position: sticky; top: 0; z-index: 1 !important; background-color: #f4f4f4 !important; border: 1px solid #f4f4f4 !important}
       .tableFixHead tbody td { border: 1px solid #f4f4f4 !important ; z-index: }
-
-
       .modal-dialog {
         width: 90%;
         height: 90%;
         margin: auto;
         padding-top: 10px;
       }
-
       .modal-content {
         height: auto;
         border-radius: 0;
       }
-
       .border-black{
         border: 1px solid #f4f4f4 !important
       }
@@ -121,3 +114,16 @@
 </script>
 </body>
 </html>
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete

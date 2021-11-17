@@ -1,8 +1,8 @@
-<div class="" id="pelaporanRepositoriInternalDetails">
+<div class="" id="pelaporanRepositoriInternal">
     <!-- Content Header (Page header) -->
 
     <section class="content-header m-3">
-        <h1>{{ __('Repositori') }} </h1>
+        <h1>{{ __('Repositori Surat Internal') }} </h1>
     </section>
 
 
@@ -12,10 +12,10 @@
             <div class="col-xs-12">
                 <div class="box box-success">
                     <div class="box-header">
-                        @include('partials.filters', ['filter_route'=>url('/pelaporan-eoffice-internal'), 'filter_id'=>'pelaporanRepositoriInternalFilter'])
+                        @include('partials.filters', ['filter_route'=>url('/pelaporan-repositori-internal'), 'filter_id'=>'pelaporanRepositoriInternalFilter'])
                     </div>
                     <div class="box-body">
-                        @include('pelaporan_eoffice_internal.table')
+                        @include('pelaporan_repositori_internal.table')
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -24,15 +24,9 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-        <div class="modal fade sub-modal" id="laporanPelaporanRepositoriInternalModal">
+        <div class="modal fade sub-modal" id="lihatRepositoriInternalModal">
             <div class="modal-dialog modal-lg">
-                <div class="modal-content" id="laporanPelaporanRepositoriInternal"></div>
-            </div>
-        </div>
-
-        <div class="modal fade sub-modal" id="validasiPelaporanRepositoriInternalModal">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content" id="validasiPelaporanRepositoriInternal"></div>
+                <div class="modal-content" id="lihatRepositoriInternal"></div>
             </div>
         </div>
 

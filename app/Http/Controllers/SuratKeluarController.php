@@ -44,6 +44,7 @@ class SuratKeluarController extends Controller
                 $search = Session::get('suratKeluar_filter');
             }
             $data['semua_surat_keluar'] = $this->suratKeluar->getAll('paginate', $search);
+            $data['pegawaiID'] = Auth::user()->pegawai_id;
 
             return $this->sendCommonResponse($data, null, 'index');
         }
@@ -53,13 +54,13 @@ class SuratKeluarController extends Controller
 
         $data['pegawaiID'] = Auth::user()->pegawai_id;
 
-            $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
+        $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
 
-            $data['unitKerja'] = UnitKerja::where('softdelete', '0')->where('id', '!=' , '1')->pluck('nama', 'id');
+        $data['unitKerja'] = UnitKerja::where('softdelete', '0')->where('id', '!=' , '1')->pluck('nama', 'id');
         
-            $data['semua_surat_keluar'] = $this->suratKeluar->getAll('paginate');
+        $data['semua_surat_keluar'] = $this->suratKeluar->getAll('paginate');
 
-            $data['fileSurat'] = '';
+        $data['fileSurat'] = '';
 
         return view('surat_keluar.index', $data);
     }
@@ -274,7 +275,19 @@ class SuratKeluarController extends Controller
         
         $data['perintahDisposisi'] =  DB::table('status_keluar')->where([['softdelete' , '0'],['id', '<', '5']])->pluck('nama', 'id');
 
-        $data['pegawai'] = Pegawai::where('softdelete', '0')->pluck('nama', 'id');
+        $data['pegawai'] = Pegawai::select(DB::raw("CONCAT(pegawai.nama,' [',unit_kerja.nama, '] [', jabatan.nama,']') AS namatelepon"), 'pegawai.id')
+                            ->leftJoin('unit_kerja', 'unit_kerja.id', 'pegawai.unit_kerja_id')
+                            ->leftJoin('jabatan', 'jabatan.id', 'pegawai.jabatan_id')
+                            ->where('pegawai.softdelete', '0')
+                            ->where('pegawai.id', '!=' , Auth::user()->pegawai_id)
+                            ->where('pegawai.id', '!=' , '1')
+                            ->orderBy('pegawai.jabatan_id','ASC')
+                            ->orderBy('pegawai.unit_kerja_id','ASC')
+                            ->get()->pluck('namatelepon', 'id');
+
+
+
+        
 
         $data['statusNow'] = Get_field::get_data($id, 'surat_keluar', 'status');
 

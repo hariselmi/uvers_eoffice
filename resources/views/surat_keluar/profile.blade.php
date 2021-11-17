@@ -1,7 +1,7 @@
 <div class="modal-content" id="showSuratKeluar">
     <section class="content-header">
         <h1><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            {{ __('Detail Surat') }}</h1>
+            {{ __('Detail Surat Internal') }}</h1>
     </section>
     <!-- Main content -->
     <section class="content">

@@ -43,8 +43,7 @@
                         
                         
                     </td>
-                    <td class="hidden-xs">{{ Get_field::get_data($value->tujuan_surat, 'unit_kerja', 'nama') }} <br>
-                        [ {{  Get_field::get_data(Get_field::get_data($value->tujuan_surat, 'unit_kerja', 'pegawai_id'), 'pegawai', 'nama') }} ]</td>
+                    <td class="hidden-xs">{{ Get_field::get_data($value->tujuan_surat, 'unit_kerja', 'nama') }} </td>
                     <td class="hidden-xs">{{ Get_field::get_data($value->status, 'status_keluar', 'nama')  }}</td>
                     
                     <td class="item_btn_group">

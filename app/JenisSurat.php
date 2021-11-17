@@ -16,7 +16,8 @@ class JenisSurat extends Model
         $per_page = !empty($search['per_page']) ? $search['per_page'] : 10;
         if(!empty($search)) {
             if(!empty($search['search'])) {
-                $results = $results->where('nama', 'LIKE', '%'.$search['search'].'%');
+                $results = $results->where([['nama', 'LIKE', '%'.$search['search'].'%'], ['softdelete','0']])
+                ->where([['keterangan', 'LIKE', '%'.$search['search'].'%'], ['softdelete','0']]);
             }
         }
         if($option=='paginate') {

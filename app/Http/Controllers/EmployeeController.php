@@ -247,7 +247,7 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        if ($id == 1) {;
+        if ($id == 1) {
             return $this->sendCommonResponse([], ['danger'=>__('You cannot delete super admin')]);
         } else {
             try {

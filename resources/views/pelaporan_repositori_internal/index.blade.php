@@ -6,7 +6,3 @@
 </div>
 
 @endsection
-
-<?php
-dd('2');
-?>

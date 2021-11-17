@@ -5,11 +5,11 @@
         <!-- Content Header (Page header) -->
         <section class="content-header m-3">
             <h1>{{ __('User') }}
-                @if ($user->checkSpPermission('employees.create'))
+<!-- 
                     <a class="btn btn-small btn-primary pull-right left-margin-10" href="#addEmployeeModal"
                         data-toggle="modal"><i class="fa fa-plus"></i> {{ trans('Tambah User') }}</a>
-                @endif
-<!--                 @if ($user->checkSpPermission('employeerole.create'))
+
+                @if ($user->checkSpPermission('employeerole.create'))
                 <a class="btn btn-small btn-success pull-right left-margin-10" href="#createRole" data-toggle="modal"><i
                             class="fa fa-plus"></i> {{ __('Tambah Role') }}</a>
                 @endif

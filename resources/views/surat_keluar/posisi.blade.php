@@ -1,7 +1,7 @@
 <div class="modal-content" id="posisiSuratKeluar">
     <section class="content-header">
         <h1><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            {{ __('Posisi Surat') }}</h1>
+            {{ __('Posisi Surat Internal') }}</h1>
     </section>
     <!-- Main content -->
     <section class="content">
@@ -18,7 +18,6 @@
                                 <th>Tanggal</th>
                                 <th>Pejabat Penerima</th>
                                 <th>Status</th>
-                                <th>Lama Proses</th>
                                 <th>Isi Ringkasan</th>
                             </tr>
                         </thead>
@@ -30,7 +29,6 @@
                                 <td class="hidden-xs">{{ Get_field::format_indo($value->tanggal) }}</td>
                                 <td>{{ Get_field::get_data($value->tujuan_surat, 'pegawai', 'nama') }}</td>
                                 <td>{{ Get_field::get_data($value->status, 'status_keluar', 'nama') }}</td>
-                                <td class="hidden-xs"></td>
                                 <td class="hidden-xs">{{ $value->catatan_penting }}
                                 @if($value->file_surat != '' && $value->file_surat != null)
                                 File : 

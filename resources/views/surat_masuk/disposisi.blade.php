@@ -17,19 +17,20 @@
                                 <th>Pejabat Pengirim</th>
                                 <th>Tanggal Disposisi</th>
                                 <th>Pejabat Penerima</th>
-                                <th>Lama Proses</th>
                                 <th>Status</th>
                                 <th>Catatan Penting</th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach ($history_surat_masuk as $key=>$value)
-                            <tr>
+                        <?php
+                        $color = Get_field::get_data($value->surat_masuk_model, 'disposisi_model', 'nama')
+                        ?>
+                            <tr style="background-color: <?=$color?>">
                                 <td class="hidden-xs">{{ $key+1 }}</td>
                                 <td class="hidden-xs">{{ Get_field::get_data($value->asal_surat, 'pegawai', 'nama') }}</td>
                                 <td class="hidden-xs">{{ Get_field::format_indo($value->tanggal) }}</td>
                                 <td>{{ Get_field::get_data($value->tujuan_surat, 'pegawai', 'nama') }}</td>
-                                <td class="hidden-xs"></td>
                                 <td>{{ Get_field::get_data($value->status, 'perintah_disposisi', 'nama') }}</td>
                                 <td class="hidden-xs">{{ $value->catatan_penting }} <br>
                                 @if($value->file_surat != '' && $value->file_surat != null) 
@@ -63,6 +64,12 @@
                             {!! Form::select('status', $perintahDisposisi, null, ['placeholder' => 'Pilih Status','class' => 'form-control','onchange' => 'filter(this.value)']) !!}
                         </div>
                     </div>
+                    <div class="form-group row" id="tujuan_surat_div" style="display: none;">
+                        {{ Form::label('tujuan_surat', 'Pejabat Penerima', ['class' => 'col-sm-3 text-right']) }}
+                        <div class="col-sm-9">
+                            {!! Form::select('tujuan_surat', $pegawai, null, ['placeholder' => 'Pilih Pejabat Penerima','class' => 'form-control']) !!}
+                        </div>
+                    </div>
                     <div class="form-group row">
                         {{ Form::label('Catatan Penting', 'Catatan Penting*', ['class' => 'col-sm-3 text-right']) }}
                         <div class="col-sm-9">
@@ -70,12 +77,7 @@
                             {{ Form::textarea('catatan_penting', null, ['class' => 'form-control', 'style' => 'height:50px' ]) }}
                         </div>
                     </div>
-                    <div class="form-group row" id="tujuan_surat_div" style="display: none;">
-                        {{ Form::label('tujuan_surat', 'Pejabat Penerima', ['class' => 'col-sm-3 text-right']) }}
-                        <div class="col-sm-9">
-                            {!! Form::select('tujuan_surat', $pegawai, null, ['placeholder' => 'Pilih Pejabat Penerima','class' => 'form-control']) !!}
-                        </div>
-                    </div>
+
 
                     <div class="form-group row">
                     {{ Form::label('fileSurat', 'Unggah Berkas', ['class' => 'col-sm-3 text-right']) }}
@@ -103,7 +105,7 @@
 <script type="text/javascript">
 function filter(id) {
 
-    if(id == '1')
+    if(id == '2')
     document.getElementById('tujuan_surat_div').style.display = 'block';
     else{
     document.getElementById('tujuan_surat_div').style.display = 'none';

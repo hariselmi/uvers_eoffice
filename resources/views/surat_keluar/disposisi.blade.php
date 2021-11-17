@@ -1,7 +1,7 @@
 <div class="modal-content" id="disposisiSuratKeluar">
     <section class="content-header">
         <h1><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            {{ __('Validasi Surat') }}</h1>
+            {{ __('Validasi Surat Internal') }}</h1>
     </section>
     <!-- Main content -->
     <section class="content">
@@ -17,7 +17,6 @@
                                 <th>Pejabat Pengirim</th>
                                 <th>Tanggal</th>
                                 <th>Pejabat Penerima</th>
-                                <th>Lama Proses</th>
                                 <th>Status</th>
                                 <th>Catatan Penting</th>
                             </tr>
@@ -29,7 +28,6 @@
                                 <td class="hidden-xs">{{ Get_field::get_data($value->asal_surat, 'pegawai', 'nama') }}</td>
                                 <td class="hidden-xs">{{ Get_field::format_indo($value->tanggal) }}</td>
                                 <td>{{ Get_field::get_data($value->tujuan_surat, 'pegawai', 'nama') }}</td>
-                                <td class="hidden-xs"></td>
                                 <td>{{ Get_field::get_data($value->status, 'status_keluar', 'nama') }}</td>
                                 <td class="hidden-xs">{{ $value->catatan_penting }} <br>
                                 @if($value->file_surat != '' && $value->file_surat != null) 

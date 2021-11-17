@@ -39,13 +39,20 @@ class PelaporanEofficeInternal extends Model
             $hak_approval = Get_field::get_data($jabatan_id, 'jabatan', 'hak_approval');
             $kepalaunit = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'kepala_unit');
 
-            if($kepalaunit == '2')
-            {
-                $results = $this->select('*')->where([['dlt','0'],['laporan','1'],['laporan_unit_kerja_id', $unit_kerja_id]])->orderBy('surat_keluar.created_at','DESC');
-            }
-            else{
-                
-                $results = $this->select('*')->where([['dlt','0'],['laporan','1'],['laporan_pegawai_id', Auth::user()->pegawai_id]])->orderBy('surat_keluar.created_at','DESC');
+            if($unit_kerja_id == '2') {
+                $results = $this->select('*')->where([['dlt','0'],['laporan','1']])->orderBy('surat_keluar.created_at','DESC');
+
+            }else{
+
+                if($kepalaunit == '2')
+                {
+                    $results = $this->select('*')->where([['dlt','0'],['laporan','1'],['laporan_unit_kerja_id', $unit_kerja_id]])->orderBy('surat_keluar.created_at','DESC');
+                }
+                else{
+                    
+                    $results = $this->select('*')->where([['dlt','0'],['laporan','1'],['laporan_pegawai_id', Auth::user()->pegawai_id]])->orderBy('surat_keluar.created_at','DESC');
+                }
+
             }
         }
 
@@ -54,7 +61,10 @@ class PelaporanEofficeInternal extends Model
         $per_page = !empty($search['per_page']) ? $search['per_page'] : 10;
         if(!empty($search)) {
             if(!empty($search['search'])) {
-                $results = $results->where([['name', 'LIKE', '%'.$search['search'].'%'], ['dlt','0']]);
+                $results = $results->where([['no_surat', 'LIKE', '%'.$search['search'].'%'], ['dlt','0'], ['laporan','1']])
+                ->orWhere([['asal_surat', 'LIKE', '%'.$search['search'].'%'], ['dlt','0'], ['laporan','1']])
+                ->orWhere([['perihal', 'LIKE', '%'.$search['search'].'%'], ['dlt','0'], ['laporan','1']])
+                ->orWhere([['tgl_surat', 'LIKE', '%'.$search['search'].'%'], ['dlt','0'], ['laporan','1']]);
             }
         }
         if($option=='paginate') {

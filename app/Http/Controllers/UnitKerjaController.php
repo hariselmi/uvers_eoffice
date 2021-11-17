@@ -125,16 +125,20 @@ class UnitKerjaController extends Controller
      */
     public function destroy($id)
     {
-        //
-        try {
-            $unit_kerja = UnitKerja::find($id);
-            $unit_kerja->updated_at = date('Y-m-d H:i:s');
-            $unit_kerja->softdelete = '1';
-            $unit_kerja->save();
+    
+        if ($id == 1 OR $id == 2) {
+            return $this->sendCommonResponse([], ['danger'=>__('Unit Kerja ini tidak boleh di hapus')]);
+        } else{
+            try {
+                $unit_kerja = UnitKerja::find($id);
+                $unit_kerja->updated_at = date('Y-m-d H:i:s');
+                $unit_kerja->softdelete = '1';
+                $unit_kerja->save();
 
             return $this->sendCommonResponse([], 'Data berhasil dihapus', 'delete');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return $this->sendCommonResponse([], ['danger'=>__('Integrity constraint violation: You Cannot delete a parent row')]);
+            } catch (\Illuminate\Database\QueryException $e) {
+                return $this->sendCommonResponse([], ['danger'=>__('Integrity constraint violation: You Cannot delete a parent row')]);
+            }
         }
     }
 

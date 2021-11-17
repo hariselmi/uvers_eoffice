@@ -1,8 +1,8 @@
-<div class="" id="pelaporanEofficeDetails">
+<div class="" id="pelaporanRepositori">
     <!-- Content Header (Page header) -->
 
     <section class="content-header m-3">
-        <h1>{{ __('Repositori') }} </h1>
+        <h1>{{ __('Repositori Surat Masuk') }} </h1>
     </section>
 
 
@@ -24,15 +24,9 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-        <div class="modal fade sub-modal" id="laporanPelaporanEofficeModal">
+        <div class="modal fade sub-modal" id="lihatRepositoriModal">
             <div class="modal-dialog modal-lg">
-                <div class="modal-content" id="laporanPelaporanEoffice"></div>
-            </div>
-        </div>
-
-        <div class="modal fade sub-modal" id="validasiPelaporanEofficeModal">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content" id="validasiPelaporanEoffice"></div>
+                <div class="modal-content" id="lihatRepositori"></div>
             </div>
         </div>
 
