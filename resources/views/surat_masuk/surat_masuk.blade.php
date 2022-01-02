@@ -2,7 +2,7 @@
     <!-- Content Header (Page header) -->
 
             <!-- admin menu buka -->
-            @if (Auth::user()->role == 'Admin' OR Auth::user()->role == 'Staff')
+            @if (Auth::user()->role == 'Admin' OR Auth::user()->role == 'Staff' OR Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id') == 1)
 
     <section class="content-header m-3">
         <h1>{{ __('Daftar Surat Masuk') }}
@@ -12,6 +12,9 @@
     </section>
 
     @endif
+
+
+
 
     <!-- Main content -->
     <section class="content">
