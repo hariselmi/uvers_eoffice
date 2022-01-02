@@ -92,22 +92,11 @@
                   <a href="{{ url('/jenis-surat') }}"><i class="fa fa-envelope-o" aria-hidden="true"></i>
                   <span>Jenis Surat</span></a>
                </li>
-<!--                <li class="{{ Request::is('sifat-surat') ? 'active' : '' }} ">
-                  <a href="{{ url('/sifat-surat') }}"><i class="fa fa-question-circle-o" aria-hidden="true"></i>
-                  <span>Sifat Surat</span></a>
-               </li>
-               <li class="{{ Request::is('prioritas-surat') ? 'active' : '' }} "><a
-                  href="{{ url('/prioritas-surat') }}"><i class="fa fa-clock-o" aria-hidden="true"></i>
-                  <span>Prioritas Surat</span></a>
-               </li> -->
                <li class="{{ Request::is('media-surat') ? 'active' : '' }} "><a
                   href="{{ url('/media-surat') }}"><i class="fa fa-paperclip" aria-hidden="true"></i>
                   <span>Media Surat</span></a>
                </li>
-<!--                <li class="{{ Request::is('perintah-disposisi') ? 'active' : '' }} "><a
-                  href="{{ url('/perintah-disposisi') }}"><i class="fa fa-bullhorn" aria-hidden="true"></i>
-                  <span>Perintah Disposisi</span></a>
-               </li> -->
+
             </ul>
          </li>
          <li class="{{ Request::is('employees') ? 'active' : '' }}"><a
@@ -118,8 +107,9 @@
 @endif
 
          <li class="{{ Request::is('logout') ? 'active' : '' }}"><a
-            href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i>
+            href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i>
             <span>Logout</span></a>
+
          </li>
 
 

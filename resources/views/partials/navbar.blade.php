@@ -52,18 +52,6 @@
                 </p>
               </li>
 
-              <!-- Menu Footer-->
-              <!-- <li class="user-footer">
-                <div class="pull-left">
-                <a data-replace='#editEmployee' href="#editEmployeeModal" data-ajax-url="{{route('employees.edit', Auth::user()->id)}}" data-toggle="modal" class="btn btn-info">{{__('Profile')}}</a>
-                </div>
-                <div class="pull-right">
-                  <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-warning">{{trans('menu.logout')}}</a>
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                      {{ csrf_field() }}
-                  </form>
-                </div>
-              </li> -->
 
               @if (Auth::user()->role != 'Admin')
                 <!-- Menu Footer-->
