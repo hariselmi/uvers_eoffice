@@ -54,7 +54,7 @@ class PelaporanRepositoriInternal extends Model
 
                 ->leftJoin('history_surat_keluar', 'history_surat_keluar.surat_keluar_id', 'surat_keluar.id')
                 ->orderBy('surat_keluar.created_at', 'DESC')
-                ->groupBy('surat_keluar.id', 'surat_keluar.no_surat', 'surat_keluar.perihal', 'surat_keluar.asal_surat', 'surat_keluar.tujuan_surat', 'surat_keluar.tgl_surat', 'surat_keluar.unit_kerja_id', 'surat_keluar.status', 'surat_keluar.pegawai_id','surat_keluar.file_surat');
+                ->groupBy('surat_keluar.id', 'surat_keluar.no_surat', 'surat_keluar.perihal', 'surat_keluar.asal_surat', 'surat_keluar.tujuan_surat', 'surat_keluar.tgl_surat', 'surat_keluar.unit_kerja_id', 'surat_keluar.status', 'surat_keluar.pegawai_id','surat_keluar.file_surat','surat_keluar.jenis_id');
   
 
 
@@ -76,7 +76,7 @@ class PelaporanRepositoriInternal extends Model
 
                 ->leftJoin('history_surat_keluar', 'history_surat_keluar.surat_keluar_id', 'surat_keluar.id')
                 ->orderBy('surat_keluar.created_at', 'DESC')
-                ->groupBy('surat_keluar.id', 'surat_keluar.no_surat', 'surat_keluar.perihal', 'surat_keluar.asal_surat', 'surat_keluar.tujuan_surat', 'surat_keluar.tgl_surat', 'surat_keluar.unit_kerja_id', 'surat_keluar.status', 'surat_keluar.pegawai_id','surat_keluar.file_surat');
+                ->groupBy('surat_keluar.id', 'surat_keluar.no_surat', 'surat_keluar.perihal', 'surat_keluar.asal_surat', 'surat_keluar.tujuan_surat', 'surat_keluar.tgl_surat', 'surat_keluar.unit_kerja_id', 'surat_keluar.status', 'surat_keluar.pegawai_id','surat_keluar.file_surat','surat_keluar.jenis_id');
         }
         }
 
