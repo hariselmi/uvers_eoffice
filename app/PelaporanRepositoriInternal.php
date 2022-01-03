@@ -38,7 +38,7 @@ class PelaporanRepositoriInternal extends Model
 
         if($kepala_unit == '2'){
 
-            $results = $this->select('surat_keluar.id', 'surat_keluar.no_surat', 'surat_keluar.perihal', 'surat_keluar.asal_surat', 'surat_keluar.tujuan_surat', 'surat_keluar.tgl_surat', 'surat_keluar.unit_kerja_id', 'surat_keluar.status', 'surat_keluar.pegawai_id','surat_keluar.file_surat')
+            $results = $this->select('surat_keluar.id', 'surat_keluar.no_surat', 'surat_keluar.perihal', 'surat_keluar.asal_surat', 'surat_keluar.tujuan_surat', 'surat_keluar.tgl_surat', 'surat_keluar.unit_kerja_id', 'surat_keluar.status', 'surat_keluar.pegawai_id','surat_keluar.file_surat','surat_keluar.jenis_id')
 
                 ->where(['surat_keluar.dlt' => '0', 'surat_keluar.unit_kerja_id'=> $unit_kerja])
 
@@ -59,7 +59,7 @@ class PelaporanRepositoriInternal extends Model
 
 
         }else{
-            $results = $this->select('surat_keluar.id', 'surat_keluar.no_surat', 'surat_keluar.perihal', 'surat_keluar.asal_surat', 'surat_keluar.tujuan_surat', 'surat_keluar.tgl_surat', 'surat_keluar.unit_kerja_id', 'surat_keluar.status', 'surat_keluar.pegawai_id','surat_keluar.file_surat')
+            $results = $this->select('surat_keluar.id', 'surat_keluar.no_surat', 'surat_keluar.perihal', 'surat_keluar.asal_surat', 'surat_keluar.tujuan_surat', 'surat_keluar.tgl_surat', 'surat_keluar.unit_kerja_id', 'surat_keluar.status', 'surat_keluar.pegawai_id','surat_keluar.file_surat','surat_keluar.jenis_id')
 
                 ->where(['surat_keluar.dlt' => '0', 'surat_keluar.unit_kerja_id'=> $unit_kerja, 'surat_keluar.pegawai_id'=> Auth::user()->pegawai_id])
 
