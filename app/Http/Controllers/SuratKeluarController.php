@@ -111,6 +111,7 @@ class SuratKeluarController extends Controller
             $fileSurat->move($uploadLocation,$newName);
         }
 
+        $cek_kepala_unit = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'kepala_unit');
 
         // $this->id;
         $surat = new SuratKeluar;
@@ -118,7 +119,13 @@ class SuratKeluarController extends Controller
         $surat->pegawai_id = Auth::user()->pegawai_id;
         $surat->perihal = $request->perihal;
         $surat->asal_surat = Auth::user()->pegawai_id;
-        $surat->status = '1';
+
+        if($cek_kepala_unit == 2){
+            $surat->status = '2';
+        }else{
+            $surat->status = '1';
+        }
+        
         $surat->unit_kerja_id = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
         $surat->tujuan_surat = $request->tujuan_surat;
         $surat->tgl_surat = $request->tgl_surat;
@@ -129,6 +136,26 @@ class SuratKeluarController extends Controller
         $surat->file_surat = $fileSurat ? $newName : null;
         $surat->dlt = '0';
         $surat->save();
+
+        if($cek_kepala_unit == 2){
+            DB::table('history_surat_keluar')->insert([
+            'surat_keluar_id' => $surat->id,
+            'pegawai_id' => Auth::user()->pegawai_id,
+            'asal_surat' => Auth::user()->pegawai_id,
+            'tujuan_surat' => $request->tujuan_surat,
+            'tanggal' => date('Y-m-d'),
+            'catatan_penting' => $request->isi_ringkasan,
+            'status' => '2',
+            'file_surat' => $fileSurat ? $newName : null,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+            'dlt' => '0',
+            'unit_id' => Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id'),
+        ]);
+        }
+
+
+
 
         $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
 

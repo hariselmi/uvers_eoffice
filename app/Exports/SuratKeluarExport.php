@@ -13,7 +13,7 @@ class SuratKeluarExport implements FromCollection, WithHeadings
         $items = SuratKeluar::select('no_surat', 'tgl_surat', 'perintah_disposisi.nama as status', 'jenis_surat.nama', 'perihal', 
 
             DB::raw("(SELECT nama FROM pegawai WHERE id = surat_keluar.asal_surat) AS asal_surat_pegawai"), 
-            DB::raw("(SELECT nama FROM unit_kerja WHERE id = surat_keluar.unit_kerja_id) AS tujuan_surat_pegawai"),
+            DB::raw("(SELECT nama FROM unit_kerja WHERE id = surat_keluar.tujuan_surat) AS tujuan_surat_pegawai"),
             DB::raw("CONCAT('https://eoffice.uvers2.ac.id/document/', file_surat) AS file_surat_link"))
 
         ->leftJoin('jenis_surat', 'surat_keluar.jenis_id', 'jenis_surat.id')

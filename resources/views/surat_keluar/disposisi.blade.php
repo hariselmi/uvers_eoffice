@@ -25,9 +25,11 @@
                         @foreach ($history_surat_keluar as $key=>$value)
                             <tr>
                                 <td class="hidden-xs">{{ $key+1 }}</td>
-                                <td class="hidden-xs">{{ Get_field::get_data($value->asal_surat, 'pegawai', 'nama') }}</td>
+                                <td class="hidden-xs">{{ Get_field::get_data($value->asal_surat, 'pegawai', 'nama') }}
+                                <br> [ {{ Get_field::get_data(Get_field::get_data($value->asal_surat, 'pegawai', 'unit_kerja_id'), 'unit_kerja', 'nama') }} ]</td>
                                 <td class="hidden-xs">{{ Get_field::format_indo($value->tanggal) }}</td>
-                                <td>{{ Get_field::get_data($value->tujuan_surat, 'pegawai', 'nama') }}</td>
+                                <td>{{ Get_field::get_data($value->tujuan_surat, 'pegawai', 'nama') }}
+                                    <br> [ {{ Get_field::get_data(Get_field::get_data($value->tujuan_surat, 'pegawai', 'unit_kerja_id'), 'unit_kerja', 'nama') }} ]</td>
                                 <td>{{ Get_field::get_data($value->status, 'status_keluar', 'nama') }}</td>
                                 <td class="hidden-xs">{{ $value->catatan_penting }} <br>
                                 @if($value->file_surat != '' && $value->file_surat != null) 
