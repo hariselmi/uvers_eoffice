@@ -82,7 +82,7 @@ class PelaporanRepositoriController extends Controller
 
             $data['surat_masuk_laporan'] = DB::table('surat_masuk_laporan')
             ->select('surat_masuk_laporan.*')
-            ->where(['surat_masuk_laporan.dlt'=> '0', 'surat_masuk_laporan.surat_masuk_id'=>$id])
+            ->where(['surat_masuk_laporan.status'=> '5', 'surat_masuk_laporan.dlt'=> '0', 'surat_masuk_laporan.surat_masuk_id'=>$id])
             ->where('surat_masuk_laporan.laporan_file','>', 0)
             ->get();
 
@@ -107,7 +107,7 @@ class PelaporanRepositoriController extends Controller
             FROM
                 `surat_masuk_laporan` 
             WHERE
-                `surat_masuk_laporan`.`dlt` = 0 AND `surat_masuk_laporan`.`surat_masuk_id` = $id AND `surat_masuk_laporan`.`laporan_file` > 0 
+                `surat_masuk_laporan`.`status` = 5 AND `surat_masuk_laporan`.`dlt` = 0 AND `surat_masuk_laporan`.`surat_masuk_id` = $id AND `surat_masuk_laporan`.`laporan_file` > 0 
                 AND `surat_masuk_laporan`.`laporan_pegawai_id` = '".Auth::user()->pegawai_id."' OR `surat_masuk_laporan`.`laporan_pegawai_approval_id` = '".Auth::user()->pegawai_id."'");
 
         }

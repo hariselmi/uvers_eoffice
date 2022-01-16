@@ -17,16 +17,19 @@ class PelaporanRepositori extends Model
 
 
 
-        $results = $this->select('*')->where([['dlt','0'],['status','5']])->orderBy('surat_masuk.created_at','DESC');
+        $results = $this->select('surat_masuk_laporan.surat_masuk_id','surat_masuk.id','surat_masuk.pegawai_id','surat_masuk.status','surat_masuk.no_surat','surat_masuk.perihal','surat_masuk.asal_surat','surat_masuk.tujuan_surat','surat_masuk.isi_ringkasan','surat_masuk.tgl_surat','surat_masuk.jenis_id','surat_masuk.media_id','surat_masuk.file_surat','surat_masuk.created_at','surat_masuk.updated_at','surat_masuk.dlt')
+                ->leftJoin('surat_masuk_laporan', 'surat_masuk_laporan.surat_masuk_id', 'surat_masuk.id')
+                ->where([['surat_masuk.dlt','0'],['surat_masuk_laporan.status','5']])->orderBy('surat_masuk.created_at','DESC')
+                ->groupBy('surat_masuk_laporan.surat_masuk_id','surat_masuk.id','surat_masuk.pegawai_id','surat_masuk.status','surat_masuk.no_surat','surat_masuk.perihal','surat_masuk.asal_surat','surat_masuk.tujuan_surat','surat_masuk.isi_ringkasan','surat_masuk.tgl_surat','surat_masuk.jenis_id','surat_masuk.media_id','surat_masuk.file_surat','surat_masuk.created_at','surat_masuk.updated_at','surat_masuk.dlt');
         
 
         $per_page = !empty($search['per_page']) ? $search['per_page'] : 10;
         if(!empty($search)) {
             if(!empty($search['search'])) {
-                $results = $results->where([['perihal', 'LIKE', '%'.$search['search'].'%'], ['dlt','0'],['status','4']])
-                ->orWhere([['no_surat', 'LIKE', '%'.$search['search'].'%'], ['dlt','0'],['status','4']])
-                ->orWhere([['tgl_surat', 'LIKE', '%'.$search['search'].'%'], ['dlt','0'],['status','4']])
-                ->orWhere([['asal_surat', 'LIKE', '%'.$search['search'].'%'], ['dlt','0'],['status','4']]);
+                $results = $results->where([['perihal', 'LIKE', '%'.$search['search'].'%'], ['dlt','0'],['status','5']])
+                ->orWhere([['no_surat', 'LIKE', '%'.$search['search'].'%'], ['dlt','0'],['status','5']])
+                ->orWhere([['tgl_surat', 'LIKE', '%'.$search['search'].'%'], ['dlt','0'],['status','5']])
+                ->orWhere([['asal_surat', 'LIKE', '%'.$search['search'].'%'], ['dlt','0'],['status','5']]);
             }
         }
         if($option=='paginate') {

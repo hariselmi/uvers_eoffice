@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Get_field;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\SuratMasukExport;
 
 class SuratMasukController extends Controller
 {
@@ -275,15 +277,15 @@ class SuratMasukController extends Controller
         $data['perintahDisposisi'] =  DB::table('perintah_disposisi')->where([['softdelete' , '0'],['id', '>', '1'],['id', '<', '5']])->pluck('nama', 'id');
 
 
-        $data['pegawai'] = Pegawai::select(DB::raw("CONCAT(pegawai.nama,' [',unit_kerja.nama, '] [', jabatan.nama,']') AS namatelepon"), 'pegawai.id')
+        $data['pegawai'] = Pegawai::select(DB::raw("CONCAT(pegawai.nama,' [',unit_kerja.nama, '] [', jabatan.nama,']') AS namajabatanpegawai"), 'pegawai.id')
                             ->leftJoin('unit_kerja', 'unit_kerja.id', 'pegawai.unit_kerja_id')
                             ->leftJoin('jabatan', 'jabatan.id', 'pegawai.jabatan_id')
                             ->where('pegawai.softdelete', '0')
                             ->where('pegawai.id', '!=' , Auth::user()->pegawai_id)
                             ->where('pegawai.id', '!=' , '1')
-                            ->orderBy('pegawai.jabatan_id','ASC')
                             ->orderBy('pegawai.unit_kerja_id','ASC')
-                            ->get()->pluck('namatelepon', 'id');
+                            ->orderBy('pegawai.jabatan_id','ASC')
+                            ->get()->pluck('namajabatanpegawai', 'id');
 
 
         $data['unitkerjaid'] = Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id');
@@ -433,7 +435,7 @@ class SuratMasukController extends Controller
             'unit_id' => Get_field::get_data(Auth::user()->pegawai_id, 'pegawai', 'unit_kerja_id'),
         ]);
 
-        $data['pegawai'] = Pegawai::select(DB::raw("CONCAT(pegawai.nama,' [',unit_kerja.nama, '] [', jabatan.nama,']') AS namatelepon"), 'pegawai.id')
+        $data['pegawai'] = Pegawai::select(DB::raw("CONCAT(pegawai.nama,' [',unit_kerja.nama, '] [', jabatan.nama,']') AS namajabatanpegawai"), 'pegawai.id')
                             ->leftJoin('unit_kerja', 'unit_kerja.id', 'pegawai.unit_kerja_id')
                             ->leftJoin('jabatan', 'jabatan.id', 'pegawai.jabatan_id')
                             ->where('pegawai.softdelete', '0')
@@ -441,7 +443,7 @@ class SuratMasukController extends Controller
                             ->where('pegawai.id', '!=' , '1')
                             ->orderBy('pegawai.jabatan_id','ASC')
                             ->orderBy('pegawai.unit_kerja_id','ASC')
-                            ->get()->pluck('namatelepon', 'id');
+                            ->get()->pluck('namajabatanpegawai', 'id');
 
 
         $data['jenisSurat'] = JenisSurat::where('softdelete', '0')->pluck('nama', 'id');
@@ -560,6 +562,11 @@ class SuratMasukController extends Controller
         ->where('asal_surat', 'like', "%{$request->term}%")
         ->groupBy('asal_surat')
         ->pluck('asal_surat');
+    }
+
+    public function excel(Request $request)
+    {
+        return Excel::download(new SuratMasukExport, 'surat_masuk_uvers_'.date('His').'.xlsx');
     }
 
 

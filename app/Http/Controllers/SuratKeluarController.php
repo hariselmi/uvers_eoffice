@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Get_field;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\SuratKeluarExport;
 
 class SuratKeluarController extends Controller
 {
@@ -449,6 +451,12 @@ class SuratKeluarController extends Controller
             $response['replaceWith']['#suratKeluarTable'] = view('surat_keluar.table', $data)->render();
         }
         return $this->sendResponse($response);
+    }
+
+
+    public function excel(Request $request)
+    {
+        return Excel::download(new SuratKeluarExport, 'surat_internal_'.date('His').'.xlsx');
     }
 
 }

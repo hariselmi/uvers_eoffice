@@ -28,9 +28,10 @@
                         ?>
                             <tr style="background-color: <?=$color?>">
                                 <td class="hidden-xs">{{ $key+1 }}</td>
-                                <td class="hidden-xs">{{ Get_field::get_data($value->asal_surat, 'pegawai', 'nama') }}</td>
+                                <td class="hidden-xs">{{ Get_field::get_data($value->asal_surat, 'pegawai', 'nama') }} <br> [ {{ Get_field::get_data(Get_field::get_data($value->asal_surat, 'pegawai', 'jabatan_id'), 'jabatan', 'nama') }} ]</td>
                                 <td class="hidden-xs">{{ Get_field::format_indo($value->tanggal) }}</td>
-                                <td>{{ Get_field::get_data($value->tujuan_surat, 'pegawai', 'nama') }}</td>
+                                <td>{{ Get_field::get_data($value->tujuan_surat, 'pegawai', 'nama') }}
+                                <br> [ {{ Get_field::get_data(Get_field::get_data($value->tujuan_surat, 'pegawai', 'jabatan_id'), 'jabatan', 'nama') }} ]</td>
                                 <td>{{ Get_field::get_data($value->status, 'perintah_disposisi', 'nama') }}</td>
                                 <td class="hidden-xs">{{ $value->catatan_penting }} <br>
                                 @if($value->file_surat != '' && $value->file_surat != null) 

@@ -140,12 +140,14 @@ class PelaporanEofficeController extends Controller
             if ($fileSurat) {
                 DB::table('surat_masuk_laporan')->where('id', $request->surat_masuk_id)->update([
                     'laporan_file' => $newName,
+                    'tanggal_laporan' => date('Y-m-d'),
                 ]);
             }
 
             DB::table('surat_masuk_laporan')->where('id', $request->surat_masuk_id)->update([
                 'laporan_catatan' => $request->catatan_penting,
                 'status_laporan_id' => '2',
+                'tanggal_laporan' => date('Y-m-d'),
             ]);
         
         $data['status_laporan'] =  DB::table('status_laporan')->where('softdelete' , '0')->pluck('nama', 'id');
@@ -160,6 +162,32 @@ class PelaporanEofficeController extends Controller
         // dd($request->all());
         $input = $request->all();
         $this->validatorValidasi($input)->validate();
+
+        $surat_id = Get_field::get_data($request->surat_masuk_id, 'surat_masuk_laporan', 'surat_masuk_id');
+
+        $total_laporan = DB::table('surat_masuk_laporan')
+            ->select('surat_masuk_laporan.*')
+            ->where(['surat_masuk_laporan.dlt'=> '0', 'surat_masuk_laporan.surat_masuk_id'=>$surat_id])
+            ->count();
+
+        $total_laporan_selesai = DB::table('surat_masuk_laporan')
+            ->select('surat_masuk_laporan.*')
+            ->where(['surat_masuk_laporan.status'=> '5', 'surat_masuk_laporan.dlt'=> '0', 'surat_masuk_laporan.surat_masuk_id'=>$surat_id])
+            ->count();
+
+
+        $status_total_laporan = $total_laporan - $total_laporan_selesai;
+
+        if($status_total_laporan == 1)
+        {
+            DB::table('surat_masuk')->where('id', $surat_id)->update([
+                'status' => '5',
+            ]);
+        }
+
+
+
+
 
             DB::table('surat_masuk_laporan')->where('id', $request->surat_masuk_id)->update([
                 'status_laporan_id' => $request->status_laporan_id,

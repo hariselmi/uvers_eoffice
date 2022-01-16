@@ -36,6 +36,8 @@ Route::group(['middleware' => 'languange'], function () {
     Route::post('surat-masuk/store-disposisi', 'SuratMasukController@storeDisposisi')->name('surat-masuk.storeDisposisi');
     // autocomplete surat masuk
     Route::get('autocomplete', 'SuratMasukController@autocomplete')->name('autocomplete');
+    // export surat masuk
+    Route::get('export/surat-masuk', 'SuratMasukController@excel')->name('surat-masuk.excel');
 
     // surat keluar
     Route::resource('surat-keluar', 'SuratKeluarController');
@@ -45,6 +47,8 @@ Route::group(['middleware' => 'languange'], function () {
     Route::get('surat-keluar/{id}/posisi', 'SuratKeluarController@posisi')->name('surat-keluar.posisi');
     Route::get('surat-keluar/{id}/disposisi', 'SuratKeluarController@disposisi')->name('surat-keluar.disposisi');
     Route::post('surat-keluar/store-disposisi', 'SuratKeluarController@storeDisposisi')->name('surat-keluar.storeDisposisi');
+    // export surat keluar
+    Route::get('export/surat-keluar', 'SuratKeluarController@excel')->name('surat-keluar.excel');
 
     // pelaporan eoffice
     Route::resource('pelaporan-eoffice', 'PelaporanEofficeController');
@@ -96,5 +100,6 @@ Route::group(['middleware' => 'languange'], function () {
     Route::get('/allpermissions/{role_id?}', 'EmployeeController@permissionList')->name('permissions.list');
     Route::post('permissions/create', 'EmployeeController@createPermission')->name('permissions.create');
     Route::post('permissionrole/create', 'EmployeeController@rolePermissionMapping')->name('permissionrole.create');
+
 
 });

@@ -58,8 +58,26 @@
             </ul>
          </li>
 
+
             <!-- admin menu buka -->
             @if (Auth::user()->role == 'Admin')
+
+         <li
+            class="{{ Request::is('surat-masuk.excel') || Request::is('surat-keluar.excel') ? 'active' : '' }} treeview">
+            <a href="#"><i class="fa fa-download"></i> <span>Export</span><span
+               class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+
+            <ul class="treeview-menu">
+               <li><a
+                  href="{{ url('/export/surat-masuk') }}"><i class="fa fa-file"></i>
+                  <span> Surat Masuk UVERS</span></a>
+               </li>
+               <li><a
+                  href="{{ url('/export/surat-keluar') }}"><i class="fa fa-file"></i>
+                  <span> Surat Internal</span></a>
+               </li>
+            </ul>
+         </li>
 
          <li
             class="{{ Request::is('unit-kerja') || Request::is('jabatan') || Request::is('pegawai') || Request::is('akun') ? 'active' : '' }} treeview">
